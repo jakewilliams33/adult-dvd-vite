@@ -158,8 +158,18 @@ const ThreeScene = ({ glbUrl }) => {
   const mouse = new Vector2();
 
   const handleTextClick = (event) => {
-    if (hovered) {
-      window.open("https://your-preorder-link.com", "_blank");
+    event.preventDefault();
+    const url = hovered
+      ? "https://preorder-link.com"
+      : hovered2
+      ? "/listen/doomsday_prepper"
+      : "";
+    if (url) {
+      if (hovered) {
+        window.open(url, "_blank"); // Open in new window/tab
+      } else {
+        window.location.href = url; // Open in same window/tab
+      }
     }
   };
 
