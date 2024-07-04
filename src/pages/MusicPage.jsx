@@ -22,7 +22,7 @@ export const MusicPage = ({ slide }) => {
         <div className="titleSection"></div>
         <div className="c-releases">
           {releases.map(({ image, title, displayOnMusicPage }) => {
-            if (displayOnMusicPage === true) {
+            if (displayOnMusicPage === "yes") {
               return (
                 <div key={image} className="release">
                   <motion.div

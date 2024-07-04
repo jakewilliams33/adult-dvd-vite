@@ -1,8 +1,9 @@
 backend:
   name: git-gateway
   branch: main # Branch to update (optional; defaults to master)
-media_folder: public/images
-public_folder: /images
+
+media_folder: "public/covers"
+public_folder: "/covers"
 publish_mode: editorial_workflow
 
 collections:
@@ -18,60 +19,43 @@ collections:
             name: "releases"
             widget: "list"
             fields:
-              - {
-                  label: "Title",
-                  name: "title",
-                  widget: "string",
-                  required: true,
-                }
-              - {
-                  label: "Spotify",
-                  name: "spotify",
-                  widget: "string",
-                  required: true,
-                }
-              - {
-                  label: "Apple",
-                  name: "apple",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Tidal",
-                  name: "tidal",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Amazon",
-                  name: "amazon",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Bandcamp",
-                  name: "bandcamp",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Youtube",
-                  name: "youtube",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Deezer",
-                  name: "deezer",
-                  widget: "string",
-                  required: true,
-                }
-              - { label: "Image", name: "image", widget: "image" }
-              - {
-                  label: "Display on Music page?",
-                  name: "displayOnMusicPage",
-                  widget: "select",
-                  required: true,
-                  multiple: true,
-                  options: [true, false],
-                }
+              - label: "Title"
+                name: "title"
+                widget: "string"
+                required: true
+              - label: "Spotify"
+                name: "spotify"
+                widget: "string"
+                required: true
+              - label: "Apple"
+                name: "apple"
+                widget: "string"
+                required: false
+              - label: "Tidal"
+                name: "tidal"
+                widget: "string"
+                required: false
+              - label: "Amazon"
+                name: "amazon"
+                widget: "string"
+                required: false
+              - label: "Bandcamp"
+                name: "bandcamp"
+                widget: "string"
+                required: false
+              - label: "Youtube"
+                name: "youtube"
+                widget: "string"
+                required: false
+              - label: "Deezer"
+                name: "deezer"
+                widget: "string"
+                required: true
+              - label: "Image"
+                name: "image"
+                widget: "image"
+              - label: "Display on Music page?"
+                name: "displayOnMusicPage"
+                widget: "select"
+                required: true
+                options: ["yes", "no"]

@@ -21,6 +21,7 @@
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.24.1",
+    "serve-static": "^1.15.0",
     "vite-plugin-markdown": "^2.2.0",
     "yup": "^1.4.0"
   },

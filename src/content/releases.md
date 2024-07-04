@@ -6,14 +6,14 @@ releases:
     tidal: "https://listen.tidal.com/album/276474181/track/276474182"
     amazon: "https://music.amazon.co.uk/albums/B0BVP1JPCF?trackAsin=B0BVPTKMYY"
     image: "/covers/fountainOfYouth.png"
-    displayOnMusicPage: true
+    displayOnMusicPage: "yes"
   - title: "Sadman Mancave"
     spotify: "https://open.spotify.com/track/3ap3V9N1KDlNlE7nV53iCx?si=8783ef5393f34e0d"
     apple: "https://music.apple.com/gb/album/sadman-mancave/1662396497?i=1662396498"
     tidal: "https://listen.tidal.com/album/269560377/track/269560378"
     amazon: "https://music.amazon.co.uk/albums/B0BRJYMY66?trackAsin=B0BRJYP213"
     image: "/covers/sadmanMancave.jpg"
-    displayOnMusicPage: true
+    displayOnMusicPage: "yes"
   - title: "Santa What You Got For Me?"
     spotify: "https://open.spotify.com/track/4bOjjtzrsJOZ1RyWYgtgUN?si=a9047bb56a13447d"
     apple: "https://music.apple.com/gb/album/santa-what-you-got-for-me/1657072793?i=1657072794"
@@ -22,7 +22,7 @@ releases:
     amazon: "https://music.amazon.co.uk/albums/B0BNM24Y2Y?trackAsin=B0BNLZPMQL"
     deezer: "https://deezer.page.link/wNUvM3tiQAWV6Fy97"
     image: "/covers/santaWhatYouGotForMe.png"
-    displayOnMusicPage: true
+    displayOnMusicPage: "yes"
   - title: "Bill Murray"
     spotify: "https://open.spotify.com/track/0Umhmtk4SDzt8wO2nDmOrR"
     apple: "https://music.apple.com/gb/album/bill-murray/1644105414?i=1644105415&app=music"
@@ -32,7 +32,7 @@ releases:
     amazon: "https://music.amazon.com/albums/B0BDR76J9W"
     deezer: "https://www.deezer.com/track/1905303277"
     image: "/covers/billMurray.png"
-    displayOnMusicPage: true
+    displayOnMusicPage: "yes"
   - title: "role models - ADULT DVD remix"
     spotify: "https://open.spotify.com/track/0Y4UrlRUESco26ddxbNBEL"
     bandcamp: "https://treeboyandarc.bandcamp.com/track/role-models-adult-dvd-remix"
@@ -41,7 +41,7 @@ releases:
     amazon: "https://music.amazon.com/albums/B0BFRT1J3Q"
     deezer: "https://www.deezer.com/track/1920569627"
     image: "/covers/roleModels.jpg"
-    displayOnMusicPage: true
+    displayOnMusicPage: "yes"
   - title: "Hoarder"
     spotify: "https://open.spotify.com/track/1Tf7pxHdJqYAwSsQtUU3Ti"
     apple: "https://music.apple.com/gb/album/hoarder/1587284316?i=1587284317&app=music"
@@ -60,7 +60,7 @@ releases:
     deezer: "https://www.deezer.com/track/1417369792"
     bandcamp: "https://adultdvd.bandcamp.com/track/fomo"
     image: "/covers/fomo.png"
-    displayOnMusicPage: true
+    displayOnMusicPage: "yes"
   - title: "Broken English"
     spotify: "https://open.spotify.com/track/6QdjEOaORnqIRXiqUsYYtM"
     apple: "https://music.apple.com/gb/album/broken-english/1550456845?i=1550456846&app=music"
@@ -70,7 +70,7 @@ releases:
     deezer: "https://www.deezer.com/track/1220367312"
     bandcamp: "https://adultdvd.bandcamp.com/track/broken-english"
     image: "/covers/brokenEnglish.png"
-    displayOnMusicPage: true
+    displayOnMusicPage: "yes"
   - title: "Broken English - Remix EP"
     spotify: "https://open.spotify.com/album/2ELRQhmtXbMJSD42WHPh3Y"
     apple: "https://music.apple.com/gb/album/broken-english-remix-ep/1554518308?app=music"
@@ -80,5 +80,5 @@ releases:
     deezer: "https://www.deezer.com/album/209108982"
     bandcamp: "https://adultdvd.bandcamp.com/album/broken-english-remix-ep"
     image: "/covers/brokenEnglishRemix.png"
-    displayOnMusicPage: true
+    displayOnMusicPage: "yes"
 ---
