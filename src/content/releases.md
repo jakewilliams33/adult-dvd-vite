@@ -1,5 +1,9 @@
 ---
 releases:
+  - title: Doomsday Prepper
+    spotify: https://open.spotify.com/track/3TlEVaCa0rl1px2Z53c4dF?si=a6310e4b80364d74
+    image: /covers/ep-cover-smaller-2_imgcentury-1-.png
+    displayOnMusicPage: yes
   - deezer: https://www.deezer.com/track/2796291782
     youtube: https://music.youtube.com/watch?v=jJZYw-5AazU
     amazon: https://music.amazon.co.uk/albums/B0D3LXCJ6J?trackAsin=B0D3LZCSLB
@@ -95,8 +99,4 @@ releases:
     spotify: https://open.spotify.com/album/2ELRQhmtXbMJSD42WHPh3Y
     apple: https://music.apple.com/gb/album/broken-english-remix-ep/1554518308?app=music
     image: /covers/brokenEnglishRemix.png
-  - title: Doomsday Prepper
-    spotify: https://open.spotify.com/track/3TlEVaCa0rl1px2Z53c4dF?si=a6310e4b80364d74
-    image: /covers/ep-cover-smaller-2_imgcentury-1-.png
-    displayOnMusicPage: yes
 ---
