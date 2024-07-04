@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "Helvetica1";
+  src: url("/fonts/Helvetica.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.top-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1.4pt;
+  border-image: url(../images/border.jpg) 30 round;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+  background-color: rgba(
+    249,
+    102,
+    49,
+    0
+  ); /* Background color of the scrollbar */
+  border-left: 1.4pt solid;
+  border-image: url(../images/border.jpg) 30 round;
+}
+
+/* Optional: Customize the thumb (the draggable part of scrollbar) */
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-image: url(../images/border.jpg);
+  background-repeat: repeat;
+  background-size: 40px;
+}
+
+.dividers {
+  background-image: url(../images/border90.jpg);
+  background-repeat: repeat;
+  background-size: 10px;
+  width: 100%;
+  height: 10px;
+}
+
+.inner-box p,
+.inner-box a,
+.inner-box label,
+.inner-box h3,
+.inner-box h1,
+.inner-box h2 {
+  background-image: url("../images/border.jpg"); /* Replace with your image URL */
+  background-clip: text;
+  color: rgba(250, 89, 32, 0.5);
+  background-size: 25px;
+  background-repeat: repeat;
+}
+
+.priority-mail {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 6px;
+  font-weight: bold;
+}
+
+.a-adultdvd {
+  font-family: Helvetica1;
+  font-weight: 900;
+  transform: scale(1, 0.7);
+  margin-right: 55px;
+}

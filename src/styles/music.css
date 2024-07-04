@@ -1,0 +1,79 @@
+.o-page__section--discography {
+  width: 100%;
+  position: relative;
+  top: 8vh;
+  z-index: 1;
+  text-transform: capitalize;
+}
+
+.c-releases {
+  margin: auto;
+  max-width: 750px;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 40px;
+}
+
+.release {
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "release-packshot release-text";
+  grid-gap: 0 1em;
+  justify-items: flex-start;
+  align-items: end;
+  margin-bottom: 4em;
+}
+
+.release:nth-of-type(even) {
+  text-align: right;
+  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "release-text release-packshot";
+}
+
+.packshot {
+  width: 100%;
+  max-width: 444px;
+}
+
+.c-releases .release .packshot {
+  grid-area: release-packshot;
+  grid-row-start: release-packshot;
+  grid-column-start: release-packshot;
+  grid-row-end: release-packshot;
+  grid-column-end: release-packshot;
+}
+
+.c-releases .release .info {
+  grid-area: release-text;
+  grid-row-start: release-text;
+  grid-column-start: release-text;
+  grid-row-end: release-text;
+  grid-column-end: release-text;
+  width: 100%;
+  color: white;
+  text-transform: uppercase;
+}
+
+.info h3 {
+  font-size: min(max(14px, 5vw), 40px);
+}
+
+.c-releases img {
+  max-width: 100%;
+  vertical-align: middle;
+  height: auto;
+  border: 1pt solid;
+  border-image: url("../images/border.jpg") 30 round;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 800px) {
+  .c-releases {
+    width: 90%;
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+}

@@ -1,0 +1,65 @@
+.link-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ffffff;
+  padding: 15px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75vw;
+  max-width: 600px;
+  font-size: 20px;
+  text-align: center;
+  padding: 15px;
+  background-image: url(../images/wrinkle.jpg);
+  background-size: contain;
+}
+
+.inner-box-scroll-listen {
+  border: 1.4pt solid;
+  border-image: url(../images/border.jpg) 30 round;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 55vh;
+}
+
+.inner-box-scroll-listen p,
+.inner-box-scroll-listen a,
+.inner-box-scroll-listen label,
+.inner-box-scroll-listen h3,
+.inner-box-scroll-listen h1,
+.inner-box-scroll-listen h2 {
+  background-image: url("../images/border.jpg"); /* Replace with your image URL */
+  background-clip: text;
+  color: rgba(250, 89, 32, 0.5);
+  background-size: 25px;
+  background-repeat: repeat;
+}
+
+.link-container li img {
+  width: 35%;
+  max-width: 150px;
+  margin-top: 7px;
+}
+
+.link-container li {
+  list-style: none;
+  /* border-top: 2px solid #fb772b;
+  border-bottom: 2px solid #fb772b;
+  margin-top: 10px; */
+}
+
+.link-container a {
+  text-decoration: none;
+  color: black;
+}
+
+.track-title {
+  margin-top: 5px;
+  font-size: 20px;
+  text-transform: uppercase;
+  border-bottom: solid 1.4pt;
+  border-image: url(../images/border.jpg) 30 round;
+}

@@ -1,0 +1,46 @@
+.top-banner-tour {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: solid 1.4pt;
+  border-left: solid 1.4pt;
+  border-right: solid 1.4pt;
+  border-image: url(../images/border.jpg) 30 round;
+}
+
+.widget-container {
+  padding: 15px;
+  margin: auto; /* Adjust margins for centering if needed */
+  width: 80vw;
+  max-width: 890px;
+  background-image: url(../images/wrinkle.jpg);
+  background-size: cover;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Archivo Black", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+  overflow: hidden; /* Ensure no overflow beyond max-height */
+}
+
+/* Ensure inner content does not extend beyond parent */
+.inner-box-scroll-tour {
+  border: 1.4pt solid;
+  border-image: url(../images/border.jpg) 30 round;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 80vmin;
+  min-height: 60vh;
+}
+/* Custom scrollbar */
+
+.widget-parent {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
