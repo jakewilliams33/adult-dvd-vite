@@ -50,10 +50,11 @@ collections:
               - label: "Deezer"
                 name: "deezer"
                 widget: "string"
-                required: true
+                required: false
               - label: "Image"
                 name: "image"
                 widget: "image"
+                required: true
               - label: "Display on Music page?"
                 name: "displayOnMusicPage"
                 widget: "select"
