@@ -168,11 +168,10 @@ export const ContactPage = ({ opacity }) => {
             <form
               ref={form}
               onSubmit={handleSubmit}
+              netlify="true"
               name="contact"
               method="POST"
-              netlify
               data-netlify="true"
-              data-netlify-honeypot="bot-field"
             >
               <input type="hidden" name="form-name" value="contact" />
               <div style={{ display: "none" }}>
