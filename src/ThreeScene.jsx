@@ -160,7 +160,7 @@ const ThreeScene = ({ glbUrl }) => {
   const handleTextClick = (event) => {
     event.preventDefault();
     const url = hovered
-      ? "https://preorder-link.com"
+      ? "https://your-preorder-link.com"
       : hovered2
       ? "/listen/doomsday_prepper"
       : "";
@@ -259,19 +259,20 @@ const ThreeScene = ({ glbUrl }) => {
             position: "fixed",
             left: "13px",
             top: "3px",
+            marginLeft: "min(max(0.7vmax, 0.7vmax),11px)",
           }}
         >
           NEXT DAY SHIPPING
           <br />
           COMING SOON
           <br />
-          <span
+          <p
             style={{
               fontSize: "min(max(4vmax, 4vmax), 50px)",
             }}
           >
             06/09/2024
-          </span>
+          </p>
         </p>
       )}
 

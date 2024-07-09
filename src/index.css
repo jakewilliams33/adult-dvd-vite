@@ -17,6 +17,11 @@ body {
   margin: 0;
 }
 
+* {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
 .loading {
   color: rgba(249, 102, 49, 1);
 }
