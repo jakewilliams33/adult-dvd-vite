@@ -159,7 +159,6 @@ export const ContactPage = ({ opacity }) => {
                 </button>
               </div>
             )}
-
             <form
               ref={form}
               onSubmit={handleSubmit}
