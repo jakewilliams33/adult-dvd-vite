@@ -75,6 +75,8 @@ export const ContactPage = ({ opacity }) => {
       formData.append("subject", values.subject);
       formData.append("message", values.message);
 
+      console.log("Form Data: ", Object.fromEntries(formData.entries()));
+
       // Submit FormData to Netlify
       const response = await fetch("/", {
         method: "POST",
@@ -107,10 +109,11 @@ export const ContactPage = ({ opacity }) => {
                 <img
                   style={{ width: "60px", marginLeft: "5px" }}
                   src={ad}
-                ></img>
+                  alt="ad"
+                />
               </div>
-              <img style={{ width: "88px" }} src={envelope}></img>
-              <img style={{ width: "60px" }} src={monkey}></img>
+              <img style={{ width: "88px" }} src={envelope} alt="envelope" />
+              <img style={{ width: "60px" }} src={monkey} alt="monkey" />
             </div>
             <div className="information">
               <p>
@@ -136,13 +139,8 @@ export const ContactPage = ({ opacity }) => {
                 <div className="divider-sent"></div>
                 <h3 style={{ marginTop: "10px" }}>Message sent!</h3>
                 <div className="divider-sent"></div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <img style={{ width: "80%" }} src={barcode}></img>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <img style={{ width: "80%" }} src={barcode} alt="barcode" />
                 </div>
                 <div className="divider-sent"></div>
 
@@ -165,11 +163,11 @@ export const ContactPage = ({ opacity }) => {
             <form
               ref={form}
               onSubmit={handleSubmit}
-              netlify="true"
               name="contact"
               method="POST"
-              data-netlify="true"
               action="/"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
             >
               <input type="hidden" name="form-name" value="contact" />
               <div style={{ display: "none" }}>
@@ -221,11 +219,7 @@ export const ContactPage = ({ opacity }) => {
                 />
               </div>
               <div
-                style={{
-                  width: "100%",
-                  height: "15px",
-                  marginBottom: "13px",
-                }}
+                style={{ width: "100%", height: "15px", marginBottom: "13px" }}
                 className="dividers"
               ></div>
               <div
@@ -248,7 +242,7 @@ export const ContactPage = ({ opacity }) => {
                   marginRight: "auto",
                   height: "100%",
                   display: "flex",
-                  flexGrow: 1, // Allow the container to grow
+                  flexGrow: 1,
                   flexDirection: "column",
                   marginBottom: "2vh",
                 }}
@@ -263,10 +257,7 @@ export const ContactPage = ({ opacity }) => {
               </div>
               <div
                 className="dividers"
-                style={{
-                  width: "100%",
-                  height: "15px",
-                }}
+                style={{ width: "100%", height: "15px" }}
               ></div>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <input type="submit" value="Send" />
