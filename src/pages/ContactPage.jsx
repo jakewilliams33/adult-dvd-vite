@@ -2,12 +2,9 @@ import React, { useRef, useState } from "react";
 import * as Yup from "yup";
 import "../styles/contact.css";
 import "../styles/postage-label.css";
-
-import { motion } from "framer-motion";
 import ad from "../images/adorange.png";
 import envelope from "../images/envelopeorange.png";
 import monkey from "../images/monkeyorange.png";
-import border from "../images/border.jpg";
 import barcode from "../images/barcode.png";
 
 export const ContactPage = ({ opacity }) => {
@@ -172,6 +169,7 @@ export const ContactPage = ({ opacity }) => {
               name="contact"
               method="POST"
               data-netlify="true"
+              action="/"
             >
               <input type="hidden" name="form-name" value="contact" />
               <div style={{ display: "none" }}>
