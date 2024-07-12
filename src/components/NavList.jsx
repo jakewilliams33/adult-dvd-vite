@@ -8,6 +8,7 @@ import {
   faSpotify,
   faTwitter,
   faYoutube,
+  faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -24,7 +25,7 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
         </Link>
         <a
           style={{ textDecoration: "none" }}
-          target="blank"
+          target="_blank"
           href="https://adultdvd.bandcamp.com/merch"
         >
           <li>STORE</li>
@@ -53,7 +54,7 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
       </ul>
       <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
         <div className="icon-container">
-          <a href="https://facebook.com" target="blank">
+          <a href="https://facebook.com" target="_blank">
             <FontAwesomeIcon
               className="icons"
               icon={faFacebook}
@@ -61,7 +62,7 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
               key="facebook"
             />
           </a>
-          <a href="https://www.instagram.com/adultdvdmenu/" target="blank">
+          <a href="https://www.instagram.com/adultdvdmenu/" target="_blank">
             <FontAwesomeIcon
               className="icons"
               icon={faInstagram}
@@ -69,7 +70,7 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
               key="instagram"
             />
           </a>
-          <a href="https://twitter.com/DvdAdult" target="blank">
+          <a href="https://twitter.com/DvdAdult" target="_blank">
             <FontAwesomeIcon
               className="icons"
               icon={faTwitter}
@@ -79,7 +80,7 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
           </a>
           <a
             href="https://www.youtube.com/channel/UCmGiw0z6dRClNlIFMCnS8Zw"
-            target="blank"
+            target="_blank"
           >
             <FontAwesomeIcon
               className="icons"
@@ -90,7 +91,7 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
           </a>
           <a
             href="https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG?si=G6ESp6laRuyyfr8QzaV4wQ"
-            target="blank"
+            target="_blank"
           >
             <FontAwesomeIcon
               className="icons"
@@ -101,7 +102,7 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
           </a>
           <a
             href="https://adultdvd.bandcamp.com/?from=search&search_item_id=3458032651&search_item_type=b&search_match_part=%3F&search_page_id=2244543721&search_page_no=0&search_rank=1&logged_out_menubar=true"
-            target="blank"
+            target="_blank"
           >
             <FontAwesomeIcon
               className="icons"
@@ -112,11 +113,22 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
           </a>
           <a
             href="https://music.apple.com/gb/artist/adult-dvd/1550456447"
-            target="blank"
+            target="_blank"
           >
             <FontAwesomeIcon
               className="icons"
               icon={faApple}
+              color={"white"}
+              key="apple"
+            />
+          </a>
+          <a
+            href="https://music.apple.com/gb/artist/adult-dvd/1550456447"
+            target="_blank"
+          >
+            <FontAwesomeIcon
+              className="icons"
+              icon={faTiktok}
               color={"white"}
               key="apple"
             />

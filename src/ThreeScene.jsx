@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { AnimatePresence, motion, transform } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -8,12 +8,14 @@ import {
   useTexture,
   Loader,
 } from "@react-three/drei";
-import { Vector3, Color, Raycaster, Vector2 } from "three";
-import useWindowDimensions from "./Hooks/useWindowDimensions";
-import loadingGif from "./images/loadingcd.gif";
+import { Vector3, Color } from "three";
+import loadingGif from "./images/loadingvinyl.gif";
 import orangeNoise from "./images/border90.jpg";
 import rotate from "./images/rotate.png";
 import pause from "./images/pause.png";
+import "./styles/menu.css";
+import { HomePageSocials } from "./components/HomePageSocials";
+import { SoftShadows } from "@react-three/drei";
 
 function OrangeTexture() {
   const t = useTexture(orangeNoise);
@@ -22,7 +24,6 @@ function OrangeTexture() {
 
 function Model({ url, setLoading }) {
   const { scene } = useGLTF(url);
-  const { width } = useWindowDimensions();
 
   useEffect(() => {
     if (scene) {
@@ -37,9 +38,7 @@ function Model({ url, setLoading }) {
     }
   });
 
-  return (
-    <primitive object={scene} position={[0, width > 500 ? -1.2 : -1.9, -0.8]} />
-  );
+  return <primitive object={scene} position={[0, -1, -0.7]} />;
 }
 
 const MainLight = () => {
@@ -48,7 +47,7 @@ const MainLight = () => {
 
   useFrame(() => {
     if (lightRef.current && camera) {
-      const lightOffset = new Vector3(6, 1, 1).applyQuaternion(
+      const lightOffset = new Vector3(4.1, 2, -0).applyQuaternion(
         camera.quaternion
       );
       lightRef.current.position.copy(camera.position).add(lightOffset);
@@ -58,13 +57,21 @@ const MainLight = () => {
   return (
     <directionalLight
       ref={lightRef}
-      intensity={3}
+      intensity={2}
       castShadow
-      shadow-mapSize-width={1024}
-      shadow-mapSize-height={1024}
+      shadow-camera-near={0.5}
+      shadow-camera-far={50}
       shadow-bias={-0.001}
-      color={new Color("#fcc46f")}
-    />
+      color={new Color("#ffffff")}
+      shadow-mapSize={2048}
+      //shadow-bias={-0.001}
+    >
+      <orthographicCamera
+        attach="shadow-camera"
+        args={[-8.5, 8.5, 8.5, -8.5, 0.1, 20]}
+      />
+      <SoftShadows size={35} />
+    </directionalLight>
   );
 };
 
@@ -74,7 +81,7 @@ const SecondaryLight = () => {
 
   useFrame(() => {
     if (secondaryLightRef.current && camera) {
-      const lightOffset = new Vector3(-3, 2, -2).applyQuaternion(
+      const lightOffset = new Vector3(-1, 1, 3).applyQuaternion(
         camera.quaternion
       );
       secondaryLightRef.current.position.copy(camera.position).add(lightOffset);
@@ -84,31 +91,18 @@ const SecondaryLight = () => {
   return (
     <directionalLight
       ref={secondaryLightRef}
-      intensity={0.2}
+      intensity={0.55}
       castShadow
-      shadow-mapSize-width={1024}
-      shadow-mapSize-height={1024}
-      shadow-bias={-0.001}
-      color={new Color("#ffffff")}
+      shadow-camera-near={0.5}
+      shadow-camera-far={50}
+      color={new Color("#fae7d2")}
+      shadow-mapSize={2048}
+      shadow-bias={-0.01}
     />
   );
 };
 
-const TopDownLight = () => {
-  return (
-    <directionalLight
-      intensity={0.5}
-      position={[0, 10, 0]}
-      castShadow
-      shadow-mapSize-width={1024}
-      shadow-mapSize-height={1024}
-      shadow-bias={-0.001}
-      color={new Color("#ffac30")}
-    />
-  );
-};
-
-const CameraController = ({ defaultCameraTarget, autoRotate }) => {
+const CameraControlsAndResponsive = ({ autoRotate }) => {
   const { camera } = useThree();
   const controlsRef = useRef();
 
@@ -118,110 +112,72 @@ const CameraController = ({ defaultCameraTarget, autoRotate }) => {
     }
   }, [autoRotate]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const aspect = window.innerWidth / window.innerHeight;
+
+      // Use a logarithmic function to adjust the zoom level
+      const zoomFactor = Math.log(aspect + 1) * 0.363; // Adjust the multiplier to your preference
+
+      camera.zoom = zoomFactor;
+
+      camera.updateProjectionMatrix();
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [camera]);
+
   return (
     <OrbitControls
       ref={controlsRef}
-      target={defaultCameraTarget}
       enableZoom={true}
-      enablePan={false}
+      enablePan={true}
       enableRotate={true}
       zoomSpeed={0.8}
       rotateSpeed={0.5}
       dampingFactor={0.15}
       minPolarAngle={Math.PI / 40} // Prevent camera from going too high
-      maxPolarAngle={Math.PI / 1.75} // Prevent camera from going too low
+      maxPolarAngle={Math.PI / 2} // Prevent camera from going too low
       minDistance={4}
-      maxDistance={14}
+      maxDistance={8}
       autoRotate={autoRotate}
     />
   );
 };
 
 const ThreeScene = ({ glbUrl }) => {
-  const { width, height } = useWindowDimensions();
   const [loading, setLoading] = useState(true);
-  const [hovered, setHovered] = useState(false);
-  const [hovered2, setHovered2] = useState(false);
-  const [autoRotate, setAutoRotate] = useState(false); // State for autoRotate
+  const [autoRotate, setAutoRotate] = useState(false);
+  const [hovered, setHovered] = useState(false); // Add this state
+  const [touchStartTime, setTouchStartTime] = useState(null);
+  const maxTouchDuration = 300; // Maximum duration for a short touch in ms
 
   const handleToggleAutoRotate = () => {
-    setAutoRotate(!autoRotate); // Toggle autoRotate state
-  };
-
-  const x = (1 / width) * 10000;
-  const viewPointDistance = Math.min(Math.max(parseFloat(x), 5), 11.6);
-  const defaultCameraPosition = new Vector3(viewPointDistance, 1, 2);
-  const defaultCameraTarget = new Vector3(0, 0, 0);
-
-  const textRef = useRef();
-  const raycaster = new Raycaster();
-  const mouse = new Vector2();
-
-  const handleTextClick = (event) => {
-    event.preventDefault();
-    const url = hovered
-      ? "https://your-preorder-link.com"
-      : hovered2
-      ? "/listen/doomsday_prepper"
-      : "";
-    if (url) {
-      if (hovered) {
-        window.open(url, "_blank"); // Open in new window/tab
-      } else {
-        window.location.href = url; // Open in same window/tab
-      }
-    }
-  };
-
-  const handleTextHover = (event) => {
-    event.stopPropagation();
-    setHovered(true);
-    document.body.style.cursor = "pointer";
-  };
-
-  const handleTextUnhover = () => {
-    setHovered(false);
-    document.body.style.cursor = "default";
-  };
-
-  const handleTextHover2 = (event) => {
-    event.stopPropagation();
-    setHovered2(true);
-    document.body.style.cursor = "pointer";
-  };
-
-  const handleTextUnhover2 = () => {
-    setHovered2(false);
-    document.body.style.cursor = "default";
+    setAutoRotate(!autoRotate);
   };
 
   useEffect(() => {
     setLoading(true);
   }, [glbUrl]);
 
-  const onMouseMove = (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    document.body.style.cursor = hovered ? "pointer" : "auto"; // Update cursor style based on hover state
+  }, [hovered]);
 
-    mouse.x = (event.clientX / width) * 2 - 1;
-    mouse.y = -(event.clientY / height) * 2 + 1;
+  const handlePointerOver = () => setHovered(true);
+  const handlePointerOut = () => setHovered(false);
 
-    if (
-      textRef.current &&
-      textRef.current.parent &&
-      textRef.current.parent.parent
-    ) {
-      const camera = textRef.current.parent.parent.children[0];
+  const handlePointerDown = () => setTouchStartTime(Date.now());
 
-      if (camera) {
-        raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObject(textRef.current);
+  const handlePointerUp = (url) => {
+    const touchEndTime = Date.now();
+    const touchDuration = touchEndTime - touchStartTime;
 
-        if (intersects.length > 0) {
-          setHovered(true);
-        } else {
-          setHovered(false);
-        }
-      }
+    if (touchDuration < maxTouchDuration) {
+      window.open(url, "_blank");
     }
   };
 
@@ -239,120 +195,195 @@ const ThreeScene = ({ glbUrl }) => {
     },
   };
 
+  const StreamMesh = () => {
+    return (
+      <mesh
+        position={[1.02, -1, -0.7]}
+        rotation={[0, 1.59, 0]}
+        onPointerDown={handlePointerDown}
+        onPointerUp={() => handlePointerUp("/listen/doomsday_prepper")}
+        onPointerOver={handlePointerOver}
+        onPointerOut={handlePointerOut}
+      >
+        <planeGeometry attach="geometry" args={[1.5, 1.97]} />
+        <meshBasicMaterial attach="material" transparent opacity={0} />
+      </mesh>
+    );
+  };
+
+  const ProrderMesh = () => {
+    return (
+      <mesh
+        position={[-0.394, -1.1, 1.6]}
+        rotation={[0, 1.57, 0]}
+        onPointerDown={handlePointerDown}
+        onPointerUp={() =>
+          handlePointerUp("https://adultdvd.bandcamp.com/merch")
+        }
+        onPointerOver={handlePointerOver}
+        onPointerOut={handlePointerOut}
+      >
+        <planeGeometry attach="geometry" args={[2.5, 1.8]} />
+        <meshBasicMaterial attach="material" transparent opacity={0} />
+      </mesh>
+    );
+  };
+
+  const TourMesh = () => {
+    return (
+      <mesh
+        position={[0.74, -1.6, 2]}
+        rotation={[0, 2.08, 0]}
+        onPointerDown={handlePointerDown}
+        onPointerUp={() => handlePointerUp("/tour")}
+        onPointerOver={handlePointerOver}
+        onPointerOut={handlePointerOut}
+      >
+        <planeGeometry attach="geometry" args={[1, 0.8]} />
+        <meshBasicMaterial attach="material" transparent opacity={0} />
+      </mesh>
+    );
+  };
+
+  const SignUpMesh = () => {
+    return (
+      <mesh
+        position={[2.15, -1.4, -2.1]}
+        rotation={[0, 1.3, 0]}
+        onPointerDown={handlePointerDown}
+        onPointerUp={() => handlePointerUp("https://mailinglist.c")}
+        onPointerOver={handlePointerOver}
+        onPointerOut={handlePointerOut}
+      >
+        <planeGeometry attach="geometry" args={[1.16, 1.2]} />
+        <meshBasicMaterial attach="material" transparent opacity={0} />
+      </mesh>
+    );
+  };
+
   return (
-    <div style={{ width: "100%", height: "100vh", position: "relative" }}>
-      {loading && (
-        <div className="loading-container">
-          <img className="loading-image" src={loadingGif} alt="Loading" />
-          <p className="loading-text">
-            Loading <span className="dot dot1">.</span>
-            <span className="dot dot2">.</span>
-            <span className="dot dot3">.</span>
-          </p>
-        </div>
-      )}
-      {!loading && (
-        <p
-          className="three-text"
-          style={{
-            fontSize: "min(max(5.3vmax, 5.3vmax), 62px)",
-            position: "fixed",
-            left: "13px",
-            top: "3px",
-            marginLeft: "min(max(0.7vmax, 0.7vmax),11px)",
+    <>
+      <div style={{ width: "100%", height: "100vh", position: "relative" }}>
+        {loading && (
+          <div className="loading-container">
+            <img className="loading-image" src={loadingGif} alt="Loading" />
+            <p className="loading-text">
+              Loading <span className="dot dot1">.</span>
+              <span className="dot dot2">.</span>
+              <span className="dot dot3">.</span>
+            </p>
+          </div>
+        )}
+
+        {!loading && (
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={autoRotate ? "pause" : "rotate"}
+              onClick={handleToggleAutoRotate}
+              src={autoRotate ? pause : rotate}
+              variants={imageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              style={{
+                width: autoRotate ? "48px" : "40px",
+                bottom: autoRotate ? 16 : 14,
+                left: autoRotate ? 2 : 14,
+                position: "fixed",
+                opacity: 0.9,
+                cursor: "pointer",
+                zIndex: 200,
+              }}
+            />
+          </AnimatePresence>
+        )}
+
+        <Canvas
+          shadows
+          style={{ position: "absolute", top: 0, left: 0 }}
+          camera={{
+            position: [6, 0.1, 1.7],
+            fov: 25,
           }}
         >
-          NEXT DAY SHIPPING
-          <br />
-          COMING SOON
-          <br />
-          <p
-            style={{
-              fontSize: "min(max(4vmax, 4vmax), 50px)",
-            }}
+          <ambientLight intensity={0.6} />
+          <MainLight />
+          <SecondaryLight />
+          <Model url={glbUrl} setLoading={setLoading} />
+
+          <Text
+            scale={0.25}
+            color="#de6d37"
+            position={[-0.38, -0.9, 1.58]}
+            rotation={[0, 1.559, 0]}
+            fillOpacity={1}
+            fontWeight="bold"
+            font="/fonts/Sequel100Black-75.ttf"
           >
-            06/09/2024
-          </p>
-        </p>
-      )}
+            <OrangeTexture></OrangeTexture>
+            PREORDER
+          </Text>
+          <ProrderMesh />
 
-      <Canvas
-        shadows
-        style={{ position: "absolute", top: 0, left: 0 }}
-        camera={{
-          position: defaultCameraPosition.toArray(),
-          target: defaultCameraTarget.toArray(),
-          fov: width < 600 ? 75 : 55, // Adjust FOV dynamically based on screen width
-        }}
-        onClick={handleTextClick}
-        onMouseMove={onMouseMove}
-      >
-        <ambientLight intensity={0.5} />
-        <MainLight />
-        <SecondaryLight />
-        <TopDownLight />
-        <Model url={glbUrl} setLoading={setLoading} />
+          <Text
+            scale={0.25}
+            color="#de6d37"
+            position={[1.06, -0.9, -0.7]}
+            rotation={[0, 1.57, 0]}
+            fillOpacity={1}
+            fontWeight="bold"
+            font="/fonts/Sequel100Black-75.ttf"
+          >
+            <OrangeTexture></OrangeTexture>
+            STREAM
+          </Text>
+          <StreamMesh />
+          <Text
+            scale={0.22}
+            color="#de6d37"
+            position={[0.75, -1.6, 2]}
+            rotation={[0, 2.08, 0]}
+            fillOpacity={1}
+            fontWeight="bold"
+            font="/fonts/Sequel100Black-75.ttf"
+          >
+            <OrangeTexture></OrangeTexture>
+            TOUR
+          </Text>
+          <TourMesh />
 
-        <Text
-          ref={textRef}
-          scale={0.25}
-          color={hovered ? "#de6d37" : "#fca362"}
-          position={[-0.38, width > 500 ? -1 : -1.7, 1.45]}
-          rotation={[0, 1.559, 0]}
-          fillOpacity={1}
-          onPointerOver={handleTextHover}
-          onPointerOut={handleTextUnhover}
-          fontWeight="bold"
-          font="/fonts/Sequel100Black-75.ttf"
-        >
-          <OrangeTexture></OrangeTexture>
-          PREORDER
-        </Text>
-        <Text
-          ref={textRef}
-          scale={0.25}
-          color={hovered2 ? "#de6d37" : "#fca362"}
-          position={[1.03, width > 500 ? -1 : -1.7, -0.8]}
-          rotation={[0, 1.59, 0]}
-          fillOpacity={1}
-          onPointerOver={handleTextHover2}
-          onPointerOut={handleTextUnhover2}
-          fontWeight="bold"
-          font="/fonts/Sequel100Black-75.ttf"
-        >
-          <OrangeTexture></OrangeTexture>
-          STREAM
-        </Text>
+          <Text
+            scale={0.22}
+            color="#de6d37"
+            position={[2.152, -1.3, -2.1]}
+            rotation={[0, 1.3, 0]}
+            fillOpacity={1}
+            fontWeight="bold"
+            font="/fonts/Sequel100Black-75.ttf"
+          >
+            <OrangeTexture></OrangeTexture>
+            SIGN
+          </Text>
+          <Text
+            scale={0.22}
+            color="#de6d37"
+            position={[2.152, -1.6, -2.1]}
+            rotation={[0, 1.3, 0]}
+            fillOpacity={1}
+            fontWeight="bold"
+            font="/fonts/Sequel100Black-75.ttf"
+          >
+            <OrangeTexture></OrangeTexture>
+            UP
+          </Text>
+          <SignUpMesh />
 
-        <CameraController
-          defaultCameraTarget={defaultCameraTarget}
-          autoRotate={autoRotate}
-        />
-      </Canvas>
-      <Loader />
-      {!loading && (
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={autoRotate ? "pause" : "rotate"}
-            className="rotate-icon"
-            onClick={handleToggleAutoRotate}
-            src={autoRotate ? pause : rotate}
-            variants={imageVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            style={{
-              position: "fixed",
-              width: autoRotate ? "68px" : "60px",
-              bottom: autoRotate ? 18 : 16,
-              right: autoRotate ? 4 : 16,
-              opacity: 0.9,
-              cursor: "pointer",
-            }}
-          />
-        </AnimatePresence>
-      )}
-    </div>
+          <CameraControlsAndResponsive autoRotate={autoRotate} />
+        </Canvas>
+        <Loader />
+        <HomePageSocials />
+      </div>
+    </>
   );
 };
 

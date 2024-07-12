@@ -9,15 +9,17 @@ import { ContactPage } from "./pages/ContactPage";
 import { ListenPage } from "./pages/ListenPage";
 
 const App = () => {
-  const glbUrl = "/model.glb"; // Replace with your actual GLB file path
+  const glbUrl = "/modelColored.glb"; // Replace with your actual GLB file path
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
   return (
     <>
       <div className="App">
-        <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <MenuButton menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+
+        <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+
         <div className="main-border"></div>
 
         <div

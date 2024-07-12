@@ -7,16 +7,16 @@
 .case {
   cursor: pointer;
   position: fixed;
-  right: 14px;
-  top: 14px;
+  right: 10px;
+  top: 10px;
   transition: 0.54s all linear;
   z-index: 100000000;
   background-image: url("../images/pngorange/1.png");
   background-repeat: no-repeat;
-  background-size: 150px;
+  background-size: 135px;
   background-position: top -23px right 0;
-  height: 85px;
-  width: 60px;
+  height: 72px;
+  width: 55px;
   animation-name: closing;
   animation-duration: 0.54s;
   -webkit-tap-highlight-color: transparent;
@@ -25,15 +25,15 @@
 .caseOpen {
   cursor: pointer;
   position: fixed;
-  right: 50%;
+  right: 51%;
   transform: translateX(50%);
   top: 1vh;
   transition: 0.54s all linear;
   z-index: 100000000;
   background-repeat: no-repeat;
-  background-size: 150px;
+  background-size: 135px;
   background-position: top -15px right 0;
-  height: 90px;
+  height: 93px;
   width: 122px;
   animation-name: opening;
   animation-duration: 0.54s;
@@ -163,25 +163,5 @@ body::after {
 
   100% {
     background-image: url("../images/pngorange/1.png");
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .case {
-    right: 16px;
-    width: 52px;
-    height: 70px;
-    background-size: 130px;
-    background-position: top -18px right 0;
-  }
-
-  .caseOpen {
-    top: 3vh;
-
-    width: 106px;
-    height: 70px;
-    background-size: 130px;
-    right: 50%;
-    background-position: top -15px right 0;
   }
 }
