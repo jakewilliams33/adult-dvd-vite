@@ -9,7 +9,9 @@ import {
   Loader,
 } from "@react-three/drei";
 import { Vector3, Color } from "three";
-import loadingGif from "./images/loadingvinyl.gif";
+import vinyl from "./images/vinyl.png";
+import vinylb from "./images/vinylb.png";
+
 import orangeNoise from "./images/border90.jpg";
 import rotate from "./images/rotate.png";
 import pause from "./images/pause.png";
@@ -47,7 +49,7 @@ const MainLight = () => {
 
   useFrame(() => {
     if (lightRef.current && camera) {
-      const lightOffset = new Vector3(4.1, 2, -0).applyQuaternion(
+      const lightOffset = new Vector3(4.4, 3, -0).applyQuaternion(
         camera.quaternion
       );
       lightRef.current.position.copy(camera.position).add(lightOffset);
@@ -57,20 +59,19 @@ const MainLight = () => {
   return (
     <directionalLight
       ref={lightRef}
-      intensity={2}
+      intensity={3}
       castShadow
       shadow-camera-near={0.5}
       shadow-camera-far={50}
-      shadow-bias={-0.001}
-      color={new Color("#ffffff")}
+      shadow-bias={-0.0001}
+      color={new Color("#f7d386")}
       shadow-mapSize={2048}
-      //shadow-bias={-0.001}
     >
       <orthographicCamera
         attach="shadow-camera"
         args={[-8.5, 8.5, 8.5, -8.5, 0.1, 20]}
       />
-      <SoftShadows size={35} />
+      <SoftShadows size={26} />
     </directionalLight>
   );
 };
@@ -81,7 +82,7 @@ const SecondaryLight = () => {
 
   useFrame(() => {
     if (secondaryLightRef.current && camera) {
-      const lightOffset = new Vector3(-1, 1, 3).applyQuaternion(
+      const lightOffset = new Vector3(-7, 1, 3).applyQuaternion(
         camera.quaternion
       );
       secondaryLightRef.current.position.copy(camera.position).add(lightOffset);
@@ -91,7 +92,7 @@ const SecondaryLight = () => {
   return (
     <directionalLight
       ref={secondaryLightRef}
-      intensity={0.55}
+      intensity={0.3}
       castShadow
       shadow-camera-near={0.5}
       shadow-camera-far={50}
@@ -102,7 +103,34 @@ const SecondaryLight = () => {
   );
 };
 
-const CameraControlsAndResponsive = ({ autoRotate }) => {
+const FrontLight = () => {
+  const frontLightRef = useRef();
+  const { camera } = useThree();
+
+  useFrame(() => {
+    if (frontLightRef.current && camera) {
+      const lightOffset = new Vector3(0, 0, 0).applyQuaternion(
+        camera.quaternion
+      );
+      frontLightRef.current.position.copy(camera.position).add(lightOffset);
+    }
+  });
+
+  return (
+    <directionalLight
+      ref={frontLightRef}
+      intensity={0.3}
+      castShadow
+      shadow-camera-near={0.5}
+      shadow-camera-far={50}
+      color={new Color("#f7e2b5")}
+      shadow-mapSize={2048}
+      shadow-bias={-0.0001}
+    />
+  );
+};
+
+const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
   const { camera } = useThree();
   const controlsRef = useRef();
 
@@ -115,13 +143,14 @@ const CameraControlsAndResponsive = ({ autoRotate }) => {
   useEffect(() => {
     const handleResize = () => {
       const aspect = window.innerWidth / window.innerHeight;
-
-      // Use a logarithmic function to adjust the zoom level
       const zoomFactor = Math.log(aspect + 1) * 0.363; // Adjust the multiplier to your preference
 
       camera.zoom = zoomFactor;
-
       camera.updateProjectionMatrix();
+
+      // Set ready state to true after zoom is adjusted
+      console.log("working");
+      setReady(true);
     };
 
     window.addEventListener("resize", handleResize);
@@ -153,7 +182,9 @@ const ThreeScene = ({ glbUrl }) => {
   const [autoRotate, setAutoRotate] = useState(false);
   const [hovered, setHovered] = useState(false); // Add this state
   const [touchStartTime, setTouchStartTime] = useState(null);
-  const maxTouchDuration = 300; // Maximum duration for a short touch in ms
+  const [ready, setReady] = useState(false);
+
+  const maxTouchDuration = 150; // Maximum duration for a short touch in ms
 
   const handleToggleAutoRotate = () => {
     setAutoRotate(!autoRotate);
@@ -264,11 +295,19 @@ const ThreeScene = ({ glbUrl }) => {
   return (
     <>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
+        {/* <div className="loading-container">
+          <img className="loading-image" src={loadingGif} alt="Loading" />
+          
+        </div> */}
         {loading && (
           <div className="loading-container">
-            <img className="loading-image" src={loadingGif} alt="Loading" />
+            <div className="side-view"></div>
+            <div className="image-container">
+              <img className="ringed-image-a" src={vinyl} alt="Loading" />
+              <img className="ringed-image-b" src={vinylb} alt="Loading" />
+            </div>
             <p className="loading-text">
-              Loading <span className="dot dot1">.</span>
+              loading <span className="dot dot1">.</span>
               <span className="dot dot2">.</span>
               <span className="dot dot3">.</span>
             </p>
@@ -297,89 +336,94 @@ const ThreeScene = ({ glbUrl }) => {
             />
           </AnimatePresence>
         )}
-
-        <Canvas
-          shadows
-          style={{ position: "absolute", top: 0, left: 0 }}
-          camera={{
-            position: [6, 0.1, 1.7],
-            fov: 25,
-          }}
-        >
-          <ambientLight intensity={0.6} />
-          <MainLight />
-          <SecondaryLight />
-          <Model url={glbUrl} setLoading={setLoading} />
-
-          <Text
-            scale={0.25}
-            color="#de6d37"
-            position={[-0.38, -0.9, 1.58]}
-            rotation={[0, 1.559, 0]}
-            fillOpacity={1}
-            fontWeight="bold"
-            font="/fonts/Sequel100Black-75.ttf"
+        <div style={{ opacity: ready ? 1 : 0 }}>
+          <Canvas
+            shadows
+            style={{ position: "absolute", top: 0, left: 0 }}
+            camera={{
+              position: [6, 0.1, 1.7],
+              fov: 25,
+            }}
           >
-            <OrangeTexture></OrangeTexture>
-            PREORDER
-          </Text>
-          <ProrderMesh />
+            <ambientLight intensity={0.6} />
+            <MainLight />
+            <SecondaryLight />
+            <FrontLight />
+            <Model url={glbUrl} setLoading={setLoading} />
 
-          <Text
-            scale={0.25}
-            color="#de6d37"
-            position={[1.06, -0.9, -0.7]}
-            rotation={[0, 1.57, 0]}
-            fillOpacity={1}
-            fontWeight="bold"
-            font="/fonts/Sequel100Black-75.ttf"
-          >
-            <OrangeTexture></OrangeTexture>
-            STREAM
-          </Text>
-          <StreamMesh />
-          <Text
-            scale={0.22}
-            color="#de6d37"
-            position={[0.75, -1.6, 2]}
-            rotation={[0, 2.08, 0]}
-            fillOpacity={1}
-            fontWeight="bold"
-            font="/fonts/Sequel100Black-75.ttf"
-          >
-            <OrangeTexture></OrangeTexture>
-            TOUR
-          </Text>
-          <TourMesh />
+            <Text
+              scale={0.25}
+              color="#de6d37"
+              position={[-0.38, -0.9, 1.58]}
+              rotation={[0, 1.559, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+            >
+              <OrangeTexture></OrangeTexture>
+              PREORDER
+            </Text>
+            <ProrderMesh />
 
-          <Text
-            scale={0.22}
-            color="#de6d37"
-            position={[2.152, -1.3, -2.1]}
-            rotation={[0, 1.3, 0]}
-            fillOpacity={1}
-            fontWeight="bold"
-            font="/fonts/Sequel100Black-75.ttf"
-          >
-            <OrangeTexture></OrangeTexture>
-            SIGN
-          </Text>
-          <Text
-            scale={0.22}
-            color="#de6d37"
-            position={[2.152, -1.6, -2.1]}
-            rotation={[0, 1.3, 0]}
-            fillOpacity={1}
-            fontWeight="bold"
-            font="/fonts/Sequel100Black-75.ttf"
-          >
-            <OrangeTexture></OrangeTexture>
-            UP
-          </Text>
-          <SignUpMesh />
+            <Text
+              scale={0.25}
+              color="#de6d37"
+              position={[1.06, -0.9, -0.7]}
+              rotation={[0, 1.57, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+            >
+              <OrangeTexture></OrangeTexture>
+              STREAM
+            </Text>
+            <StreamMesh />
+            <Text
+              scale={0.22}
+              color="#de6d37"
+              position={[0.75, -1.6, 2]}
+              rotation={[0, 2.08, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+            >
+              <OrangeTexture></OrangeTexture>
+              TOUR
+            </Text>
+            <TourMesh />
 
-          <CameraControlsAndResponsive autoRotate={autoRotate} />
-        </Canvas>
+            <Text
+              scale={0.22}
+              color="#de6d37"
+              position={[2.152, -1.3, -2.1]}
+              rotation={[0, 1.3, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+            >
+              <OrangeTexture></OrangeTexture>
+              SIGN
+            </Text>
+            <Text
+              scale={0.22}
+              color="#de6d37"
+              position={[2.152, -1.6, -2.1]}
+              rotation={[0, 1.3, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+            >
+              <OrangeTexture></OrangeTexture>
+              UP
+            </Text>
+            <SignUpMesh />
+
+            <CameraControlsAndResponsive
+              setReady={setReady}
+              autoRotate={autoRotate}
+            />
+          </Canvas>
+        </div>
         <Loader />
         <HomePageSocials />
       </div>

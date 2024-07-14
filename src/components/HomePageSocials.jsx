@@ -9,6 +9,7 @@ import {
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../styles/loading-spinner.css";
 
 export const HomePageSocials = () => {
   return (
@@ -30,11 +31,10 @@ export const HomePageSocials = () => {
             alignItems: "center",
           }}
         >
-          <a href="https://facebook.com" target="_blank">
+          <a href="fb://page/105580344839479" target="_blank">
             <FontAwesomeIcon
               className="icons-home"
               icon={faFacebook}
-              color={"white"}
               key="facebook"
             />
           </a>
@@ -42,7 +42,6 @@ export const HomePageSocials = () => {
             <FontAwesomeIcon
               className="icons-home"
               icon={faInstagram}
-              color={"white"}
               key="instagram"
             />
           </a>
@@ -50,7 +49,6 @@ export const HomePageSocials = () => {
             <FontAwesomeIcon
               className="icons-home"
               icon={faTwitter}
-              color={"white"}
               key="twitter"
             />
           </a>
@@ -58,7 +56,6 @@ export const HomePageSocials = () => {
             <FontAwesomeIcon
               className="icons-home"
               icon={faTiktok}
-              color={"white"}
               key="apple"
             />
           </a>
@@ -69,7 +66,6 @@ export const HomePageSocials = () => {
             <FontAwesomeIcon
               className="icons-home"
               icon={faYoutube}
-              color={"white"}
               key="youtube"
             />
           </a>
@@ -80,7 +76,6 @@ export const HomePageSocials = () => {
             <FontAwesomeIcon
               className="icons-home"
               icon={faSpotify}
-              color={"white"}
               key="spotify"
             />
           </a>
@@ -91,7 +86,6 @@ export const HomePageSocials = () => {
             <FontAwesomeIcon
               className="icons-home"
               icon={faBandcamp}
-              color={"white"}
               key="bandcamp"
             />
           </a>
@@ -102,7 +96,6 @@ export const HomePageSocials = () => {
             <FontAwesomeIcon
               className="icons-home"
               icon={faApple}
-              color={"white"}
               key="apple"
             />
           </a>

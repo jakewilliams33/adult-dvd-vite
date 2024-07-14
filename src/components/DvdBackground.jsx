@@ -88,7 +88,7 @@ export const DvdBackground = () => {
         fill: changeColor(),
         left: 0,
         top: 0,
-        opacity: 0.7,
+        opacity: 0.8,
       }}
     >
       <g transform="translate(0, 960) scale(0.1, -0.1)" stroke="none">

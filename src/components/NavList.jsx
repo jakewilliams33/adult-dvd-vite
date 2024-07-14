@@ -54,7 +54,7 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
       </ul>
       <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
         <div className="icon-container">
-          <a href="https://facebook.com" target="_blank">
+          <a href="fb://page/105580344839479" target="_blank">
             <FontAwesomeIcon
               className="icons"
               icon={faFacebook}
