@@ -30,7 +30,8 @@ export const Menu = ({ menuOpen, setMenuOpen }) => {
             style={{
               position: "fixed",
               boxSizing: "border-box",
-              backgroundColor: "black",
+              backgroundColor: "rgba(0, 0, 0, 0.85)",
+              backdropFilter: "blur(10px)" /* applies the blur effect */,
               height: "calc(100% + 1px)",
               width: "100vw",
 

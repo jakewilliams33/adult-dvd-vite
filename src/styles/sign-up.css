@@ -1,0 +1,47 @@
+.form-container-sign-up,
+.sign-up-sent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+  width: 65vw;
+  max-width: 400px;
+  font-size: 15px;
+  background-image: url(../images/wrinkle.jpg);
+  background-size: cover;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.sign-up-sent input,
+.sign-up-sent label,
+.sign-up-sent button,
+.sign-up-sent .information {
+  display: none;
+}
+
+.inner-box-sign-up {
+  border: 1.4pt solid;
+  border-image: url(../images/border.jpg) 30 round;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+.top-banner-sign-up {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1.4pt;
+  border-image: url(../images/border.jpg) 30 round;
+}
+
+@media screen and (max-width: 568px) {
+  .form-container-sign-up {
+    width: 70vw;
+  }
+}

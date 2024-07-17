@@ -11,7 +11,7 @@
   top: 0px;
   transition: 0.54s all linear;
   z-index: 100000000;
-  background-image: url("../images/pngorange/1.png");
+  background-image: url("../images/svgorange/1.svg");
   background-repeat: no-repeat;
   background-size: 135px;
   background-position: top -12px right 0;
@@ -31,13 +31,13 @@
   transition: 0.54s all linear;
   z-index: 100000000;
   background-repeat: no-repeat;
-  background-size: 135px;
+  background-size: 137px;
   background-position: top -5px right 0;
   height: 93px;
   width: 122px;
   animation-name: opening;
   animation-duration: 0.54s;
-  background-image: url("../images/pngorange/15.png");
+  background-image: url("../images/svgorange/15.svg");
 }
 
 body::after {
@@ -46,122 +46,122 @@ body::after {
   height: 0;
   overflow: hidden;
   z-index: -1;
-  content: url("../images/pngorange/1.png") url("../images/pngorange/2.png")
-    url("../images/pngorange/3.png") url("../images/pngorange/4.png")
-    url("../images/pngorange/5.png") url("../images/pngorange/7.png")
-    url("../images/pngorange/8.png") url("../images/pngorange/9.png")
-    url("../images/pngorange/10.png") url("../images/pngorange/11.png")
-    url("../images/pngorange/12.png") url("../images/pngorange/13.png")
-    url("../images/pngorange/14.png") url("../images/pngorange/15.png")
-    url("../images/pngorange/6.png");
+  content: url("../images/svgorange/1.svg") url("../images/svgorange/2.svg")
+    url("../images/svgorange/3.svg") url("../images/svgorange/4.svg")
+    url("../images/svgorange/5.svg") url("../images/svgorange/7.svg")
+    url("../images/svgorange/8.svg") url("../images/svgorange/9.svg")
+    url("../images/svgorange/10.svg") url("../images/svgorange/11.svg")
+    url("../images/svgorange/12.svg") url("../images/svgorange/13.svg")
+    url("../images/svgorange/14.svg") url("../images/svgorange/15.svg")
+    url("../images/svgorange/6.svg");
 }
 
 @keyframes opening {
   0% {
-    background-image: url("../images/pngorange/1.png");
+    background-image: url("../images/svgorange/1.png");
   }
   7% {
-    background-image: url("../images/pngorange/2.png");
+    background-image: url("../images/svgorange/2.svg");
   }
   14% {
-    background-image: url("../images/pngorange/3.png");
+    background-image: url("../images/svgorange/3.svg");
   }
   21% {
-    background-image: url("../images/pngorange/4.png");
+    background-image: url("../images/svgorange/4.svg");
   }
   28% {
-    background-image: url("../images/pngorange/5.png");
+    background-image: url("../images/svgorange/5.svg");
   }
   35% {
-    background-image: url("../images/pngorange/6.png");
+    background-image: url("../images/svgorange/6.svg");
   }
   42% {
-    background-image: url("../images/pngorange/7.png");
+    background-image: url("../images/svgorange/7.svg");
   }
   49% {
-    background-image: url("../images/pngorange/8.png");
+    background-image: url("../images/svgorange/8.svg");
   }
   56% {
-    background-image: url("../images/pngorange/9.png");
+    background-image: url("../images/svgorange/9.svg");
   }
   63% {
-    background-image: url("../images/pngorange/10.png");
+    background-image: url("../images/svgorange/10.svg");
   }
   70% {
-    background-image: url("../images/pngorange/11.png");
+    background-image: url("../images/svgorange/11.svg");
   }
   77% {
-    background-image: url("../images/pngorange/12.png");
+    background-image: url("../images/svgorange/12.svg");
   }
   84% {
-    background-image: url("../images/pngorange/13.png");
+    background-image: url("../images/svgorange/13.svg");
   }
   91% {
-    background-image: url("../images/pngorange/14.png");
+    background-image: url("../images/svgorange/14.svg");
   }
   100% {
-    background-image: url("../images/pngorange/15.png");
+    background-image: url("../images/svgorange/15.svg");
   }
 }
 
 @keyframes closing {
   0% {
-    background-image: url("../images/pngorange/15.png");
+    background-image: url("../images/svgorange/15.svg");
   }
 
   7% {
-    background-image: url("../images/pngorange/14.png");
+    background-image: url("../images/svgorange/14.svg");
   }
 
   14% {
-    background-image: url("../images/pngorange/13.png");
+    background-image: url("../images/svgorange/13.svg");
   }
 
   21% {
-    background-image: url("../images/pngorange/12.png");
+    background-image: url("../images/svgorange/12.svg");
   }
 
   28% {
-    background-image: url("../images/pngorange/11.png");
+    background-image: url("../images/svgorange/11.svg");
   }
 
   35% {
-    background-image: url("../images/pngorange/10.png");
+    background-image: url("../images/svgorange/10.svg");
   }
 
   42% {
-    background-image: url("../images/pngorange/9.png");
+    background-image: url("../images/svgorange/9.svg");
   }
 
   49% {
-    background-image: url("../images/pngorange/8.png");
+    background-image: url("../images/svgorange/8.svg");
   }
 
   56% {
-    background-image: url("../images/pngorange/7.png");
+    background-image: url("../images/svgorange/7.svg");
   }
 
   63% {
-    background-image: url("../images/pngorange/6.png");
+    background-image: url("../images/svgorange/6.svg");
   }
 
   70% {
-    background-image: url("../images/pngorange/5.png");
+    background-image: url("../images/svgorange/5.svg");
   }
 
   77% {
-    background-image: url("../images/pngorange/4.png");
+    background-image: url("../images/svgorange/4.svg");
   }
 
   84% {
-    background-image: url("../images/pngorange/3.png");
+    background-image: url("../images/svgorange/3.svg");
   }
 
   91% {
-    background-image: url("../images/pngorange/2.png");
+    background-image: url("../images/svgorange/2.svg");
   }
 
   100% {
-    background-image: url("../images/pngorange/1.png");
+    background-image: url("../images/svgorange/1.svg");
   }
 }

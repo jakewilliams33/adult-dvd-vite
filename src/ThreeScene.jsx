@@ -177,7 +177,7 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
   );
 };
 
-const ThreeScene = ({ glbUrl }) => {
+const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
   const [loading, setLoading] = useState(true);
   const [autoRotate, setAutoRotate] = useState(false);
   const [hovered, setHovered] = useState(false); // Add this state
@@ -208,7 +208,11 @@ const ThreeScene = ({ glbUrl }) => {
     const touchDuration = touchEndTime - touchStartTime;
 
     if (touchDuration < maxTouchDuration) {
-      window.open(url, "_blank");
+      if (url === "signup") {
+        setSignUpVisible(true);
+      } else {
+        window.open(url, "_self");
+      }
     }
   };
 
@@ -231,10 +235,22 @@ const ThreeScene = ({ glbUrl }) => {
       <mesh
         position={[1.02, -1, -0.7]}
         rotation={[0, 1.59, 0]}
-        onPointerDown={handlePointerDown}
-        onPointerUp={() => handlePointerUp("/listen/doomsday_prepper")}
-        onPointerOver={handlePointerOver}
-        onPointerOut={handlePointerOut}
+        onPointerDown={(e) => {
+          e.stopPropagation(); // Stop event propagation
+          handlePointerDown();
+        }}
+        onPointerUp={(e) => {
+          e.stopPropagation(); // Stop event propagation
+          handlePointerUp("/listen/doomsday_prepper");
+        }}
+        onPointerOver={(e) => {
+          e.stopPropagation(); // Stop event propagation
+          handlePointerOver();
+        }}
+        onPointerOut={(e) => {
+          e.stopPropagation(); // Stop event propagation
+          handlePointerOut();
+        }}
       >
         <planeGeometry attach="geometry" args={[1.5, 1.97]} />
         <meshBasicMaterial attach="material" transparent opacity={0} />
@@ -265,10 +281,22 @@ const ThreeScene = ({ glbUrl }) => {
       <mesh
         position={[0.74, -1.6, 2]}
         rotation={[0, 2.08, 0]}
-        onPointerDown={handlePointerDown}
-        onPointerUp={() => handlePointerUp("/tour")}
-        onPointerOver={handlePointerOver}
-        onPointerOut={handlePointerOut}
+        onPointerDown={(e) => {
+          e.stopPropagation(); // Stop event propagation
+          handlePointerDown();
+        }}
+        onPointerUp={(e) => {
+          e.stopPropagation(); // Stop event propagation
+          handlePointerUp("/tour");
+        }}
+        onPointerOver={(e) => {
+          e.stopPropagation(); // Stop event propagation
+          handlePointerOver();
+        }}
+        onPointerOut={(e) => {
+          e.stopPropagation(); // Stop event propagation
+          handlePointerOut();
+        }}
       >
         <planeGeometry attach="geometry" args={[1, 0.8]} />
         <meshBasicMaterial attach="material" transparent opacity={0} />
@@ -282,7 +310,10 @@ const ThreeScene = ({ glbUrl }) => {
         position={[2.15, -1.4, -2.1]}
         rotation={[0, 1.3, 0]}
         onPointerDown={handlePointerDown}
-        onPointerUp={() => handlePointerUp("https://mailinglist.c")}
+        onPointerUp={() => {
+          handlePointerUp("signup");
+          document.body.style.cursor = "default";
+        }}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
       >
@@ -295,10 +326,6 @@ const ThreeScene = ({ glbUrl }) => {
   return (
     <>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
-        {/* <div className="loading-container">
-          <img className="loading-image" src={loadingGif} alt="Loading" />
-          
-        </div> */}
         {loading && (
           <div className="loading-container">
             <div className="side-view"></div>
@@ -354,20 +381,6 @@ const ThreeScene = ({ glbUrl }) => {
             <Text
               scale={0.25}
               color="#de6d37"
-              position={[-0.38, -0.9, 1.58]}
-              rotation={[0, 1.559, 0]}
-              fillOpacity={1}
-              fontWeight="bold"
-              font="/fonts/Sequel100Black-75.ttf"
-            >
-              <OrangeTexture></OrangeTexture>
-              PREORDER
-            </Text>
-            <ProrderMesh />
-
-            <Text
-              scale={0.25}
-              color="#de6d37"
               position={[1.06, -0.9, -0.7]}
               rotation={[0, 1.57, 0]}
               fillOpacity={1}
@@ -378,19 +391,6 @@ const ThreeScene = ({ glbUrl }) => {
               STREAM
             </Text>
             <StreamMesh />
-            <Text
-              scale={0.22}
-              color="#de6d37"
-              position={[0.75, -1.6, 2]}
-              rotation={[0, 2.08, 0]}
-              fillOpacity={1}
-              fontWeight="bold"
-              font="/fonts/Sequel100Black-75.ttf"
-            >
-              <OrangeTexture></OrangeTexture>
-              TOUR
-            </Text>
-            <TourMesh />
 
             <Text
               scale={0.22}
@@ -417,6 +417,32 @@ const ThreeScene = ({ glbUrl }) => {
               UP
             </Text>
             <SignUpMesh />
+            <Text
+              scale={0.22}
+              color="#de6d37"
+              position={[0.75, -1.6, 2]}
+              rotation={[0, 2.08, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+            >
+              <OrangeTexture></OrangeTexture>
+              TOUR
+            </Text>
+            <TourMesh />
+            <Text
+              scale={0.25}
+              color="#de6d37"
+              position={[-0.38, -0.9, 1.58]}
+              rotation={[0, 1.559, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+            >
+              <OrangeTexture></OrangeTexture>
+              PREORDER
+            </Text>
+            <ProrderMesh />
 
             <CameraControlsAndResponsive
               setReady={setReady}
@@ -425,7 +451,7 @@ const ThreeScene = ({ glbUrl }) => {
           </Canvas>
         </div>
         <Loader />
-        <HomePageSocials />
+        <HomePageSocials setSignUpVisible={setSignUpVisible} />
       </div>
     </>
   );

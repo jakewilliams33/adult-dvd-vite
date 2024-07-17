@@ -7,18 +7,24 @@ import { MusicPage } from "./pages/MusicPage";
 import { TourPage } from "./pages/TourPage";
 import { ContactPage } from "./pages/ContactPage";
 import { ListenPage } from "./pages/ListenPage";
+import { SignUpForm } from "./components/SignUpForm";
 
 const App = () => {
   const glbUrl = "/modelColored.glb"; // Replace with your actual GLB file path
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const [signUpVisible, setSignUpVisible] = useState(false);
 
   return (
     <>
       <div className="App">
         <MenuButton menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-        <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <Menu
+          setSignUpVisible={setSignUpVisible}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+        />
 
         <div className="main-border"></div>
 
@@ -32,8 +38,21 @@ const App = () => {
             overflow: "hidden",
           }}
         >
+          <SignUpForm
+            signUpVisible={signUpVisible}
+            setSignUpVisible={setSignUpVisible}
+          />
           <Routes location={location} key={location.pathname}>
-            <Route exact path={"/"} element={<ThreeScene glbUrl={glbUrl} />} />
+            <Route
+              exact
+              path={"/"}
+              element={
+                <ThreeScene
+                  glbUrl={glbUrl}
+                  setSignUpVisible={setSignUpVisible}
+                />
+              }
+            />
             <Route exact path={"/music"} element={<MusicPage />} />
             <Route exact path={"/tour"} element={<TourPage />} />
             <Route exact path={"/contact"} element={<ContactPage />} />

@@ -59,3 +59,7 @@ body {
   font-size: min(max(20px, 2.2vmax), 28px);
   color: #d75b2b;
 }
+
+.cross {
+  cursor: pointer;
+}

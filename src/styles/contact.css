@@ -42,7 +42,6 @@
   position: relative;
   flex-direction: column;
   height: 100%;
-
   padding: 0;
   margin: 0;
 }
@@ -88,7 +87,6 @@
   height: 20px;
   margin-top: 2px;
 }
-
 .sent input,
 .sent textarea,
 .sent label,

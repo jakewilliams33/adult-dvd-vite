@@ -10,8 +10,9 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../styles/loading-spinner.css";
+import { IoIosMail } from "react-icons/io";
 
-export const HomePageSocials = () => {
+export const HomePageSocials = ({ setSignUpVisible }) => {
   return (
     <>
       <div
@@ -99,6 +100,12 @@ export const HomePageSocials = () => {
               key="apple"
             />
           </a>
+          {/* <div
+            style={{ cursor: "pointer" }}
+            onClick={() => setSignUpVisible(true)}
+          >
+            <IoIosMail className="icons-home" key="mail" />
+          </div> */}
         </div>
       </div>
     </>
