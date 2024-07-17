@@ -2,7 +2,7 @@
 releases:
   - title: Doomsday Prepper
     spotify: https://open.spotify.com/track/3TlEVaCa0rl1px2Z53c4dF?si=a6310e4b80364d74
-    image: /covers/ep-cover-smaller-2_imgcentury-1-.png
+    image: /covers/nextDayShipping.png
     displayOnMusicPage: yes
   - deezer: https://www.deezer.com/track/2796291782
     youtube: https://music.youtube.com/watch?v=jJZYw-5AazU
@@ -13,7 +13,7 @@ releases:
     tidal: https://listen.tidal.com/track/362028417
     spotify: https://open.spotify.com/track/2vu2pw4QatuiP6w3JO8XHT
     apple: https://music.apple.com/gb/album/7-foot-1/1745766006?i=1745766007&app=music
-    image: /covers/ep-cover-smaller-2_imgcentury-1-.png
+    image: /covers/nextDayShipping.png
   - title: Fountain of Youth
     spotify: https://open.spotify.com/track/7aMCvb9GLrvbwHA3P2evFj?si=de3b906e4fed40a3
     apple: https://music.apple.com/gb/album/fountain-of-youth/1678326386?i=1678326387

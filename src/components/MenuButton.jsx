@@ -10,6 +10,7 @@ export const MenuButton = ({ setMenuOpen, menuOpen }) => {
     const handlePopstate = () => {
       if (menuOpen) {
         setMenuOpen(false); // Close the menu if it's open
+        document.body.style.overflow = "visible";
       }
     };
 
@@ -22,6 +23,11 @@ export const MenuButton = ({ setMenuOpen, menuOpen }) => {
 
   const handleToggle = () => {
     setMenuOpen((prev) => !prev);
+    if (!menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
   };
 
   return (
