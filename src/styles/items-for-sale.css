@@ -91,9 +91,11 @@
   pointer-events: none; /* Ensure clicks go through to the underlying content */
 }
 
-.item-link:hover .item-info::before {
-  opacity: 1; /* Adjust to the desired opacity on hover */
-  z-index: -1;
+@media (hover: hover) and (pointer: fine) {
+  .item-link:hover .item-info::before {
+    opacity: 1; /* Adjust to the desired opacity on hover */
+    z-index: -1;
+  }
 }
 
 .item-title {

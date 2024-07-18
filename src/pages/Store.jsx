@@ -53,11 +53,13 @@ export const Store = () => {
       fetchedItems.push(
         {
           title: "Next Day Shipping EP Vinyl",
+          merchType: "Vinyl LP",
           price: "£15",
           imageUrl: vinyl,
         },
         {
           title: "Monkey Earrings",
+          merchType: "Other Apparel",
           price: "£21",
           imageUrl: earrings,
         }
