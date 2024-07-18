@@ -12,9 +12,10 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const NavList = ({ menuOpen, setMenuOpen }) => {
+export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
   const handleClose = () => {
     setMenuOpen(false);
+    document.body.style.overflow = "visible";
   };
 
   return (
@@ -23,13 +24,13 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
         <Link style={{ textDecoration: "none" }} onClick={handleClose} to="/">
           <li>HOME</li>
         </Link>
-        <a
+        <Link
+          onClick={handleClose}
           style={{ textDecoration: "none" }}
-          target="_blank"
-          href="https://adultdvd.bandcamp.com/merch"
+          to="store"
         >
           <li>STORE</li>
-        </a>
+        </Link>
         <Link
           style={{ textDecoration: "none" }}
           onClick={handleClose}
@@ -44,6 +45,12 @@ export const NavList = ({ menuOpen, setMenuOpen }) => {
         >
           <li>MUSIC</li>
         </Link>
+        <li
+          style={{ cursor: "pointer" }}
+          onClick={() => setSignUpVisible(true)}
+        >
+          SIGN UP
+        </li>
         <Link
           style={{ textDecoration: "none" }}
           onClick={handleClose}

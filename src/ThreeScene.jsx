@@ -17,7 +17,6 @@ import rotate from "./images/rotate.png";
 import pause from "./images/pause.png";
 import "./styles/menu.css";
 import { HomePageSocials } from "./components/HomePageSocials";
-import { SoftShadows } from "@react-three/drei";
 
 function OrangeTexture() {
   const t = useTexture(orangeNoise);
@@ -49,7 +48,7 @@ const MainLight = () => {
 
   useFrame(() => {
     if (lightRef.current && camera) {
-      const lightOffset = new Vector3(4.4, 3, -0).applyQuaternion(
+      const lightOffset = new Vector3(3.8, 3, -0).applyQuaternion(
         camera.quaternion
       );
       lightRef.current.position.copy(camera.position).add(lightOffset);
@@ -59,11 +58,11 @@ const MainLight = () => {
   return (
     <directionalLight
       ref={lightRef}
-      intensity={3}
+      intensity={2.3}
       castShadow
       shadow-camera-near={0.5}
       shadow-camera-far={50}
-      shadow-bias={-0.0001}
+      shadow-bias={-0.001}
       color={new Color("#f7d386")}
       shadow-mapSize={2048}
     >
@@ -71,7 +70,6 @@ const MainLight = () => {
         attach="shadow-camera"
         args={[-8.5, 8.5, 8.5, -8.5, 0.1, 20]}
       />
-      <SoftShadows size={26} />
     </directionalLight>
   );
 };
@@ -92,40 +90,13 @@ const SecondaryLight = () => {
   return (
     <directionalLight
       ref={secondaryLightRef}
-      intensity={0.3}
+      intensity={0.4}
       castShadow
       shadow-camera-near={0.5}
       shadow-camera-far={50}
       color={new Color("#fae7d2")}
       shadow-mapSize={2048}
       shadow-bias={-0.01}
-    />
-  );
-};
-
-const FrontLight = () => {
-  const frontLightRef = useRef();
-  const { camera } = useThree();
-
-  useFrame(() => {
-    if (frontLightRef.current && camera) {
-      const lightOffset = new Vector3(0, 0, 0).applyQuaternion(
-        camera.quaternion
-      );
-      frontLightRef.current.position.copy(camera.position).add(lightOffset);
-    }
-  });
-
-  return (
-    <directionalLight
-      ref={frontLightRef}
-      intensity={0.3}
-      castShadow
-      shadow-camera-near={0.5}
-      shadow-camera-far={50}
-      color={new Color("#f7e2b5")}
-      shadow-mapSize={2048}
-      shadow-bias={-0.0001}
     />
   );
 };
@@ -147,9 +118,7 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
 
       camera.zoom = zoomFactor;
       camera.updateProjectionMatrix();
-
       // Set ready state to true after zoom is adjusted
-      console.log("working");
       setReady(true);
     };
 
@@ -203,7 +172,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
 
   const handlePointerDown = () => setTouchStartTime(Date.now());
 
-  const handlePointerUp = (url) => {
+  const handlePointerUp = (url, tab) => {
     const touchEndTime = Date.now();
     const touchDuration = touchEndTime - touchStartTime;
 
@@ -211,7 +180,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
       if (url === "signup") {
         setSignUpVisible(true);
       } else {
-        window.open(url, "_self");
+        window.open(url, tab);
       }
     }
   };
@@ -223,8 +192,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
       transition: { duration: 0.08 },
     },
     exit: {
-      transform: "translate(-6px, -5px)",
-      width: "50px",
+      width: "37px",
       opacity: 0.4,
       transition: { duration: 0.08 },
     },
@@ -241,7 +209,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
         }}
         onPointerUp={(e) => {
           e.stopPropagation(); // Stop event propagation
-          handlePointerUp("/listen/doomsday_prepper");
+          handlePointerUp("/streaming_links", "_self");
         }}
         onPointerOver={(e) => {
           e.stopPropagation(); // Stop event propagation
@@ -265,7 +233,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
         rotation={[0, 1.57, 0]}
         onPointerDown={handlePointerDown}
         onPointerUp={() =>
-          handlePointerUp("https://adultdvd.bandcamp.com/merch")
+          handlePointerUp("https://adultdvd.bandcamp.com/merch", "_blank")
         }
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
@@ -287,7 +255,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
         }}
         onPointerUp={(e) => {
           e.stopPropagation(); // Stop event propagation
-          handlePointerUp("/tour");
+          handlePointerUp("/tour", "_self");
         }}
         onPointerOver={(e) => {
           e.stopPropagation(); // Stop event propagation
@@ -352,9 +320,9 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               animate="animate"
               exit="exit"
               style={{
-                width: autoRotate ? "48px" : "40px",
-                bottom: autoRotate ? 16 : 14,
-                left: autoRotate ? 2 : 14,
+                width: autoRotate ? "48px" : "42px",
+                bottom: 12,
+                left: 14,
                 position: "fixed",
                 opacity: 0.9,
                 cursor: "pointer",
@@ -372,15 +340,14 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               fov: 25,
             }}
           >
-            <ambientLight intensity={0.6} />
+            <ambientLight intensity={0.4} />
             <MainLight />
             <SecondaryLight />
-            <FrontLight />
             <Model url={glbUrl} setLoading={setLoading} />
 
             <Text
               scale={0.25}
-              color="#de6d37"
+              color="#f7890a"
               position={[1.06, -0.9, -0.7]}
               rotation={[0, 1.57, 0]}
               fillOpacity={1}
@@ -394,7 +361,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
 
             <Text
               scale={0.22}
-              color="#de6d37"
+              color="#f7890a"
               position={[2.152, -1.3, -2.1]}
               rotation={[0, 1.3, 0]}
               fillOpacity={1}
@@ -406,7 +373,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
             </Text>
             <Text
               scale={0.22}
-              color="#de6d37"
+              color="#f7890a"
               position={[2.152, -1.6, -2.1]}
               rotation={[0, 1.3, 0]}
               fillOpacity={1}
@@ -419,7 +386,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
             <SignUpMesh />
             <Text
               scale={0.22}
-              color="#de6d37"
+              color="#f7890a"
               position={[0.75, -1.6, 2]}
               rotation={[0, 2.08, 0]}
               fillOpacity={1}
@@ -432,7 +399,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
             <TourMesh />
             <Text
               scale={0.25}
-              color="#de6d37"
+              color="#f7890a"
               position={[-0.38, -0.9, 1.58]}
               rotation={[0, 1.559, 0]}
               fillOpacity={1}

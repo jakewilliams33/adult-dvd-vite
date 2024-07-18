@@ -1,3 +1,7 @@
+:root {
+  --vinyl-size: min(max(32vw, 32vw), 260px);
+}
+
 .loading-container {
   position: absolute;
   top: 50%;
@@ -45,10 +49,6 @@
 
 .dot3 {
   animation-delay: 0.6s;
-}
-
-:root {
-  --vinyl-size: min(max(50vw, 50vw), 350px);
 }
 
 .image-container {

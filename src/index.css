@@ -14,14 +14,13 @@ body {
   background-image: url("./images/background.png"); /* Second layer for flipping */
   background-size: 600px; /* Adjust size as needed */
   background-repeat: repeat;
+  -webkit-tap-highlight-color: transparent;
 }
 
 * {
   padding: 0;
   margin: 0;
-}
-
-* {
+  -webkit-tap-highlight-color: transparent;
   margin-block-start: 0;
   margin-block-end: 0;
 }
@@ -56,7 +55,7 @@ body {
 }
 
 .icons-home {
-  font-size: min(max(20px, 2.2vmax), 28px);
+  font-size: min(max(20px, 2.2vmax), 35px);
   color: #d75b2b;
 }
 

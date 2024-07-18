@@ -9,16 +9,16 @@
   position: fixed;
   right: 10px;
   top: 0px;
-  transition: 0.54s all linear;
+  transition: 0.3s all linear;
   z-index: 100000000;
-  background-image: url("../images/svgorange/1.svg");
+  background-image: url("../images/svgorange/1.png");
   background-repeat: no-repeat;
   background-size: 135px;
   background-position: top -12px right 0;
   height: 90px;
   width: 55px;
   animation-name: closing;
-  animation-duration: 0.54s;
+  animation-duration: 0.3s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -28,7 +28,7 @@
   right: 51%;
   transform: translateX(50%);
   top: 0.5vh;
-  transition: 0.54s all linear;
+  transition: 0.3s all linear;
   z-index: 100000000;
   background-repeat: no-repeat;
   background-size: 137px;
@@ -36,7 +36,7 @@
   height: 93px;
   width: 122px;
   animation-name: opening;
-  animation-duration: 0.54s;
+  animation-duration: 0.3s;
   background-image: url("../images/svgorange/15.svg");
 }
 
@@ -46,7 +46,7 @@ body::after {
   height: 0;
   overflow: hidden;
   z-index: -1;
-  content: url("../images/svgorange/1.svg") url("../images/svgorange/2.svg")
+  content: url("../images/svgorange/1.png") url("../images/svgorange/2.svg")
     url("../images/svgorange/3.svg") url("../images/svgorange/4.svg")
     url("../images/svgorange/5.svg") url("../images/svgorange/7.svg")
     url("../images/svgorange/8.svg") url("../images/svgorange/9.svg")
@@ -162,6 +162,6 @@ body::after {
   }
 
   100% {
-    background-image: url("../images/svgorange/1.svg");
+    background-image: url("../images/svgorange/1.png");
   }
 }

@@ -1,0 +1,106 @@
+.container {
+  padding: 0 60px; /* Side margins */
+  max-width: 100%;
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.items-container {
+  display: grid;
+  gap: 16px; /* Space between items */
+  padding: 20px; /* Container padding */
+  margin: 67px auto 67px; /* Center the container with a top margin */
+  max-width: 1250px;
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Default layout for small screens */
+@media (max-width: 570px) {
+  .items-container {
+    grid-template-columns: repeat(1, 1fr); /* 1 column */
+  }
+}
+
+@media (min-width: 571px) and (max-width: 710px) {
+  .items-container {
+    grid-template-columns: repeat(2, 1fr); /* 1 column */
+  }
+}
+
+/* Medium screens layout */
+@media (min-width: 711px) and (max-width: 900px) {
+  .items-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  }
+}
+
+/* Large screens layout */
+@media (min-width: 901px) {
+  .items-container {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  }
+}
+
+.item-link {
+  text-decoration: none; /* Remove underline */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent overflow */
+}
+
+.item-image-container {
+  width: 100%; /* Full width */
+  padding-top: 100%; /* 1:1 Aspect Ratio for square images */
+  position: relative; /* Positioning context */
+}
+
+.item-image {
+  position: absolute; /* Positioning for square */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover to maintain aspect ratio */
+  border: 2pt solid;
+  border-image: url("../images/border.jpg") 30 round;
+  box-sizing: border-box;
+}
+
+.item-info {
+  position: relative; /* Ensure relative positioning */
+  padding: 2px;
+  border: 2pt solid;
+  border-image: url("../images/border.jpg") 30 round;
+  box-sizing: border-box;
+  margin-top: 10px;
+  color: white;
+  text-align: center;
+  overflow: hidden; /* Hide overflow from pseudo-element */
+}
+
+.item-info::before {
+  content: ""; /* Required for pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/border.jpg");
+  background-size: 30px;
+  opacity: 0;
+  transition: opacity 0.1s ease; /* Adjust transition timing as needed */
+  pointer-events: none; /* Ensure clicks go through to the underlying content */
+}
+
+.item-link:hover .item-info::before {
+  opacity: 1; /* Adjust to the desired opacity on hover */
+  z-index: -1;
+}
+
+.item-title {
+  font-size: 0.7rem; /* Smaller title size */
+  margin: 0; /* No margin */
+}
+
+.item-price {
+  font-size: 0.7rem; /* Smaller price size */
+}

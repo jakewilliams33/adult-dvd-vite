@@ -5,11 +5,11 @@
   z-index: 2010;
   top: -100vh;
   opacity: 0;
-  transition: top 0.4s, opacity 0.2s;
+  transition: top 0.3s, opacity 0.2s;
 }
 
 .nav-container.active {
-  transition: top 0.7s, opacity 1.5s;
+  transition: top 0.4s, opacity 1.5s;
   top: 0vh;
   opacity: 1;
 }
@@ -33,13 +33,14 @@
 }
 
 .list ul {
-  margin-top: 16vh;
+  margin-top: 12.4vh;
   list-style: none;
   /* Allow the ul to grow to use available space */
   display: flex;
   height: 100%;
   flex-direction: column;
   justify-content: space-evenly; /* Center items vertically within ul */
+  margin-bottom: 1vh;
 }
 
 .list li {

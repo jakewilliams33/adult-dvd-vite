@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { NavList } from "./NavList";
 import border from "../images/border.jpg";
 
-export const Menu = ({ menuOpen, setMenuOpen }) => {
+export const Menu = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
   const dropDown = {
     hidden: {
       y: "-100%",
@@ -25,7 +25,7 @@ export const Menu = ({ menuOpen, setMenuOpen }) => {
             exit="hidden"
             variants={dropDown}
             transition={{
-              duration: 0.5,
+              duration: 0.3,
             }}
             style={{
               position: "fixed",
@@ -47,7 +47,11 @@ export const Menu = ({ menuOpen, setMenuOpen }) => {
         )}
       </AnimatePresence>
       <div className={menuOpen ? "nav-container active" : "nav-container"}>
-        <NavList setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
+        <NavList
+          setMenuOpen={setMenuOpen}
+          menuOpen={menuOpen}
+          setSignUpVisible={setSignUpVisible}
+        />
       </div>
     </>
   );
