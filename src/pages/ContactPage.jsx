@@ -75,8 +75,6 @@ export const ContactPage = ({ opacity }) => {
       formData.append("subject", values.subject);
       formData.append("message", values.message);
 
-      console.log("Form Data: ", Object.fromEntries(formData.entries()));
-
       // Submit FormData to Netlify
       const response = await fetch("/", {
         method: "POST",

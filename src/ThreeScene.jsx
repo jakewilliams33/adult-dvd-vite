@@ -11,18 +11,19 @@ import {
 import { Vector3, Color } from "three";
 import vinyl from "./images/vinyl.png";
 import vinylb from "./images/vinylb.png";
-
 import orangeNoise from "./images/border90.jpg";
 import rotate from "./images/rotate.png";
 import pause from "./images/pause.png";
 import "./styles/menu.css";
 import { HomePageSocials } from "./components/HomePageSocials";
 
+// OrangeTexture Component
 function OrangeTexture() {
   const t = useTexture(orangeNoise);
   return <meshBasicMaterial map={t}></meshBasicMaterial>;
 }
 
+// Model Component
 function Model({ url, setLoading }) {
   const { scene } = useGLTF(url);
 
@@ -42,6 +43,7 @@ function Model({ url, setLoading }) {
   return <primitive object={scene} position={[0, -1, -0.7]} />;
 }
 
+// MainLight Component
 const MainLight = () => {
   const lightRef = useRef();
   const { camera } = useThree();
@@ -74,6 +76,7 @@ const MainLight = () => {
   );
 };
 
+// SecondaryLight Component
 const SecondaryLight = () => {
   const secondaryLightRef = useRef();
   const { camera } = useThree();
@@ -101,6 +104,7 @@ const SecondaryLight = () => {
   );
 };
 
+// CameraControlsAndResponsive Component
 const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
   const { camera } = useThree();
   const controlsRef = useRef();
@@ -118,7 +122,6 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
 
       camera.zoom = zoomFactor;
       camera.updateProjectionMatrix();
-      // Set ready state to true after zoom is adjusted
       setReady(true);
     };
 
@@ -146,10 +149,11 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
   );
 };
 
+// ThreeScene Component
 const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
   const [loading, setLoading] = useState(true);
   const [autoRotate, setAutoRotate] = useState(false);
-  const [hovered, setHovered] = useState(false); // Add this state
+  const [hovered, setHovered] = useState(null); // Change to track which text is hovered
   const [touchStartTime, setTouchStartTime] = useState(null);
   const [ready, setReady] = useState(false);
 
@@ -164,11 +168,14 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
   }, [glbUrl]);
 
   useEffect(() => {
-    document.body.style.cursor = hovered ? "pointer" : "auto"; // Update cursor style based on hover state
+    document.body.style.cursor = hovered !== null ? "pointer" : "auto"; // Update cursor style based on hover state
   }, [hovered]);
 
-  const handlePointerOver = () => setHovered(true);
-  const handlePointerOut = () => setHovered(false);
+  const handlePointerOver = (id) => (e) => {
+    e.stopPropagation(); // Prevent event propagation
+    setHovered(id);
+  };
+  const handlePointerOut = () => setHovered(null);
 
   const handlePointerDown = () => setTouchStartTime(Date.now());
 
@@ -187,109 +194,82 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
 
   const imageVariants = {
     initial: { transform: "translate(0px, 0px)", opacity: 0 },
-    animate: {
-      opacity: 0.9,
-      transition: { duration: 0.08 },
-    },
-    exit: {
-      width: "37px",
-      opacity: 0.4,
-      transition: { duration: 0.08 },
-    },
+    animate: { opacity: 0.9, transition: { duration: 0.08 } },
+    exit: { width: "37px", opacity: 0.4, transition: { duration: 0.08 } },
   };
 
-  const StreamMesh = () => {
-    return (
-      <mesh
-        position={[1.02, -1, -0.7]}
-        rotation={[0, 1.59, 0]}
-        onPointerDown={(e) => {
-          e.stopPropagation(); // Stop event propagation
-          handlePointerDown();
-        }}
-        onPointerUp={(e) => {
-          e.stopPropagation(); // Stop event propagation
-          handlePointerUp("/streaming_links", "_self");
-        }}
-        onPointerOver={(e) => {
-          e.stopPropagation(); // Stop event propagation
-          handlePointerOver();
-        }}
-        onPointerOut={(e) => {
-          e.stopPropagation(); // Stop event propagation
-          handlePointerOut();
-        }}
-      >
-        <planeGeometry attach="geometry" args={[1.5, 1.97]} />
-        <meshBasicMaterial attach="material" transparent opacity={0} />
-      </mesh>
-    );
-  };
+  const StreamMesh = () => (
+    <mesh
+      position={[1.02, -1, -0.7]}
+      rotation={[0, 1.59, 0]}
+      onPointerDown={(e) => {
+        e.stopPropagation(); // Stop event propagation
+        handlePointerDown();
+      }}
+      onPointerUp={(e) => {
+        e.stopPropagation(); // Stop event propagation
+        handlePointerUp("/streaming_links", "_self");
+      }}
+      onPointerOver={handlePointerOver("stream")}
+      onPointerOut={handlePointerOut}
+    >
+      <planeGeometry attach="geometry" args={[1.5, 1.97]} />
+      <meshBasicMaterial attach="material" transparent opacity={0} />
+    </mesh>
+  );
 
-  const ProrderMesh = () => {
-    return (
-      <mesh
-        position={[-0.394, -1.1, 1.6]}
-        rotation={[0, 1.57, 0]}
-        onPointerDown={handlePointerDown}
-        onPointerUp={() =>
-          handlePointerUp("https://adultdvd.bandcamp.com/merch", "_blank")
-        }
-        onPointerOver={handlePointerOver}
-        onPointerOut={handlePointerOut}
-      >
-        <planeGeometry attach="geometry" args={[2.5, 1.8]} />
-        <meshBasicMaterial attach="material" transparent opacity={0} />
-      </mesh>
-    );
-  };
+  const ProrderMesh = () => (
+    <mesh
+      position={[-0.394, -1.1, 1.6]}
+      rotation={[0, 1.57, 0]}
+      onPointerDown={handlePointerDown}
+      onPointerUp={() =>
+        handlePointerUp("https://adultdvd.bandcamp.com/merch", "_blank")
+      }
+      onPointerOver={handlePointerOver("preorder")}
+      onPointerOut={handlePointerOut}
+    >
+      <planeGeometry attach="geometry" args={[2.5, 1.8]} />
+      <meshBasicMaterial attach="material" transparent opacity={0} />
+    </mesh>
+  );
 
-  const TourMesh = () => {
-    return (
-      <mesh
-        position={[0.74, -1.6, 2]}
-        rotation={[0, 2.08, 0]}
-        onPointerDown={(e) => {
-          e.stopPropagation(); // Stop event propagation
-          handlePointerDown();
-        }}
-        onPointerUp={(e) => {
-          e.stopPropagation(); // Stop event propagation
-          handlePointerUp("/tour", "_self");
-        }}
-        onPointerOver={(e) => {
-          e.stopPropagation(); // Stop event propagation
-          handlePointerOver();
-        }}
-        onPointerOut={(e) => {
-          e.stopPropagation(); // Stop event propagation
-          handlePointerOut();
-        }}
-      >
-        <planeGeometry attach="geometry" args={[1, 0.8]} />
-        <meshBasicMaterial attach="material" transparent opacity={0} />
-      </mesh>
-    );
-  };
+  const TourMesh = () => (
+    <mesh
+      position={[0.74, -1.6, 2]}
+      rotation={[0, 2.08, 0]}
+      onPointerDown={(e) => {
+        e.stopPropagation(); // Stop event propagation
+        handlePointerDown();
+      }}
+      onPointerUp={(e) => {
+        e.stopPropagation(); // Stop event propagation
+        handlePointerUp("/tour", "_self");
+      }}
+      onPointerOver={handlePointerOver("tour")}
+      onPointerOut={handlePointerOut}
+    >
+      <planeGeometry attach="geometry" args={[1, 0.8]} />
+      <meshBasicMaterial attach="material" transparent opacity={0} />
+    </mesh>
+  );
 
-  const SignUpMesh = () => {
-    return (
-      <mesh
-        position={[2.15, -1.4, -2.1]}
-        rotation={[0, 1.3, 0]}
-        onPointerDown={handlePointerDown}
-        onPointerUp={() => {
-          handlePointerUp("signup");
-          document.body.style.cursor = "default";
-        }}
-        onPointerOver={handlePointerOver}
-        onPointerOut={handlePointerOut}
-      >
-        <planeGeometry attach="geometry" args={[1.16, 1.2]} />
-        <meshBasicMaterial attach="material" transparent opacity={0} />
-      </mesh>
-    );
-  };
+  const SignUpMesh = () => (
+    <mesh
+      position={[2.15, -1.4, -2.1]}
+      rotation={[0, 1.3, 0]}
+      onPointerDown={handlePointerDown}
+      onPointerUp={() => {
+        handlePointerUp("signup");
+        document.body.style.cursor = "default";
+      }}
+      onPointerOver={handlePointerOver("signup")}
+      onPointerOut={handlePointerOut}
+    >
+      <planeGeometry attach="geometry" args={[1.16, 1.2]} />
+      <meshBasicMaterial attach="material" transparent opacity={0} />
+    </mesh>
+  );
 
   return (
     <>
@@ -347,12 +327,15 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
 
             <Text
               scale={0.25}
-              color="#f7890a"
+              color="#f7890a" // Change color based on hover state
               position={[1.06, -0.9, -0.7]}
               rotation={[0, 1.57, 0]}
               fillOpacity={1}
               fontWeight="bold"
               font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "stream" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "stream" ? 0.053 : 0}
             >
               <OrangeTexture></OrangeTexture>
               STREAM
@@ -361,24 +344,30 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
 
             <Text
               scale={0.22}
-              color="#f7890a"
+              color="#f7890a" // Change color based on hover state
               position={[2.152, -1.3, -2.1]}
               rotation={[0, 1.3, 0]}
               fillOpacity={1}
               fontWeight="bold"
               font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "signup" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "signup" ? 0.053 : 0}
             >
               <OrangeTexture></OrangeTexture>
               SIGN
             </Text>
             <Text
               scale={0.22}
-              color="#f7890a"
+              color="#f7890a" // Change color based on hover state
               position={[2.152, -1.6, -2.1]}
               rotation={[0, 1.3, 0]}
               fillOpacity={1}
               fontWeight="bold"
               font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "signup" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "signup" ? 0.053 : 0}
             >
               <OrangeTexture></OrangeTexture>
               UP
@@ -386,12 +375,15 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
             <SignUpMesh />
             <Text
               scale={0.22}
-              color="#f7890a"
+              color="#f7890a" // Change color based on hover state
               position={[0.75, -1.6, 2]}
               rotation={[0, 2.08, 0]}
               fillOpacity={1}
               fontWeight="bold"
               font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "tour" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "tour" ? 0.053 : 0}
             >
               <OrangeTexture></OrangeTexture>
               TOUR
@@ -399,16 +391,20 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
             <TourMesh />
             <Text
               scale={0.25}
-              color="#f7890a"
+              color="#f7890a" // Change color based on hover state
               position={[-0.38, -0.9, 1.58]}
               rotation={[0, 1.559, 0]}
               fillOpacity={1}
               fontWeight="bold"
               font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "preorder" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "preorder" ? 0.053 : 0}
             >
               <OrangeTexture></OrangeTexture>
               PREORDER
             </Text>
+
             <ProrderMesh />
 
             <CameraControlsAndResponsive
