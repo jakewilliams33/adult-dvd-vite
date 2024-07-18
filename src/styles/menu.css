@@ -55,7 +55,7 @@
 }
 
 .icons {
-  font-size: min(max(16px, 8vw), 50px);
+  font-size: min(max(16px, 8vw), 36px);
 }
 
 @media screen and (max-width: 500px) {
