@@ -424,7 +424,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               <BrightnessContrast brightness={0.04} contrast={0.2} />
               <Bloom
                 blendFunction={BlendFunction.EXCLUSION}
-                intensity={2}
+                intensity={5}
                 threshold={0.1}
               />
             </EffectComposer>
