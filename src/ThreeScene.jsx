@@ -18,6 +18,7 @@ import "./styles/menu.css";
 import { HomePageSocials } from "./components/HomePageSocials";
 import {
   Bloom,
+  BrightnessContrast,
   EffectComposer,
   HueSaturation,
 } from "@react-three/postprocessing";
@@ -420,6 +421,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
             />
 
             <EffectComposer>
+              <BrightnessContrast brightness={0.04} contrast={0.2} />
               <Bloom
                 blendFunction={BlendFunction.EXCLUSION}
                 intensity={2}
