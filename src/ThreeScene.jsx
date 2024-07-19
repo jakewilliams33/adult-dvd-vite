@@ -16,6 +16,12 @@ import rotate from "./images/rotate.png";
 import pause from "./images/pause.png";
 import "./styles/menu.css";
 import { HomePageSocials } from "./components/HomePageSocials";
+import {
+  Bloom,
+  EffectComposer,
+  HueSaturation,
+} from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
 
 // OrangeTexture Component
 function OrangeTexture() {
@@ -50,7 +56,7 @@ const MainLight = () => {
 
   useFrame(() => {
     if (lightRef.current && camera) {
-      const lightOffset = new Vector3(3.8, 3, -0).applyQuaternion(
+      const lightOffset = new Vector3(4, 3, -0).applyQuaternion(
         camera.quaternion
       );
       lightRef.current.position.copy(camera.position).add(lightOffset);
@@ -60,12 +66,12 @@ const MainLight = () => {
   return (
     <directionalLight
       ref={lightRef}
-      intensity={2.3}
+      intensity={2.5}
       castShadow
       shadow-camera-near={0.5}
       shadow-camera-far={50}
       shadow-bias={-0.001}
-      color={new Color("#f7d386")}
+      color={new Color("#faf3e6")}
       shadow-mapSize={2048}
     >
       <orthographicCamera
@@ -93,7 +99,7 @@ const SecondaryLight = () => {
   return (
     <directionalLight
       ref={secondaryLightRef}
-      intensity={0.4}
+      intensity={0.5}
       castShadow
       shadow-camera-near={0.5}
       shadow-camera-far={50}
@@ -173,6 +179,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
 
   const handlePointerOver = (id) => (e) => {
     e.stopPropagation(); // Prevent event propagation
+    console.log(`${id} hovered`);
     setHovered(id);
   };
   const handlePointerOut = () => setHovered(null);
@@ -335,7 +342,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               font="/fonts/Sequel100Black-75.ttf"
               strokeOpacity={hovered === "stream" ? 1 : 0}
               strokeColor="white"
-              strokeWidth={hovered === "stream" ? 0.053 : 0}
+              strokeWidth={hovered === "stream" ? 0.046 : 0}
             >
               <OrangeTexture></OrangeTexture>
               STREAM
@@ -352,7 +359,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               font="/fonts/Sequel100Black-75.ttf"
               strokeOpacity={hovered === "signup" ? 1 : 0}
               strokeColor="white"
-              strokeWidth={hovered === "signup" ? 0.053 : 0}
+              strokeWidth={hovered === "signup" ? 0.046 : 0}
             >
               <OrangeTexture></OrangeTexture>
               SIGN
@@ -367,7 +374,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               font="/fonts/Sequel100Black-75.ttf"
               strokeOpacity={hovered === "signup" ? 1 : 0}
               strokeColor="white"
-              strokeWidth={hovered === "signup" ? 0.053 : 0}
+              strokeWidth={hovered === "signup" ? 0.046 : 0}
             >
               <OrangeTexture></OrangeTexture>
               UP
@@ -383,7 +390,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               font="/fonts/Sequel100Black-75.ttf"
               strokeOpacity={hovered === "tour" ? 1 : 0}
               strokeColor="white"
-              strokeWidth={hovered === "tour" ? 0.053 : 0}
+              strokeWidth={hovered === "tour" ? 0.046 : 0}
             >
               <OrangeTexture></OrangeTexture>
               TOUR
@@ -399,7 +406,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               font="/fonts/Sequel100Black-75.ttf"
               strokeOpacity={hovered === "preorder" ? 1 : 0}
               strokeColor="white"
-              strokeWidth={hovered === "preorder" ? 0.053 : 0}
+              strokeWidth={hovered === "preorder" ? 0.046 : 0}
             >
               <OrangeTexture></OrangeTexture>
               PREORDER
@@ -411,6 +418,14 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               setReady={setReady}
               autoRotate={autoRotate}
             />
+
+            <EffectComposer>
+              <Bloom
+                blendFunction={BlendFunction.EXCLUSION}
+                intensity={2}
+                threshold={0.1}
+              />
+            </EffectComposer>
           </Canvas>
         </div>
         <Loader />
