@@ -32,9 +32,10 @@
 .inner-box-scroll-listen h1,
 .inner-box-scroll-listen h2 {
   background-image: url("../images/border.jpg"); /* Replace with your image URL */
+  background-size: 25px;
   background-clip: text;
   color: rgba(250, 89, 32, 0.5);
-  background-size: 25px;
+
   background-repeat: repeat;
 }
 

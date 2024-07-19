@@ -320,6 +320,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
           </AnimatePresence>
         )}
         <div style={{ opacity: ready ? 1 : 0 }}>
+          <p className="date">OUT 16/09/2024</p>
           <Canvas
             shadows
             style={{ position: "absolute", top: 0, left: 0 }}

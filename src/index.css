@@ -34,6 +34,19 @@ body {
   background: none;
 }
 
+.date {
+  text-align: center;
+  bottom: 8px;
+  position: fixed;
+  right: 10px;
+  font-size: 0.5rem;
+  background-image: url("./images/border.jpg"); /* Replace with your image URL */
+  background-size: 25px;
+  background-clip: text;
+  color: rgba(250, 89, 32, 0.5);
+  z-index: 200;
+}
+
 .rotate-icon {
   -webkit-tap-highlight-color: transparent;
 }
