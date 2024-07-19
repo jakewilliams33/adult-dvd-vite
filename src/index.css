@@ -9,7 +9,7 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  background-color: black;
+  background-color: 303244;
   -moz-osx-font-smoothing: grayscale;
   background-image: url("./images/background.png"); /* Second layer for flipping */
   background-size: 600px; /* Adjust size as needed */
