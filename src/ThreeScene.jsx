@@ -335,7 +335,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
 
             <Text
               scale={0.25}
-              color="#f7890a" // Change color based on hover state
+              color="#eddda8" // Change color based on hover state
               position={[1.06, -0.9, -0.7]}
               rotation={[0, 1.57, 0]}
               fillOpacity={1}
@@ -352,7 +352,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
 
             <Text
               scale={0.22}
-              color="#f7890a" // Change color based on hover state
+              color="#eddda8" // Change color based on hover state
               position={[2.152, -1.3, -2.1]}
               rotation={[0, 1.3, 0]}
               fillOpacity={1}
@@ -367,7 +367,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
             </Text>
             <Text
               scale={0.22}
-              color="#f7890a" // Change color based on hover state
+              color="#eddda8" // Change color based on hover state
               position={[2.152, -1.6, -2.1]}
               rotation={[0, 1.3, 0]}
               fillOpacity={1}
@@ -383,7 +383,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
             <SignUpMesh />
             <Text
               scale={0.22}
-              color="#f7890a" // Change color based on hover state
+              color="#eddda8" // Change color based on hover state
               position={[0.75, -1.6, 2]}
               rotation={[0, 2.08, 0]}
               fillOpacity={1}
@@ -399,7 +399,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
             <TourMesh />
             <Text
               scale={0.25}
-              color="#f7890a" // Change color based on hover state
+              color="#eddda8" // Change color based on hover state
               position={[-0.38, -0.9, 1.58]}
               rotation={[0, 1.559, 0]}
               fillOpacity={1}
