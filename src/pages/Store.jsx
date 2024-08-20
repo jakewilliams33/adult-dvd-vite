@@ -2,8 +2,6 @@ import axios from "axios";
 import { load } from "cheerio"; // Import load instead of cheerio
 import React, { useEffect, useState } from "react";
 import "../styles/items-for-sale.css";
-import vinyl from "../images/VINYL MOCKUP WITH SHADOW.png";
-import earrings from "../images/earrings.png";
 
 const url =
   "https://corsproxy.io/?" +
@@ -24,11 +22,11 @@ const fetchItemsForSale = async () => {
     $(".merch-grid li").each((index, element) => {
       const title = $(element).find(".title").text().trim();
       const merchType = $(element).find(".merchtype").text().trim();
-
       const price = $(element).find(".sold-out").text().trim()
         ? $(element).find(".sold-out").text().trim()
         : $(element).find(".price .price").text().trim();
-      const imageUrl = $(element).find(".art img").attr("src");
+      const imageUrl =
+        $(element).find(".art img").attr("src").slice(0, -6) + "10.jpg";
       const itemUrl = `https://adultdvd.bandcamp.com${$(element)
         .find("a")
         .attr("href")}`;
@@ -50,20 +48,7 @@ export const Store = () => {
   useEffect(() => {
     const fetchItems = async () => {
       const fetchedItems = await fetchItemsForSale();
-      fetchedItems.push(
-        {
-          title: "Next Day Shipping EP Vinyl",
-          merchType: "Vinyl LP",
-          price: "£15",
-          imageUrl: vinyl,
-        },
-        {
-          title: "Monkey Earrings",
-          merchType: "Other Apparel",
-          price: "£21",
-          imageUrl: earrings,
-        }
-      );
+
       setItems(fetchedItems);
     };
 
@@ -96,9 +81,16 @@ export const Store = () => {
                   margin: "4px 0 4px 0",
                 }}
               >
-                {item.merchType}
+                {item.merchType || "Other"}
               </p>
-              <p className="item-price">{item.price}</p>
+              <p
+                style={{
+                  color: item.price === "Sold Out" ? "red" : "",
+                }}
+                className="item-price"
+              >
+                {item.price}
+              </p>
             </div>
           </a>
         ))}

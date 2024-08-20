@@ -58,7 +58,16 @@
 }
 
 .info h3 {
-  font-size: min(max(14px, 5vw), 40px);
+  font-size: min(max(2px, 4vw), 40px);
+}
+
+.info p {
+  font-size: min(max(1px, 3vw), 28px);
+  margin-top: 10px;
+}
+
+.info p:hover {
+  text-decoration: underline;
 }
 
 .c-releases img {

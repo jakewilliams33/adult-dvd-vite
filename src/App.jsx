@@ -10,6 +10,7 @@ import { ListenPage } from "./pages/ListenPage";
 import { SignUpForm } from "./components/SignUpForm";
 import { StreamingLinks } from "./pages/StreamingLinks";
 import { Store } from "./pages/Store";
+import { PageNotFound } from "./pages/PageNotFound";
 
 const App = () => {
   const glbUrl = "/modelColored.glb"; // Replace with your actual GLB file path
@@ -65,6 +66,7 @@ const App = () => {
             />
             <Route path={"/store"} element={<Store />} />
             <Route path="/streaming_links" element={<StreamingLinks />} />
+            <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </div>
       </div>

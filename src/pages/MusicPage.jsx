@@ -31,11 +31,13 @@ export const MusicPage = ({ slide }) => {
                     transition={{ duration: 1 }}
                   >
                     <div className="packshot">
-                      <img
-                        alt="Album art"
-                        className="pictures"
-                        src={image}
-                      ></img>
+                      <Link to={`/listen/${convertToId(title)}`}>
+                        <img
+                          alt="Album art"
+                          className="pictures"
+                          src={image}
+                        ></img>
+                      </Link>
                     </div>
                   </motion.div>
                   <div className="info">
@@ -49,9 +51,9 @@ export const MusicPage = ({ slide }) => {
                       <div>
                         <Link
                           to={`/listen/${convertToId(title)}`}
-                          style={{ color: "white" }}
+                          style={{ color: "white", textDecoration: "none" }}
                         >
-                          Listen
+                          <p>Listen</p>
                         </Link>
                       </div>
                     </motion.div>
