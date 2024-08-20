@@ -129,10 +129,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
               key="apple"
             />
           </a>
-          <a
-            href="https://music.apple.com/gb/artist/adult-dvd/1550456447"
-            target="_blank"
-          >
+          <a href="https://www.tiktok.com/@adultdvdmenu" target="_blank">
             <FontAwesomeIcon
               className="icons"
               icon={faTiktok}

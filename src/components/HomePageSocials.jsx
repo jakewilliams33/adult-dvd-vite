@@ -53,13 +53,6 @@ export const HomePageSocials = ({ setSignUpVisible }) => {
               key="twitter"
             />
           </a>
-          <a href="https://www.tiktok.com/@adultdvdmenu" target="_blank">
-            <FontAwesomeIcon
-              className="icons-home"
-              icon={faTiktok}
-              key="apple"
-            />
-          </a>
           <a
             href="https://www.youtube.com/channel/UCmGiw0z6dRClNlIFMCnS8Zw"
             target="_blank"
@@ -100,12 +93,13 @@ export const HomePageSocials = ({ setSignUpVisible }) => {
               key="apple"
             />
           </a>
-          {/* <div
-            style={{ cursor: "pointer" }}
-            onClick={() => setSignUpVisible(true)}
-          >
-            <IoIosMail className="icons-home" key="mail" />
-          </div> */}
+          <a href="https://www.tiktok.com/@adultdvdmenu" target="_blank">
+            <FontAwesomeIcon
+              className="icons-home"
+              icon={faTiktok}
+              key="apple"
+            />
+          </a>
         </div>
       </div>
     </>
