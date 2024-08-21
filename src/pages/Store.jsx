@@ -26,7 +26,7 @@ const fetchItemsForSale = async () => {
         ? $(element).find(".sold-out").text().trim()
         : $(element).find(".price .price").text().trim();
       const imageUrl =
-        $(element).find(".art img").attr("src").slice(0, -6) + "10.webp";
+        $(element).find(".art img").attr("src").slice(0, -6) + "10.jpg";
       const itemUrl = `https://adultdvd.bandcamp.com${$(element)
         .find("a")
         .attr("href")}`;

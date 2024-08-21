@@ -21,47 +21,62 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
   return (
     <nav className="list">
       <ul>
-        <Link style={{ textDecoration: "none" }} onClick={handleClose} to="/">
-          <li>HOME</li>
-        </Link>
-        <Link
-          onClick={handleClose}
-          style={{ textDecoration: "none" }}
-          to="store"
-        >
-          <li>STORE</li>
-        </Link>
-        <Link
-          style={{ textDecoration: "none" }}
-          onClick={handleClose}
-          to="tour"
-        >
-          <li>TOUR</li>
-        </Link>
-        <Link
-          style={{ textDecoration: "none" }}
-          onClick={handleClose}
-          to="music"
-        >
-          <li>MUSIC</li>
-        </Link>
+        <li style={{ color: "white" }}>
+          <Link style={{ textDecoration: "none" }} onClick={handleClose} to="/">
+            HOME
+          </Link>
+        </li>
+        <li style={{ color: "white" }}>
+          <Link
+            onClick={handleClose}
+            style={{ textDecoration: "none" }}
+            to="store"
+          >
+            STORE
+          </Link>
+        </li>
+        <li style={{ color: "white" }}>
+          <Link
+            style={{ textDecoration: "none" }}
+            onClick={handleClose}
+            to="tour"
+          >
+            TOUR
+          </Link>
+        </li>
+        <li style={{ color: "white" }}>
+          <Link
+            style={{ textDecoration: "none" }}
+            onClick={handleClose}
+            to="music"
+          >
+            MUSIC
+          </Link>
+        </li>
+
         <li
           style={{ cursor: "pointer" }}
           onClick={() => setSignUpVisible(true)}
         >
           SIGN UP
         </li>
-        <Link
-          style={{ textDecoration: "none" }}
-          onClick={handleClose}
-          to="contact"
-        >
-          <li>CONTACT</li>
-        </Link>
+        <li style={{ color: "white" }}>
+          <Link
+            style={{ textDecoration: "none" }}
+            onClick={handleClose}
+            to="contact"
+          >
+            CONTACT
+          </Link>
+        </li>
       </ul>
       <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
         <div className="icon-container">
-          <a href="fb://page/105580344839479" target="_blank">
+          <a
+            href="fb://page/105580344839479"
+            target="_blank"
+            aria-label="Facebook Page"
+          >
             <FontAwesomeIcon
               className="icons"
               icon={faFacebook}
@@ -69,7 +84,11 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
               key="facebook"
             />
           </a>
-          <a href="https://www.instagram.com/adultdvdmenu/" target="_blank">
+          <a
+            href="https://www.instagram.com/adultdvdmenu/"
+            target="_blank"
+            aria-label="Instagram Profile"
+          >
             <FontAwesomeIcon
               className="icons"
               icon={faInstagram}
@@ -77,7 +96,11 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
               key="instagram"
             />
           </a>
-          <a href="https://twitter.com/DvdAdult" target="_blank">
+          <a
+            href="https://twitter.com/DvdAdult"
+            target="_blank"
+            aria-label="Twitter Profile"
+          >
             <FontAwesomeIcon
               className="icons"
               icon={faTwitter}
@@ -88,6 +111,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://www.youtube.com/channel/UCmGiw0z6dRClNlIFMCnS8Zw"
             target="_blank"
+            aria-label="YouTube Channel"
           >
             <FontAwesomeIcon
               className="icons"
@@ -99,6 +123,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG?si=G6ESp6laRuyyfr8QzaV4wQ"
             target="_blank"
+            aria-label="Spotify Profile"
           >
             <FontAwesomeIcon
               className="icons"
@@ -110,6 +135,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://adultdvd.bandcamp.com/?from=search&search_item_id=3458032651&search_item_type=b&search_match_part=%3F&search_page_id=2244543721&search_page_no=0&search_rank=1&logged_out_menubar=true"
             target="_blank"
+            aria-label="Bandcamp Profile"
           >
             <FontAwesomeIcon
               className="icons"
@@ -121,6 +147,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://music.apple.com/gb/artist/adult-dvd/1550456447"
             target="_blank"
+            aria-label="Apple Music Profile"
           >
             <FontAwesomeIcon
               className="icons"
@@ -129,12 +156,16 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
               key="apple"
             />
           </a>
-          <a href="https://www.tiktok.com/@adultdvdmenu" target="_blank">
+          <a
+            href="https://www.tiktok.com/@adultdvdmenu"
+            target="_blank"
+            aria-label="TikTok Profile"
+          >
             <FontAwesomeIcon
               className="icons"
               icon={faTiktok}
               color={"white"}
-              key="apple"
+              key="tiktok"
             />
           </a>
         </div>
