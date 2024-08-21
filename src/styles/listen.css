@@ -13,13 +13,13 @@
   font-size: 20px;
   text-align: center;
   padding: 15px;
-  background-image: url(../images/wrinkle.jpg);
+  background-image: url(../images/wrinkle.webp);
   background-size: contain;
 }
 
 .inner-box-scroll-listen {
   border: 1.4pt solid;
-  border-image: url(../images/border.jpg) 30 round;
+  border-image: url(../images/border.webp) 30 round;
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 55vh;
@@ -31,7 +31,7 @@
 .inner-box-scroll-listen h3,
 .inner-box-scroll-listen h1,
 .inner-box-scroll-listen h2 {
-  background-image: url("../images/border.jpg"); /* Replace with your image URL */
+  background-image: url("../images/border.webp"); /* Replace with your image URL */
   background-size: 25px;
   background-clip: text;
   color: rgba(250, 89, 32, 0.5);
@@ -62,5 +62,5 @@
   font-size: 20px;
   text-transform: uppercase;
   border-bottom: solid 1.4pt;
-  border-image: url(../images/border.jpg) 30 round;
+  border-image: url(../images/border.webp) 30 round;
 }

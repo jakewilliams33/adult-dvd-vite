@@ -9,11 +9,11 @@ import {
   Loader,
 } from "@react-three/drei";
 import { Vector3, Color } from "three";
-import vinyl from "./images/vinyl.png";
-import vinylb from "./images/vinylb.png";
-import orangeNoise from "./images/border90.jpg";
-import rotate from "./images/rotate.png";
-import pause from "./images/pause.png";
+import vinyl from "./images/vinyl.webp";
+import vinylb from "./images/vinylb.webp";
+import orangeNoise from "./images/border90.webp";
+import rotate from "./images/rotate.webp";
+import pause from "./images/pause.webp";
 import "./styles/menu.css";
 import { HomePageSocials } from "./components/HomePageSocials";
 import {

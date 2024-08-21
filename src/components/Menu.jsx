@@ -2,7 +2,7 @@ import "../styles/menu.css";
 import { DvdBackground } from "./DvdBackground";
 import { AnimatePresence, motion } from "framer-motion";
 import { NavList } from "./NavList";
-import border from "../images/border.jpg";
+import border from "../images/border.webp";
 
 export const Menu = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
   const dropDown = {

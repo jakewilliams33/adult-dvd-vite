@@ -2,10 +2,10 @@ import React, { useRef, useState } from "react";
 import * as Yup from "yup";
 import "../styles/contact.css";
 import "../styles/postage-label.css";
-import ad from "../images/adorange.png";
-import envelope from "../images/envelopeorange.png";
-import monkey from "../images/monkeyorange.png";
-import barcode from "../images/barcode.png";
+import ad from "../images/adorange.webp";
+import envelope from "../images/envelopeorange.webp";
+import monkey from "../images/monkeyorange.webp";
+import barcode from "../images/barcode.webp";
 
 export const ContactPage = ({ opacity }) => {
   const form = useRef();

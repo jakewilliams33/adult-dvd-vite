@@ -5,7 +5,7 @@
   border-top: solid 1.4pt;
   border-left: solid 1.4pt;
   border-right: solid 1.4pt;
-  border-image: url(../images/border.jpg) 30 round;
+  border-image: url(../images/border.webp) 30 round;
 }
 
 .widget-container {
@@ -13,7 +13,7 @@
   margin: auto; /* Adjust margins for centering if needed */
   width: 80vw;
   max-width: 890px;
-  background-image: url(../images/wrinkle.jpg);
+  background-image: url(../images/wrinkle.webp);
   background-size: cover;
   text-align: center;
   text-transform: uppercase;
@@ -26,7 +26,7 @@
 /* Ensure inner content does not extend beyond parent */
 .inner-box-scroll-tour {
   border: 1.4pt solid;
-  border-image: url(../images/border.jpg) 30 round;
+  border-image: url(../images/border.webp) 30 round;
   overflow-y: scroll;
   overflow-x: hidden;
   height: 80vmin;

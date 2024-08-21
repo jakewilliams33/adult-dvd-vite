@@ -8,7 +8,7 @@
   width: 65vw;
   max-width: 400px;
   font-size: 15px;
-  background-image: url(../images/wrinkle.jpg);
+  background-image: url(../images/wrinkle.webp);
   background-size: cover;
   background-color: #ffffff;
   background-repeat: no-repeat;
@@ -24,7 +24,7 @@
 
 .inner-box-sign-up {
   border: 1.4pt solid;
-  border-image: url(../images/border.jpg) 30 round;
+  border-image: url(../images/border.webp) 30 round;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -37,7 +37,7 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: solid 1.4pt;
-  border-image: url(../images/border.jpg) 30 round;
+  border-image: url(../images/border.webp) 30 round;
 }
 
 @media screen and (max-width: 568px) {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ad from "../images/adorange.png";
-import envelope from "../images/envelopeorange.png";
-import monkey from "../images/monkeyorange.png";
-import barcode from "../images/barcode.png";
+import ad from "../images/adorange.webp";
+import envelope from "../images/envelopeorange.webp";
+import monkey from "../images/monkeyorange.webp";
+import barcode from "../images/barcode.webp";
 import "../styles/sign-up.css";
 import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";

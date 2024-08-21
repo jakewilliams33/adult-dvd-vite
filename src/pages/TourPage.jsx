@@ -3,9 +3,9 @@ import { useScript } from "../Hooks/useScript";
 import "../styles/tour.css";
 import "../styles/postage-label.css";
 import { motion } from "framer-motion";
-import ad from "../images/adorange.png";
-import envelope from "../images/envelopeorange.png";
-import monkey from "../images/monkeyorange.png";
+import ad from "../images/adorange.webp";
+import envelope from "../images/envelopeorange.webp";
+import monkey from "../images/monkeyorange.webp";
 
 export const TourPage = ({ slide }) => {
   const [loading, setLoading] = useState(true);

@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: solid 1.4pt;
-  border-image: url(../images/border.jpg) 30 round;
+  border-image: url(../images/border.webp) 30 round;
 }
 
 .custom-scroll::-webkit-scrollbar {
@@ -22,18 +22,18 @@
     0
   ); /* Background color of the scrollbar */
   border-left: 1.4pt solid;
-  border-image: url(../images/border.jpg) 30 round;
+  border-image: url(../images/border.webp) 30 round;
 }
 
 /* Optional: Customize the thumb (the draggable part of scrollbar) */
 .custom-scroll::-webkit-scrollbar-thumb {
-  background-image: url(../images/border.jpg);
+  background-image: url(../images/border.webp);
   background-repeat: repeat;
   background-size: 40px;
 }
 
 .dividers {
-  background-image: url(../images/border90.jpg);
+  background-image: url(../images/border90.webp);
   background-repeat: repeat;
   background-size: 10px;
   width: 100%;
@@ -46,7 +46,7 @@
 .inner-box h3,
 .inner-box h1,
 .inner-box h2 {
-  background-image: url("../images/border.jpg"); /* Replace with your image URL */
+  background-image: url("../images/border.webp"); /* Replace with your image URL */
   background-clip: text;
   color: rgba(250, 89, 32, 0.5);
   background-size: 25px;

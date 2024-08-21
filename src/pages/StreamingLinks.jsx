@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "../styles/listen.css";
-import ad from "../images/adorange.png";
-import monkey from "../images/monkeyorange.png";
+import ad from "../images/adorange.webp";
+import monkey from "../images/monkeyorange.webp";
 import "../styles/postage-label.css";
-import barcode from "../images/barcode.png";
-import envelope from "../images/envelopeorange.png";
+import barcode from "../images/barcode.webp";
+import envelope from "../images/envelopeorange.webp";
 
 const current = {
   spotify: "https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG",

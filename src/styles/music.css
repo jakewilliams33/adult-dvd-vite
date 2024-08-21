@@ -75,7 +75,7 @@
   vertical-align: middle;
   height: auto;
   border: 1pt solid;
-  border-image: url("../images/border.jpg") 30 round;
+  border-image: url("../images/border.webp") 30 round;
   box-sizing: border-box;
 }
 
