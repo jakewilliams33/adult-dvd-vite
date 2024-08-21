@@ -12,8 +12,8 @@ import { Vector3, Color } from "three";
 import vinyl from "./images/vinyl.webp";
 import vinylb from "./images/vinylb.webp";
 import orangeNoise from "./images/border90.webp";
-import rotate from "./images/rotate.webp";
-import pause from "./images/pause.webp";
+import rotate from "./images/arrow.png";
+import pause from "./images/pause.png";
 import "./styles/menu.css";
 import { HomePageSocials } from "./components/HomePageSocials";
 import {
@@ -200,9 +200,9 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
   };
 
   const imageVariants = {
-    initial: { transform: "translate(0px, 0px)", opacity: 0 },
-    animate: { opacity: 0.9, transition: { duration: 0.08 } },
-    exit: { width: "37px", opacity: 0.4, transition: { duration: 0.08 } },
+    initial: { opacity: 0 },
+    animate: { opacity: 0.9, transition: { duration: 0.04 } },
+    exit: { opacity: 0.4, transition: { duration: 0.04 } },
   };
 
   const StreamMesh = () => (
@@ -316,9 +316,15 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
               animate="animate"
               exit="exit"
               style={{
-                width: autoRotate ? "48px" : "42px",
-                bottom: 12,
-                left: 14,
+                width: autoRotate
+                  ? "min(max(16px, 1.8vmax), 30px)"
+                  : "min(max(23px, 2.4vmax), 40px)",
+                bottom: autoRotate
+                  ? "min(max(15px, 2vmin), 20px)"
+                  : "min(max(12px, 1.6vmin), 20px)",
+                left: autoRotate
+                  ? "min(max(15px, 2vmin), 18px)"
+                  : "min(max(12px, 1.6vmin), 18px)",
                 position: "fixed",
                 opacity: 0.9,
                 cursor: "pointer",

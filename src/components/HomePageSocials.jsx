@@ -10,9 +10,8 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../styles/loading-spinner.css";
-import { IoIosMail } from "react-icons/io";
 
-export const HomePageSocials = ({ setSignUpVisible }) => {
+export const HomePageSocials = () => {
   return (
     <>
       <div

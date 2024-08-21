@@ -11,7 +11,7 @@ body {
   -webkit-font-smoothing: antialiased;
   background-color: #303244;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("./images/background.webp"); /* Second layer for flipping */
+  background-image: url("./images/background.jpg"); /* Second layer for flipping */
   background-size: 600px; /* Adjust size as needed */
   background-repeat: repeat;
   -webkit-tap-highlight-color: transparent;
@@ -38,8 +38,8 @@ body {
   text-align: center;
   bottom: 8px;
   position: fixed;
-  right: 10px;
-  font-size: 0.5rem;
+  right: 12px;
+  font-size: min(max(10px, 2vmin), 25px);
   background-image: url("./images/border.webp"); /* Replace with your image URL */
   background-size: 25px;
   background-clip: text;
