@@ -289,8 +289,18 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
           <div className="loading-container">
             <div className="side-view"></div>
             <div className="image-container">
-              <img className="ringed-image-a" src={vinyl} alt="Loading" />
-              <img className="ringed-image-b" src={vinylb} alt="Loading" />
+              <img
+                loading="eager"
+                className="ringed-image-a"
+                src={vinyl}
+                alt="Loading"
+              />
+              <img
+                loading="eager"
+                className="ringed-image-b"
+                src={vinylb}
+                alt="Loading"
+              />
             </div>
             <p className="loading-text">
               loading <span className="dot dot1">.</span>
