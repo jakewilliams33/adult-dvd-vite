@@ -1,9 +1,15 @@
 ---
 releases:
-  - title: Doomsday Prepper
-    spotify: https://open.spotify.com/track/3TlEVaCa0rl1px2Z53c4dF?si=a6310e4b80364d74
-    image: /covers/nextDayShipping.png
+  - deezer: https://www.deezer.com/album/585414892
+    youtube: https://www.youtube.com/watch?v=FSlxpGUmM7A
+    amazon: https://music.amazon.co.uk/albums/B0D3MC3HHL
     displayOnMusicPage: yes
+    bandcamp: https://adultdvd.bandcamp.com/track/doomsday-prepper
+    title: Doomsday Prepper
+    tidal: https://tidal.com/browse/track/362103972
+    spotify: https://open.spotify.com/track/3TlEVaCa0rl1px2Z53c4dF?si=a6310e4b80364d74
+    apple: https://music.apple.com/gb/album/doomsday-prepper-single/1745816859?app=music
+    image: /covers/nextDayShipping.png
   - deezer: https://www.deezer.com/track/2796291782
     youtube: https://music.youtube.com/watch?v=jJZYw-5AazU
     amazon: https://music.amazon.co.uk/albums/B0D3LXCJ6J?trackAsin=B0D3LZCSLB
@@ -14,22 +20,25 @@ releases:
     spotify: https://open.spotify.com/track/2vu2pw4QatuiP6w3JO8XHT
     apple: https://music.apple.com/gb/album/7-foot-1/1745766006?i=1745766007&app=music
     image: /covers/nextDayShipping.png
-  - title: Fountain of Youth
+  - deezer: https://deezer.page.link/fjQtwDTi4HFWQwgL9
+    youtube: https://www.youtube.com/watch?v=qdm71bGijcg
+    amazon: https://music.amazon.co.uk/albums/B0BVP1JPCF?trackAsin=B0BVPTKMYY
+    displayOnMusicPage: yes
+    title: Fountain of Youth
+    tidal: https://listen.tidal.com/album/276474181/track/276474182
     spotify: https://open.spotify.com/track/7aMCvb9GLrvbwHA3P2evFj?si=de3b906e4fed40a3
     apple: https://music.apple.com/gb/album/fountain-of-youth/1678326386?i=1678326387
-    tidal: https://listen.tidal.com/album/276474181/track/276474182
-    amazon: https://music.amazon.co.uk/albums/B0BVP1JPCF?trackAsin=B0BVPTKMYY
     image: /covers/fountainOfYouth.png
+  - deezer: https://deezer.page.link/bLXmf9fnpF6sWg8q8
+    youtube: https://www.youtube.com/watch?v=i7MhVu4FPp8
+    amazon: https://music.amazon.co.uk/albums/B0BRJYMY66?trackAsin=B0BRJYP213
     displayOnMusicPage: yes
-    deezer: https://deezer.page.link/fjQtwDTi4HFWQwgL9
-  - title: Sadman Mancave
+    bandcamp: https://adultdvd.bandcamp.com/track/sadman-mancave
+    title: Sadman Mancave
+    tidal: https://listen.tidal.com/album/269560377/track/269560378
     spotify: https://open.spotify.com/track/3ap3V9N1KDlNlE7nV53iCx?si=8783ef5393f34e0d
     apple: https://music.apple.com/gb/album/sadman-mancave/1662396497?i=1662396498
-    tidal: https://listen.tidal.com/album/269560377/track/269560378
-    amazon: https://music.amazon.co.uk/albums/B0BRJYMY66?trackAsin=B0BRJYP213
     image: /covers/sadmanMancave.jpg
-    displayOnMusicPage: yes
-    deezer: https://deezer.page.link/bLXmf9fnpF6sWg8q8
   - deezer: https://deezer.page.link/wNUvM3tiQAWV6Fy97
     youtube: https://www.youtube.com/watch?v=9R5_eZ-E_r0
     amazon: https://music.amazon.co.uk/albums/B0BNM24Y2Y?trackAsin=B0BNLZPMQL
@@ -57,13 +66,14 @@ releases:
     title: role models - ADULT DVD remix
     tidal: https://listen.tidal.com/track/249264056
     spotify: https://open.spotify.com/track/0Y4UrlRUESco26ddxbNBEL
+    apple: https://music.apple.com/gb/album/role-models/1646136361?i=1646136368
     image: /covers/roleModels.jpg
   - deezer: https://www.deezer.com/en/album/539232442
     youtube: https://www.youtube.com/watch?v=OL7eKOQEGPE
     amazon: https://music.amazon.com/albums/B09H286BJ5
     soundcloud: https://soundcloud.com/adultdvd/hoarder?id=1132376053
     displayOnMusicPage: yes
-    bandcamp: https://cpwm.bandcamp.com/track/hoarder-2
+    bandcamp: https://adultdvd.bandcamp.com/track/hoarder
     title: Hoarder
     tidal: https://listen.tidal.com/track/198597860
     spotify: https://open.spotify.com/track/1Tf7pxHdJqYAwSsQtUU3Ti
