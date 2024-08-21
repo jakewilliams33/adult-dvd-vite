@@ -20,6 +20,16 @@ releases:
     spotify: https://open.spotify.com/track/2vu2pw4QatuiP6w3JO8XHT
     apple: https://music.apple.com/gb/album/7-foot-1/1745766006?i=1745766007&app=music
     image: /covers/nextDayShipping.webp
+  - deezer: https://www.deezer.com/album/498032541
+    youtube: https://www.youtube.com/watch?v=JTGJxCEU-CI
+    amazon: https://music.amazon.co.uk/albums/B0CKS16GYV
+    displayOnMusicPage: yes
+    bandcamp: https://adultdvd.bandcamp.com/track/yacht-money
+    title: "Yacht Money "
+    tidal: https://tidal.com/browse/track/320756655
+    spotify: https://open.spotify.com/album/7kY0EWaq3UcUhkUi5fxwb6
+    apple: https://music.apple.com/gb/album/yacht-money-single/1711101720?app=music
+    image: /covers/yacht-money.webp
   - deezer: https://deezer.page.link/fjQtwDTi4HFWQwgL9
     youtube: https://www.youtube.com/watch?v=qdm71bGijcg
     amazon: https://music.amazon.co.uk/albums/B0BVP1JPCF?trackAsin=B0BVPTKMYY
