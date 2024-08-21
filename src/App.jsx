@@ -13,7 +13,7 @@ import { Store } from "./pages/Store";
 import { PageNotFound } from "./pages/PageNotFound";
 
 const App = () => {
-  const glbUrl = "/modelColored.glb"; // Replace with your actual GLB file path
+  const glbUrl = "/model.glb"; // Replace with your actual GLB file path
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const [signUpVisible, setSignUpVisible] = useState(false);
