@@ -303,6 +303,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
         {!loading && (
           <AnimatePresence mode="wait">
             <motion.img
+              alt="rotate"
               key={autoRotate ? "pause" : "rotate"}
               onClick={handleToggleAutoRotate}
               src={autoRotate ? pause : rotate}
