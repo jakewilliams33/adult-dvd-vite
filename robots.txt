@@ -1,2 +1,4 @@
 User-agent: *
-Disallow:
+Disallow: /streaming_links/
+
+Sitemap: https://adult-dvd.netlify.app/sitemap.xml
