@@ -22,14 +22,18 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
     <nav className="list">
       <ul>
         <li style={{ color: "white" }}>
-          <Link style={{ textDecoration: "none" }} onClick={handleClose} to="/">
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            onClick={handleClose}
+            to="/"
+          >
             HOME
           </Link>
         </li>
         <li style={{ color: "white" }}>
           <Link
             onClick={handleClose}
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", color: "white" }}
             to="store"
           >
             STORE
@@ -37,7 +41,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
         </li>
         <li style={{ color: "white" }}>
           <Link
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", color: "white" }}
             onClick={handleClose}
             to="tour"
           >
@@ -46,7 +50,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
         </li>
         <li style={{ color: "white" }}>
           <Link
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", color: "white" }}
             onClick={handleClose}
             to="music"
           >
@@ -62,7 +66,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
         </li>
         <li style={{ color: "white" }}>
           <Link
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", color: "white" }}
             onClick={handleClose}
             to="contact"
           >
