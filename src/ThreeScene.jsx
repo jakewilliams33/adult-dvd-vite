@@ -232,7 +232,10 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
       rotation={[0, 1.57, 0]}
       onPointerDown={handlePointerDown}
       onPointerUp={() =>
-        handlePointerUp("https://adultdvd.bandcamp.com/merch", "_blank")
+        handlePointerUp(
+          "https://adultdvd.bandcamp.com/album/next-day-shipping",
+          "_blank"
+        )
       }
       onPointerOver={handlePointerOver("preorder")}
       onPointerOut={handlePointerOut}
