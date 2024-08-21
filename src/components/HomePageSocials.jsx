@@ -32,21 +32,33 @@ export const HomePageSocials = ({ setSignUpVisible }) => {
             alignItems: "center",
           }}
         >
-          <a href="fb://page/105580344839479" target="_blank">
+          <a
+            href="fb://page/105580344839479"
+            target="_blank"
+            aria-label="Facebook Page"
+          >
             <FontAwesomeIcon
               className="icons-home"
               icon={faFacebook}
               key="facebook"
             />
           </a>
-          <a href="https://www.instagram.com/adultdvdmenu/" target="_blank">
+          <a
+            href="https://www.instagram.com/adultdvdmenu/"
+            target="_blank"
+            aria-label="Instagram Profile"
+          >
             <FontAwesomeIcon
               className="icons-home"
               icon={faInstagram}
               key="instagram"
             />
           </a>
-          <a href="https://twitter.com/DvdAdult" target="_blank">
+          <a
+            href="https://twitter.com/DvdAdult"
+            target="_blank"
+            aria-label="Twitter Profile"
+          >
             <FontAwesomeIcon
               className="icons-home"
               icon={faTwitter}
@@ -56,6 +68,7 @@ export const HomePageSocials = ({ setSignUpVisible }) => {
           <a
             href="https://www.youtube.com/channel/UCmGiw0z6dRClNlIFMCnS8Zw"
             target="_blank"
+            aria-label="YouTube Channel"
           >
             <FontAwesomeIcon
               className="icons-home"
@@ -66,6 +79,7 @@ export const HomePageSocials = ({ setSignUpVisible }) => {
           <a
             href="https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG?si=G6ESp6laRuyyfr8QzaV4wQ"
             target="_blank"
+            aria-label="Spotify Profile"
           >
             <FontAwesomeIcon
               className="icons-home"
@@ -76,6 +90,7 @@ export const HomePageSocials = ({ setSignUpVisible }) => {
           <a
             href="https://adultdvd.bandcamp.com/?from=search&search_item_id=3458032651&search_item_type=b&search_match_part=%3F&search_page_id=2244543721&search_page_no=0&search_rank=1&logged_out_menubar=true"
             target="_blank"
+            aria-label="Bandcamp Profile"
           >
             <FontAwesomeIcon
               className="icons-home"
@@ -86,6 +101,7 @@ export const HomePageSocials = ({ setSignUpVisible }) => {
           <a
             href="https://music.apple.com/gb/artist/adult-dvd/1550456447"
             target="_blank"
+            aria-label="Apple Music Profile"
           >
             <FontAwesomeIcon
               className="icons-home"
@@ -93,11 +109,15 @@ export const HomePageSocials = ({ setSignUpVisible }) => {
               key="apple"
             />
           </a>
-          <a href="https://www.tiktok.com/@adultdvdmenu" target="_blank">
+          <a
+            href="https://www.tiktok.com/@adultdvdmenu"
+            target="_blank"
+            aria-label="TikTok Profile"
+          >
             <FontAwesomeIcon
               className="icons-home"
               icon={faTiktok}
-              key="apple"
+              key="tiktok"
             />
           </a>
         </div>

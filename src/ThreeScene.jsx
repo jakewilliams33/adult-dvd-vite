@@ -20,7 +20,6 @@ import {
   Bloom,
   BrightnessContrast,
   EffectComposer,
-  HueSaturation,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 
