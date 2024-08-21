@@ -6,6 +6,7 @@ import ad from "../images/adorange.webp";
 import envelope from "../images/envelopeorange.webp";
 import monkey from "../images/monkeyorange.webp";
 import barcode from "../images/barcode.webp";
+import { Helmet } from "react-helmet-async";
 
 export const ContactPage = ({ opacity }) => {
   const form = useRef();
@@ -99,6 +100,10 @@ export const ContactPage = ({ opacity }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Contact</title>
+        <meta name="description" content="Contact Form" />
+      </Helmet>
       <div>
         <div className={sent ? "sent" : "form-container"}>
           <div className="inner-box inner-box-scroll-contact custom-scroll">

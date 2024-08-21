@@ -23,6 +23,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
       <ul>
         <li style={{ color: "white" }}>
           <Link
+            aria-label="Home"
             style={{ textDecoration: "none", color: "white" }}
             onClick={handleClose}
             to="/"
@@ -32,6 +33,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
         </li>
         <li style={{ color: "white" }}>
           <Link
+            aria-label="Store"
             onClick={handleClose}
             style={{ textDecoration: "none", color: "white" }}
             to="store"
@@ -41,6 +43,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
         </li>
         <li style={{ color: "white" }}>
           <Link
+            aria-label="Tour"
             style={{ textDecoration: "none", color: "white" }}
             onClick={handleClose}
             to="tour"
@@ -50,6 +53,7 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
         </li>
         <li style={{ color: "white" }}>
           <Link
+            aria-label="Music"
             style={{ textDecoration: "none", color: "white" }}
             onClick={handleClose}
             to="music"
@@ -61,11 +65,13 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
         <li
           style={{ cursor: "pointer" }}
           onClick={() => setSignUpVisible(true)}
+          aria-label="Sign Up"
         >
           SIGN UP
         </li>
         <li style={{ color: "white" }}>
           <Link
+            aria-label="Contact"
             style={{ textDecoration: "none", color: "white" }}
             onClick={handleClose}
             to="contact"

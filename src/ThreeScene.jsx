@@ -22,6 +22,7 @@ import {
   EffectComposer,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
+import { Helmet } from "react-helmet-async";
 
 // OrangeTexture Component
 function OrangeTexture() {
@@ -283,6 +284,10 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Home</title>
+        <meta name="description" content="Home Page" />
+      </Helmet>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
         {loading && (
           <div className="loading-container">

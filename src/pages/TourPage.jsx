@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useScript } from "../Hooks/useScript";
 import "../styles/tour.css";
 import "../styles/postage-label.css";
-import { motion } from "framer-motion";
 import ad from "../images/adorange.webp";
 import envelope from "../images/envelopeorange.webp";
 import monkey from "../images/monkeyorange.webp";
+import { Helmet } from "react-helmet-async";
 
 export const TourPage = ({ slide }) => {
   const [loading, setLoading] = useState(true);
@@ -25,13 +25,11 @@ export const TourPage = ({ slide }) => {
   }, []);
 
   return (
-    <motion.div
-      variants={slide}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={{ duration: 0.3 }}
-    >
+    <>
+      <Helmet>
+        <title>Tour</title>
+        <meta name="description" content="Tour Dates" />
+      </Helmet>
       <section className="widget-parent">
         <div className="widget-container">
           <div style={{ width: "100%" }}>
@@ -137,6 +135,6 @@ export const TourPage = ({ slide }) => {
           </div>
         </div>
       </section>
-    </motion.div>
+    </>
   );
 };
