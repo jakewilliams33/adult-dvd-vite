@@ -282,6 +282,16 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
     </mesh>
   );
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <>
       <Helmet>

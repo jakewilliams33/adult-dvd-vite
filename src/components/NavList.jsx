@@ -62,12 +62,15 @@ export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
           </Link>
         </li>
 
-        <li
-          style={{ cursor: "pointer" }}
-          onClick={() => setSignUpVisible(true)}
-          aria-label="Sign Up"
-        >
-          SIGN UP
+        <li style={{ color: "white" }}>
+          <Link
+            aria-label="Sign Up"
+            style={{ textDecoration: "none", color: "white" }}
+            onClick={() => setSignUpVisible(true)}
+            to="#"
+          >
+            SIGN UP
+          </Link>
         </li>
         <li style={{ color: "white" }}>
           <Link

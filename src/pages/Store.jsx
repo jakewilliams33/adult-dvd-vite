@@ -2,7 +2,6 @@ import axios from "axios";
 import { load } from "cheerio"; // Import load instead of cheerio
 import React, { useEffect, useState } from "react";
 import "../styles/items-for-sale.css";
-import { Helmet } from "react-helmet-async";
 
 const url =
   "https://corsproxy.io/?" +
@@ -27,7 +26,10 @@ const fetchItemsForSale = async () => {
         ? $(element).find(".sold-out").text().trim()
         : $(element).find(".price .price").text().trim();
       const imageUrl =
-        $(element).find(".art img").attr("src").slice(0, -6) + "10.jpg";
+        $(element).find(".art img").attr("src").slice(-3) === "gif"
+          ? $(element).find(".art img").attr("data-original").slice(0, -6) +
+            "10.jpg"
+          : $(element).find(".art img").attr("src").slice(0, -6) + "10.jpg";
       const itemUrl = `https://adultdvd.bandcamp.com${$(element)
         .find("a")
         .attr("href")}`;
@@ -57,51 +59,45 @@ export const Store = () => {
   }, []);
 
   return (
-    <>
-      <Helmet>
-        <title>Merch</title>
-        <meta name="description" content="Merch" />
-      </Helmet>
-      <div className="container">
-        <div className="items-container">
-          {items.map((item, index) => (
-            <a
-              className="item-link"
-              target="_blank"
-              href={item.itemUrl}
-              key={index}
-            >
-              <div className="item-image-container">
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="item-image"
-                />
-              </div>
-              <div className="item-info">
-                <h2 className="item-title">{item.title}</h2>
-                <p
-                  style={{
-                    fontSize: "0.7rem",
-                    fontFamily: "arial",
-                    margin: "4px 0 4px 0",
-                  }}
-                >
-                  {item.merchType || "Other"}
-                </p>
-                <p
-                  style={{
-                    color: item.price === "Sold Out" ? "red" : "",
-                  }}
-                  className="item-price"
-                >
-                  {item.price}
-                </p>
-              </div>
-            </a>
-          ))}
-        </div>
+    <div className="container">
+      <div className="items-container">
+        {items.map((item, index) => (
+          <a
+            className="item-link"
+            target="_blank"
+            href={item.itemUrl}
+            key={index}
+          >
+            <div className="item-image-container">
+              <img
+                src={item.imageUrl}
+                alt={item.title}
+                className="item-image"
+              />
+            </div>
+            <div className="item-info">
+              <h2 className="item-title">{item.title}</h2>
+              <p
+                style={{
+                  fontSize: "0.7rem",
+                  fontFamily: "arial",
+                  margin: "4px 0 4px 0",
+                }}
+              >
+                {item.merchType || "Other"}
+              </p>
+              <p
+                style={{
+                  color: item.price === "Sold Out" ? "red" : "",
+                }}
+                className="item-price"
+              >
+                {item.price}
+              </p>
+            </div>
+          </a>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
