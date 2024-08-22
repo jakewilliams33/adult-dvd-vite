@@ -14,7 +14,7 @@ export const MusicPage = ({ slide }) => {
     <>
       <Helmet>
         <title>Music</title>
-        <meta name="description" content="Music" />
+        <meta name="description" content="Discography" />
       </Helmet>
       <motion.div
         variants={slide}
