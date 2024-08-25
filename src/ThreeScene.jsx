@@ -194,8 +194,10 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
     if (touchDuration < maxTouchDuration) {
       if (url === "signup") {
         setSignUpVisible(true);
+        handlePointerOut();
       } else {
         window.open(url, tab);
+        handlePointerOut();
       }
     }
   };
