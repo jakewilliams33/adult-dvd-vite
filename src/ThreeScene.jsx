@@ -282,187 +282,177 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
     </mesh>
   );
 
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    // Check if window object is available to ensure it's client-side
-    if (typeof window !== "undefined") {
-      setIsClient(true);
-    }
-  }, []);
   return (
     <>
       <Helmet>
         <title>Home</title>
-        <meta name="description" content="Home Page" />
+        <meta name="robots" content="noindex" />
       </Helmet>
-      {isClient && (
-        <div style={{ width: "100%", height: "100vh", position: "relative" }}>
-          {loading && (
-            <div className="loading-container">
-              <div className="side-view"></div>
-              <div className="image-container">
-                <img
-                  loading="eager"
-                  className="ringed-image-a"
-                  src={vinyl}
-                  alt="Loading"
-                />
-                <img className="ringed-image-b" src={vinylb} alt="Loading" />
-              </div>
-              <p className="loading-text">
-                loading <span className="dot dot1">.</span>
-                <span className="dot dot2">.</span>
-                <span className="dot dot3">.</span>
-              </p>
+      <div style={{ width: "100%", height: "100vh", position: "relative" }}>
+        {loading && (
+          <div className="loading-container">
+            <div className="side-view"></div>
+            <div className="image-container">
+              <img
+                loading="eager"
+                className="ringed-image-a"
+                src={vinyl}
+                alt="Loading"
+              />
+              <img className="ringed-image-b" src={vinylb} alt="Loading" />
             </div>
-          )}
-
-          {!loading && (
-            <AnimatePresence mode="wait">
-              <motion.img
-                alt="rotate"
-                key={autoRotate ? "pause" : "rotate"}
-                onClick={handleToggleAutoRotate}
-                src={autoRotate ? pause : rotate}
-                variants={imageVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                style={{
-                  width: autoRotate
-                    ? "min(max(16px, 1.8vmax), 30px)"
-                    : "min(max(23px, 2.4vmax), 40px)",
-                  bottom: autoRotate
-                    ? "min(max(15px, 2vmin), 20px)"
-                    : "min(max(12px, 1.6vmin), 20px)",
-                  left: autoRotate
-                    ? "min(max(15px, 2vmin), 18px)"
-                    : "min(max(12px, 1.6vmin), 18px)",
-                  position: "fixed",
-                  opacity: 0.9,
-                  cursor: "pointer",
-                  zIndex: 200,
-                }}
-              />
-            </AnimatePresence>
-          )}
-          <div style={{ opacity: ready ? 1 : 0 }}>
-            <p className="date">OUT 16/09/2024</p>
-            <Canvas
-              shadows
-              style={{ position: "absolute", top: 0, left: 0 }}
-              camera={{
-                position: [6, 0.1, 1.7],
-                fov: 25,
-              }}
-            >
-              <ambientLight intensity={0.4} />
-              <MainLight />
-              <SecondaryLight />
-              <Model url={glbUrl} setLoading={setLoading} />
-
-              <Text
-                scale={0.25}
-                color="#eddda8" // Change color based on hover state
-                position={[1.06, -0.9, -0.7]}
-                rotation={[0, 1.57, 0]}
-                fillOpacity={1}
-                fontWeight="bold"
-                font="/fonts/Sequel100Black-75.ttf"
-                strokeOpacity={hovered === "stream" ? 1 : 0}
-                strokeColor="white"
-                strokeWidth={hovered === "stream" ? 0.046 : 0}
-              >
-                <OrangeTexture></OrangeTexture>
-                STREAM
-              </Text>
-              <StreamMesh />
-
-              <Text
-                scale={0.22}
-                color="#eddda8" // Change color based on hover state
-                position={[2.152, -1.3, -2.1]}
-                rotation={[0, 1.3, 0]}
-                fillOpacity={1}
-                fontWeight="bold"
-                font="/fonts/Sequel100Black-75.ttf"
-                strokeOpacity={hovered === "signup" ? 1 : 0}
-                strokeColor="white"
-                strokeWidth={hovered === "signup" ? 0.046 : 0}
-              >
-                <OrangeTexture></OrangeTexture>
-                SIGN
-              </Text>
-              <Text
-                scale={0.22}
-                color="#eddda8" // Change color based on hover state
-                position={[2.152, -1.6, -2.1]}
-                rotation={[0, 1.3, 0]}
-                fillOpacity={1}
-                fontWeight="bold"
-                font="/fonts/Sequel100Black-75.ttf"
-                strokeOpacity={hovered === "signup" ? 1 : 0}
-                strokeColor="white"
-                strokeWidth={hovered === "signup" ? 0.046 : 0}
-              >
-                <OrangeTexture></OrangeTexture>
-                UP
-              </Text>
-              <SignUpMesh />
-              <Text
-                scale={0.22}
-                color="#eddda8" // Change color based on hover state
-                position={[0.75, -1.6, 2]}
-                rotation={[0, 2.08, 0]}
-                fillOpacity={1}
-                fontWeight="bold"
-                font="/fonts/Sequel100Black-75.ttf"
-                strokeOpacity={hovered === "tour" ? 1 : 0}
-                strokeColor="white"
-                strokeWidth={hovered === "tour" ? 0.046 : 0}
-              >
-                <OrangeTexture></OrangeTexture>
-                TOUR
-              </Text>
-              <TourMesh />
-              <Text
-                scale={0.25}
-                color="#eddda8" // Change color based on hover state
-                position={[-0.38, -0.9, 1.58]}
-                rotation={[0, 1.559, 0]}
-                fillOpacity={1}
-                fontWeight="bold"
-                font="/fonts/Sequel100Black-75.ttf"
-                strokeOpacity={hovered === "preorder" ? 1 : 0}
-                strokeColor="white"
-                strokeWidth={hovered === "preorder" ? 0.046 : 0}
-              >
-                <OrangeTexture></OrangeTexture>
-                PREORDER
-              </Text>
-
-              <ProrderMesh />
-
-              <CameraControlsAndResponsive
-                setReady={setReady}
-                autoRotate={autoRotate}
-              />
-
-              <EffectComposer>
-                <BrightnessContrast brightness={0.04} contrast={0.2} />
-                <Bloom
-                  blendFunction={BlendFunction.EXCLUSION}
-                  intensity={5}
-                  threshold={0.1}
-                />
-              </EffectComposer>
-            </Canvas>
+            <p className="loading-text">
+              loading <span className="dot dot1">.</span>
+              <span className="dot dot2">.</span>
+              <span className="dot dot3">.</span>
+            </p>
           </div>
-          <Loader />
-          <HomePageSocials setSignUpVisible={setSignUpVisible} />
+        )}
+
+        {!loading && (
+          <AnimatePresence mode="wait">
+            <motion.img
+              alt="rotate"
+              key={autoRotate ? "pause" : "rotate"}
+              onClick={handleToggleAutoRotate}
+              src={autoRotate ? pause : rotate}
+              variants={imageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              style={{
+                width: autoRotate
+                  ? "min(max(16px, 1.8vmax), 30px)"
+                  : "min(max(23px, 2.4vmax), 40px)",
+                bottom: autoRotate
+                  ? "min(max(15px, 2vmin), 20px)"
+                  : "min(max(12px, 1.6vmin), 20px)",
+                left: autoRotate
+                  ? "min(max(15px, 2vmin), 18px)"
+                  : "min(max(12px, 1.6vmin), 18px)",
+                position: "fixed",
+                opacity: 0.9,
+                cursor: "pointer",
+                zIndex: 200,
+              }}
+            />
+          </AnimatePresence>
+        )}
+        <div style={{ opacity: ready ? 1 : 0 }}>
+          <p className="date">OUT 16/09/2024</p>
+          <Canvas
+            shadows
+            style={{ position: "absolute", top: 0, left: 0 }}
+            camera={{
+              position: [6, 0.1, 1.7],
+              fov: 25,
+            }}
+          >
+            <ambientLight intensity={0.4} />
+            <MainLight />
+            <SecondaryLight />
+            <Model url={glbUrl} setLoading={setLoading} />
+
+            <Text
+              scale={0.25}
+              color="#eddda8" // Change color based on hover state
+              position={[1.06, -0.9, -0.7]}
+              rotation={[0, 1.57, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "stream" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "stream" ? 0.046 : 0}
+            >
+              <OrangeTexture></OrangeTexture>
+              STREAM
+            </Text>
+            <StreamMesh />
+
+            <Text
+              scale={0.22}
+              color="#eddda8" // Change color based on hover state
+              position={[2.152, -1.3, -2.1]}
+              rotation={[0, 1.3, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "signup" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "signup" ? 0.046 : 0}
+            >
+              <OrangeTexture></OrangeTexture>
+              SIGN
+            </Text>
+            <Text
+              scale={0.22}
+              color="#eddda8" // Change color based on hover state
+              position={[2.152, -1.6, -2.1]}
+              rotation={[0, 1.3, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "signup" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "signup" ? 0.046 : 0}
+            >
+              <OrangeTexture></OrangeTexture>
+              UP
+            </Text>
+            <SignUpMesh />
+            <Text
+              scale={0.22}
+              color="#eddda8" // Change color based on hover state
+              position={[0.75, -1.6, 2]}
+              rotation={[0, 2.08, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "tour" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "tour" ? 0.046 : 0}
+            >
+              <OrangeTexture></OrangeTexture>
+              TOUR
+            </Text>
+            <TourMesh />
+            <Text
+              scale={0.25}
+              color="#eddda8" // Change color based on hover state
+              position={[-0.38, -0.9, 1.58]}
+              rotation={[0, 1.559, 0]}
+              fillOpacity={1}
+              fontWeight="bold"
+              font="/fonts/Sequel100Black-75.ttf"
+              strokeOpacity={hovered === "preorder" ? 1 : 0}
+              strokeColor="white"
+              strokeWidth={hovered === "preorder" ? 0.046 : 0}
+            >
+              <OrangeTexture></OrangeTexture>
+              PREORDER
+            </Text>
+
+            <ProrderMesh />
+
+            <CameraControlsAndResponsive
+              setReady={setReady}
+              autoRotate={autoRotate}
+            />
+
+            <EffectComposer>
+              <BrightnessContrast brightness={0.04} contrast={0.2} />
+              <Bloom
+                blendFunction={BlendFunction.EXCLUSION}
+                intensity={5}
+                threshold={0.1}
+              />
+            </EffectComposer>
+          </Canvas>
         </div>
-      )}
+        <Loader />
+        <HomePageSocials setSignUpVisible={setSignUpVisible} />
+      </div>
     </>
   );
 };
