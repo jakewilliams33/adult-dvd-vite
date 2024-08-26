@@ -285,10 +285,7 @@ export const ThreeScene = ({ setSignUpVisible }) => {
 
   return (
     <>
-      <div
-        data-nosnippet
-        style={{ width: "100%", height: "100vh", position: "relative" }}
-      >
+      <div style={{ width: "100%", height: "100vh", position: "relative" }}>
         {loading && <LoadingText />}
 
         {!loading && (
