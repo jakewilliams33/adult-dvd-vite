@@ -5,10 +5,6 @@ import vinylb from "../images/vinylb.webp";
 export const LoadingText = () => {
   return (
     <>
-      <Helmet>
-        <title>Home</title>
-        <meta name="robots" content="noindex" />
-      </Helmet>
       <div className="loading-container">
         <div className="side-view"></div>
         <div className="image-container">
