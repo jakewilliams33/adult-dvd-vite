@@ -21,6 +21,7 @@ export const HomePageSocials = () => {
           height: "min(max(330px,50vw), 86%)",
           left: "12px",
           marginTop: "12px",
+          zIndex: 100,
         }}
       >
         <div

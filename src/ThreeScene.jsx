@@ -9,13 +9,10 @@ import {
   Loader,
 } from "@react-three/drei";
 import { Vector3, Color } from "three";
-import vinyl from "./images/vinyl.webp";
-import vinylb from "./images/vinylb.webp";
 import orangeNoise from "./images/border90.webp";
 import rotate from "./images/arrow.png";
 import pause from "./images/pause.png";
 import "./styles/menu.css";
-import { HomePageSocials } from "./components/HomePageSocials";
 import {
   Bloom,
   BrightnessContrast,
@@ -23,6 +20,7 @@ import {
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { Helmet } from "react-helmet-async";
+import { LoadingText } from "./components/LoadingText";
 
 // OrangeTexture Component
 function OrangeTexture() {
@@ -157,12 +155,14 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
 };
 
 // ThreeScene Component
-const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
+export const ThreeScene = ({ setSignUpVisible }) => {
   const [loading, setLoading] = useState(true);
   const [autoRotate, setAutoRotate] = useState(false);
   const [hovered, setHovered] = useState(null); // Change to track which text is hovered
   const [touchStartTime, setTouchStartTime] = useState(null);
   const [ready, setReady] = useState(false);
+
+  const glbUrl = "/model.glb"; // Replace with your actual GLB file path
 
   const maxTouchDuration = 150; // Maximum duration for a short touch in ms
 
@@ -200,12 +200,6 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
         handlePointerOut();
       }
     }
-  };
-
-  const imageVariants = {
-    initial: { opacity: 0 },
-    animate: { opacity: 0.9, transition: { duration: 0.04 } },
-    exit: { opacity: 0.4, transition: { duration: 0.04 } },
   };
 
   const StreamMesh = () => (
@@ -284,6 +278,12 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
     </mesh>
   );
 
+  const imageVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 0.9, transition: { duration: 0.04 } },
+    exit: { opacity: 0.4, transition: { duration: 0.04 } },
+  };
+
   return (
     <>
       <Helmet>
@@ -291,25 +291,7 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
         <meta name="robots" content="noindex" />
       </Helmet>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
-        {loading && (
-          <div className="loading-container">
-            <div className="side-view"></div>
-            <div className="image-container">
-              <img
-                loading="eager"
-                className="ringed-image-a"
-                src={vinyl}
-                alt="Loading"
-              />
-              <img className="ringed-image-b" src={vinylb} alt="Loading" />
-            </div>
-            <p className="loading-text">
-              loading <span className="dot dot1">.</span>
-              <span className="dot dot2">.</span>
-              <span className="dot dot3">.</span>
-            </p>
-          </div>
-        )}
+        {loading && <LoadingText />}
 
         {!loading && (
           <AnimatePresence mode="wait">
@@ -453,7 +435,6 @@ const ThreeScene = ({ glbUrl, setSignUpVisible }) => {
           </Canvas>
         </div>
         <Loader />
-        <HomePageSocials setSignUpVisible={setSignUpVisible} />
       </div>
     </>
   );

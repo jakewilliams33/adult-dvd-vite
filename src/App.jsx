@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import ThreeScene from "./ThreeScene";
+import { HomePage } from "./pages/HomePage";
 import { MenuButton } from "./components/MenuButton";
 import { Menu } from "./components/Menu";
 import { MusicPage } from "./pages/MusicPage";
@@ -13,7 +13,6 @@ import { Store } from "./pages/Store";
 import { PageNotFound } from "./pages/PageNotFound";
 
 const App = () => {
-  const glbUrl = "/model.glb"; // Replace with your actual GLB file path
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const [signUpVisible, setSignUpVisible] = useState(false);
@@ -49,12 +48,7 @@ const App = () => {
             <Route
               exact
               path={"/"}
-              element={
-                <ThreeScene
-                  glbUrl={glbUrl}
-                  setSignUpVisible={setSignUpVisible}
-                />
-              }
+              element={<HomePage setSignUpVisible={setSignUpVisible} />}
             />
             <Route exact path={"/music"} element={<MusicPage />} />
             <Route exact path={"/tour"} element={<TourPage />} />
