@@ -19,7 +19,6 @@ import {
   EffectComposer,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
-import { Helmet } from "react-helmet-async";
 import { LoadingText } from "./components/LoadingText";
 
 // OrangeTexture Component
@@ -286,10 +285,6 @@ export const ThreeScene = ({ setSignUpVisible }) => {
 
   return (
     <>
-      <Helmet>
-        <title>Home</title>
-        <meta name="robots" content="noindex" />
-      </Helmet>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
         {loading && <LoadingText />}
 

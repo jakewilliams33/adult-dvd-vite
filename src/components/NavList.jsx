@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const NavList = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
+export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
   const handleClose = () => {
     setMenuOpen(false);
     document.body.style.overflow = "visible";
