@@ -174,7 +174,7 @@ export const ContactPage = ({ opacity }) => {
               <input type="hidden" name="form-name" value="contact" />
               <div style={{ display: "none" }}>
                 <label>
-                  Don’t fill this out: <input name="bot-field" />
+                  <input name="bot-field" />
                 </label>
               </div>
               <div
