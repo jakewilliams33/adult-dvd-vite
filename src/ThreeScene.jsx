@@ -318,7 +318,7 @@ export const ThreeScene = ({ setSignUpVisible }) => {
           </AnimatePresence>
         )}
         <div style={{ opacity: ready ? 1 : 0 }}>
-          <p className="date">OUT 16/09/2024</p>
+          <p className="date">NEXT DAY SHIPPING EP - OUT NOW</p>
           <Canvas
             shadows
             style={{ position: "absolute", top: 0, left: 0 }}
@@ -409,7 +409,7 @@ export const ThreeScene = ({ setSignUpVisible }) => {
               strokeWidth={hovered === "preorder" ? 0.046 : 0}
             >
               <OrangeTexture></OrangeTexture>
-              VINYL
+              BUY VINYL
             </Text>
 
             <ProrderMesh />
