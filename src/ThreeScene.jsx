@@ -409,7 +409,7 @@ export const ThreeScene = ({ setSignUpVisible }) => {
               strokeWidth={hovered === "preorder" ? 0.046 : 0}
             >
               <OrangeTexture></OrangeTexture>
-              PREORDER
+              VINYL
             </Text>
 
             <ProrderMesh />
