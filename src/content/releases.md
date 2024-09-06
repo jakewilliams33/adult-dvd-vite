@@ -1,9 +1,18 @@
 ---
 releases:
+  - deezer: https://www.deezer.com/nl/album/626279101?deferredFl=1
+    amazon: https://amazon.com/music/player/albums/B0DCBZXCTV?marketplaceId=ATVPDKIKX0DER&musicTerritory=US&ref=dm_sh_e8HM6JSM4c0m8AFhmEZi3u0Lr
+    displayOnMusicPage: yes
+    bandcamp: https://adultdvd.bandcamp.com/album/next-day-shipping
+    title: Next Day Shipping EP
+    tidal: https://tidal.com/browse/album/379567655
+    spotify: https://open.spotify.com/album/0L7959l48tfNtyED8YYTiq?si=qdEzJ7yWRFC__p7hTNRDog
+    apple: https://music.apple.com/us/artist/adult-dvd/1550456447
+    image: /covers/nextDayShipping.webp
   - deezer: https://www.deezer.com/album/585414892
     youtube: https://www.youtube.com/watch?v=FSlxpGUmM7A
     amazon: https://music.amazon.co.uk/albums/B0D3MC3HHL
-    displayOnMusicPage: yes
+    displayOnMusicPage: no
     bandcamp: https://adultdvd.bandcamp.com/track/doomsday-prepper
     title: Doomsday Prepper
     tidal: https://tidal.com/browse/track/362103972
@@ -13,7 +22,7 @@ releases:
   - deezer: https://www.deezer.com/track/2796291782
     youtube: https://music.youtube.com/watch?v=jJZYw-5AazU
     amazon: https://music.amazon.co.uk/albums/B0D3LXCJ6J?trackAsin=B0D3LZCSLB
-    displayOnMusicPage: yes
+    displayOnMusicPage: no
     bandcamp: https://adultdvd.bandcamp.com/track/7-foot-1-2
     title: "7 Foot 1 "
     tidal: https://listen.tidal.com/track/362028417
