@@ -120,17 +120,23 @@ export const ContactPage = ({ opacity }) => {
             </div>
             <div className="information">
               <p>
-                <span style={{ fontWeight: "bold" }}>EU BOOKINGS:</span>{" "}
-                <a className="email" href="mailto:Ben@trustychordsagency.nl">
-                  Ben@trustychordsagency.nl
+                <span style={{ fontWeight: "bold" }}>UK/EU BOOKINGS:</span>{" "}
+                <a className="email" href="sarah.joy@atc-live.com">
+                  sarah.joy@atc-live.com
+                </a>
+                /
+                <a className="email" href="caitlin@atc-live.com">
+                  caitlin@atc-live.com
                 </a>
               </p>
             </div>
             <div className="information">
               <p>
-                <span style={{ fontWeight: "bold" }}>
-                  UK BOOKINGS/ANYTHING ELSE:{" "}
-                </span>{" "}
+                <span style={{ fontWeight: "bold" }}>MGMT: </span>{" "}
+                <a className="email" href="sarah@sarahbrooksbankmgmt.com">
+                  sarah@sarahbrooksbankmgmt.com
+                </a>{" "}
+                <span style={{ fontWeight: "bold" }}>ANYTHING ELSE: </span>{" "}
                 <a className="email" href="mailto:Adultdvdmenu@gmail.com">
                   Adultdvdmenu@gmail.com
                 </a>{" "}
