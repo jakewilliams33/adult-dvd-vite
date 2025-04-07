@@ -11,11 +11,19 @@ import { SignUpForm } from "./components/SignUpForm";
 import { StreamingLinks } from "./pages/StreamingLinks";
 import { Store } from "./pages/Store";
 import { PageNotFound } from "./pages/PageNotFound";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const [signUpVisible, setSignUpVisible] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === "/signup") {
+      setSignUpVisible(true);
+    }
+  }, [location]);
 
   return (
     <>
@@ -48,6 +56,11 @@ const App = () => {
             <Route
               exact
               path={"/"}
+              element={<HomePage setSignUpVisible={setSignUpVisible} />}
+            />
+            <Route
+              exact
+              path={"/signup"}
               element={<HomePage setSignUpVisible={setSignUpVisible} />}
             />
             <Route exact path={"/music"} element={<MusicPage />} />

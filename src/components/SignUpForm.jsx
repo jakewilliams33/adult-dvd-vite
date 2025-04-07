@@ -13,11 +13,10 @@ export const SignUpForm = ({ setSignUpVisible, signUpVisible }) => {
   const [sent, setSent] = useState(false);
 
   const handleClose = () => {
-    setEmail("");
+    setEmail(""); // Reset email input
     setSent(false); // Reset sent status
-    setSignUpVisible(false);
-    // Remove the modal state from history
-    history.replaceState({}, document.title);
+    setSignUpVisible(false); // Close the modal
+    window.history.replaceState({}, document.title, "/");
   };
 
   useEffect(() => {

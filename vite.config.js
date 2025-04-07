@@ -22,6 +22,10 @@ export default defineConfig({
       },
     },
   ],
+  server: {
+    port: 4200, // Set the port you want/ or available port
+    host: "127.0.0.1",
+  },
   assetsInclude: ["**/*.glb"],
   resolve: {
     alias: {
