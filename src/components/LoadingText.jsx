@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import vinyl from "../images/vinyl.webp";
 import vinylb from "../images/vinylb.webp";
 

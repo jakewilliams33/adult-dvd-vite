@@ -122,7 +122,7 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
             />
           </a>
           <a
-            href="https://www.youtube.com/channel/UCmGiw0z6dRClNlIFMCnS8Zw"
+            href="https://www.youtube.com/channel/UC56vESvDBh8Vrj_Kb2jdwZg"
             target="_blank"
             aria-label="YouTube Channel"
           >

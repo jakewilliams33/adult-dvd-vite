@@ -1,4 +1,3 @@
-import React, { useEffect, useState, useCallback } from "react";
 import "../styles/listen.css";
 import ad from "../images/adorange.webp";
 import monkey from "../images/monkeyorange.webp";

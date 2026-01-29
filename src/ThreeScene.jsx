@@ -7,18 +7,19 @@ import {
   Text,
   useTexture,
   Loader,
+  Environment,
 } from "@react-three/drei";
+
 import { Vector3, Color } from "three";
 import orangeNoise from "./images/border90.webp";
-import rotate from "./images/arrow.png";
-import pause from "./images/pause.png";
+import rotate from "./images/arrow.svg";
+import pause from "./images/pause.svg";
 import "./styles/menu.css";
 import {
   Bloom,
   BrightnessContrast,
   EffectComposer,
 } from "@react-three/postprocessing";
-import { BlendFunction } from "postprocessing";
 import { LoadingText } from "./components/LoadingText";
 
 // OrangeTexture Component
@@ -44,7 +45,7 @@ function Model({ url, setLoading }) {
     }
   });
 
-  return <primitive object={scene} position={[0, -1, -0.7]} />;
+  return <primitive object={scene} scale={0.0125} position={[0, -1, 0]} />;
 }
 
 // MainLight Component
@@ -54,8 +55,8 @@ const MainLight = () => {
 
   useFrame(() => {
     if (lightRef.current && camera) {
-      const lightOffset = new Vector3(4, 3, -0).applyQuaternion(
-        camera.quaternion
+      const lightOffset = new Vector3(6, 5, -6).applyQuaternion(
+        camera.quaternion,
       );
       lightRef.current.position.copy(camera.position).add(lightOffset);
     }
@@ -88,7 +89,7 @@ const SecondaryLight = () => {
   useFrame(() => {
     if (secondaryLightRef.current && camera) {
       const lightOffset = new Vector3(-7, 1, 3).applyQuaternion(
-        camera.quaternion
+        camera.quaternion,
       );
       secondaryLightRef.current.position.copy(camera.position).add(lightOffset);
     }
@@ -97,7 +98,7 @@ const SecondaryLight = () => {
   return (
     <directionalLight
       ref={secondaryLightRef}
-      intensity={0.5}
+      intensity={1}
       castShadow
       shadow-camera-near={0.5}
       shadow-camera-far={50}
@@ -122,9 +123,12 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
   useEffect(() => {
     const handleResize = () => {
       const aspect = window.innerWidth / window.innerHeight;
-      const zoomFactor = Math.log(aspect + 1) * 0.363; // Adjust the multiplier to your preference
+      const zoomFactor = Math.log(aspect + 1) * 0.363;
 
-      camera.zoom = zoomFactor;
+      // 🔥 Mobile boost
+      const isMobile = window.innerWidth < 768;
+      camera.zoom = isMobile ? zoomFactor * 1.4 : zoomFactor;
+
       camera.updateProjectionMatrix();
       setReady(true);
     };
@@ -149,6 +153,7 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
       minDistance={4}
       maxDistance={8}
       autoRotate={autoRotate}
+      autoRotateSpeed={0.7}
     />
   );
 };
@@ -156,12 +161,12 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
 // ThreeScene Component
 export const ThreeScene = ({ setSignUpVisible }) => {
   const [loading, setLoading] = useState(true);
-  const [autoRotate, setAutoRotate] = useState(false);
+  const [autoRotate, setAutoRotate] = useState(true);
   const [hovered, setHovered] = useState(null); // Change to track which text is hovered
   const [touchStartTime, setTouchStartTime] = useState(null);
   const [ready, setReady] = useState(false);
 
-  const glbUrl = "/model.glb"; // Replace with your actual GLB file path
+  const glbUrl = "/truck 5.glb"; // Replace with your actual GLB file path
 
   const maxTouchDuration = 150; // Maximum duration for a short touch in ms
 
@@ -172,6 +177,10 @@ export const ThreeScene = ({ setSignUpVisible }) => {
   useEffect(() => {
     setLoading(true);
   }, [glbUrl]);
+
+  useEffect(() => {
+    document.body.style.cursor = hovered !== null ? "pointer" : "auto"; // Update cursor style based on hover state
+  }, [hovered]);
 
   useEffect(() => {
     document.body.style.cursor = hovered !== null ? "pointer" : "auto"; // Update cursor style based on hover state
@@ -201,49 +210,10 @@ export const ThreeScene = ({ setSignUpVisible }) => {
     }
   };
 
-  const StreamMesh = () => (
-    <mesh
-      position={[1.02, -1, -0.7]}
-      rotation={[0, 1.59, 0]}
-      onPointerDown={(e) => {
-        e.stopPropagation(); // Stop event propagation
-        handlePointerDown();
-      }}
-      onPointerUp={(e) => {
-        e.stopPropagation(); // Stop event propagation
-        handlePointerUp("/streaming_links", "_self");
-      }}
-      onPointerOver={handlePointerOver("stream")}
-      onPointerOut={handlePointerOut}
-    >
-      <planeGeometry attach="geometry" args={[1.5, 1.97]} />
-      <meshBasicMaterial attach="material" transparent opacity={0} />
-    </mesh>
-  );
-
-  const ProrderMesh = () => (
-    <mesh
-      position={[-0.394, -1.1, 1.6]}
-      rotation={[0, 1.57, 0]}
-      onPointerDown={handlePointerDown}
-      onPointerUp={() =>
-        handlePointerUp(
-          "https://adultdvd.bandcamp.com/album/next-day-shipping",
-          "_blank"
-        )
-      }
-      onPointerOver={handlePointerOver("preorder")}
-      onPointerOut={handlePointerOut}
-    >
-      <planeGeometry attach="geometry" args={[2.5, 1.8]} />
-      <meshBasicMaterial attach="material" transparent opacity={0} />
-    </mesh>
-  );
-
   const TourMesh = () => (
     <mesh
-      position={[0.74, -1.6, 2]}
-      rotation={[0, 2.08, 0]}
+      position={[-1.05, -0.1, 0.85]}
+      rotation={[0, -1.56, 0]}
       onPointerDown={(e) => {
         e.stopPropagation(); // Stop event propagation
         handlePointerDown();
@@ -260,19 +230,22 @@ export const ThreeScene = ({ setSignUpVisible }) => {
     </mesh>
   );
 
-  const SignUpMesh = () => (
+  const WatchMesh = () => (
     <mesh
-      position={[2.15, -1.4, -2.1]}
-      rotation={[0, 1.3, 0]}
-      onPointerDown={handlePointerDown}
-      onPointerUp={() => {
-        handlePointerUp("signup");
-        document.body.style.cursor = "default";
+      position={[1.05, -0.1, 0.76]}
+      rotation={[0, 1.56, 0]}
+      onPointerDown={(e) => {
+        e.stopPropagation(); // Stop event propagation
+        handlePointerDown();
       }}
-      onPointerOver={handlePointerOver("signup")}
+      onPointerUp={(e) => {
+        e.stopPropagation(); // Stop event propagation
+        handlePointerUp("https://www.youtube.com/watch?v=J8fd8_OeOaY", "blank");
+      }}
+      onPointerOver={handlePointerOver("watch")}
       onPointerOut={handlePointerOut}
     >
-      <planeGeometry attach="geometry" args={[1.16, 1.2]} />
+      <planeGeometry attach="geometry" args={[1, 0.8]} />
       <meshBasicMaterial attach="material" transparent opacity={0} />
     </mesh>
   );
@@ -285,7 +258,14 @@ export const ThreeScene = ({ setSignUpVisible }) => {
 
   return (
     <>
-      <div style={{ width: "100%", height: "100vh", position: "relative" }}>
+      <div
+        style={{
+          width: "100%",
+          height: "100vh",
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
         {loading && <LoadingText />}
 
         {!loading && (
@@ -301,8 +281,8 @@ export const ThreeScene = ({ setSignUpVisible }) => {
               exit="exit"
               style={{
                 width: autoRotate
-                  ? "min(max(16px, 1.8vmax), 30px)"
-                  : "min(max(23px, 2.4vmax), 40px)",
+                  ? "clamp(22px, 5.5vw, 34px)"
+                  : "clamp(28px, 6.5vw, 42px)",
                 bottom: autoRotate
                   ? "min(max(15px, 2vmin), 20px)"
                   : "min(max(12px, 1.6vmin), 20px)",
@@ -313,78 +293,49 @@ export const ThreeScene = ({ setSignUpVisible }) => {
                 opacity: 0.9,
                 cursor: "pointer",
                 zIndex: 200,
+                padding: "15px 15px 0px 0px",
               }}
             />
           </AnimatePresence>
         )}
+
         <div style={{ opacity: ready ? 1 : 0 }}>
-          <p className="date">OUT NOW</p>
           <Canvas
             shadows
             style={{ position: "absolute", top: 0, left: 0 }}
             camera={{
-              position: [6, 0.1, 1.7],
-              fov: 25,
+              position: [6, 0.7, 1.7],
+              fov: 24,
             }}
           >
-            <ambientLight intensity={0.4} />
+            <Environment preset="forest" resolution={256} blur={0.6} />
+
             <MainLight />
             <SecondaryLight />
+
             <Model url={glbUrl} setLoading={setLoading} />
 
             <Text
-              scale={0.25}
-              color="#eddda8" // Change color based on hover state
-              position={[1.06, -0.9, -0.7]}
-              rotation={[0, 1.57, 0]}
+              scale={0.16}
+              color="#b07c00" // Change color based on hover state
+              position={[1.05, -0.1, 0.76]}
+              rotation={[0, 1.56, 0]}
               fillOpacity={1}
               fontWeight="bold"
               font="/fonts/Sequel100Black-75.ttf"
-              strokeOpacity={hovered === "stream" ? 1 : 0}
+              strokeOpacity={hovered === "watch" ? 1 : 0}
               strokeColor="white"
-              strokeWidth={hovered === "stream" ? 0.046 : 0}
+              strokeWidth={hovered === "watch" ? 0.046 : 0}
             >
-              <OrangeTexture></OrangeTexture>
-              STREAM
+              WATCH
             </Text>
-            <StreamMesh />
+            <WatchMesh />
 
             <Text
-              scale={0.22}
-              color="#eddda8" // Change color based on hover state
-              position={[2.152, -1.3, -2.1]}
-              rotation={[0, 1.3, 0]}
-              fillOpacity={1}
-              fontWeight="bold"
-              font="/fonts/Sequel100Black-75.ttf"
-              strokeOpacity={hovered === "signup" ? 1 : 0}
-              strokeColor="white"
-              strokeWidth={hovered === "signup" ? 0.046 : 0}
-            >
-              <OrangeTexture></OrangeTexture>
-              SIGN
-            </Text>
-            <Text
-              scale={0.22}
-              color="#eddda8" // Change color based on hover state
-              position={[2.152, -1.6, -2.1]}
-              rotation={[0, 1.3, 0]}
-              fillOpacity={1}
-              fontWeight="bold"
-              font="/fonts/Sequel100Black-75.ttf"
-              strokeOpacity={hovered === "signup" ? 1 : 0}
-              strokeColor="white"
-              strokeWidth={hovered === "signup" ? 0.046 : 0}
-            >
-              <OrangeTexture></OrangeTexture>
-              UP
-            </Text>
-            <SignUpMesh />
-            <Text
-              scale={0.22}
-              color="#eddda8" // Change color based on hover state
-              position={[0.75, -1.6, 2]}
-              rotation={[0, 2.08, 0]}
+              scale={0.16}
+              color="#b07c00" // Change color based on hover state
+              position={[-1.05, -0.1, 0.85]}
+              rotation={[0, -1.56, 0]}
               fillOpacity={1}
               fontWeight="bold"
               font="/fonts/Sequel100Black-75.ttf"
@@ -392,39 +343,22 @@ export const ThreeScene = ({ setSignUpVisible }) => {
               strokeColor="white"
               strokeWidth={hovered === "tour" ? 0.046 : 0}
             >
-              <OrangeTexture></OrangeTexture>
               TOUR
             </Text>
             <TourMesh />
-            <Text
-              scale={0.25}
-              color="#eddda8" // Change color based on hover state
-              position={[-0.38, -0.9, 1.58]}
-              rotation={[0, 1.559, 0]}
-              fillOpacity={1}
-              fontWeight="bold"
-              font="/fonts/Sequel100Black-75.ttf"
-              strokeOpacity={hovered === "preorder" ? 1 : 0}
-              strokeColor="white"
-              strokeWidth={hovered === "preorder" ? 0.046 : 0}
-            >
-              <OrangeTexture></OrangeTexture>
-              BUY VINYL
-            </Text>
-
-            <ProrderMesh />
 
             <CameraControlsAndResponsive
               setReady={setReady}
               autoRotate={autoRotate}
             />
 
-            <EffectComposer>
-              <BrightnessContrast brightness={0.04} contrast={0.2} />
+            <EffectComposer multisampling={0} resolutionScale={0.5}>
+              <BrightnessContrast brightness={0.02} contrast={0.1} />
               <Bloom
-                blendFunction={BlendFunction.EXCLUSION}
-                intensity={5}
-                threshold={0.1}
+                intensity={0.25}
+                luminanceThreshold={0.9}
+                luminanceSmoothing={0.1}
+                mipmapBlur
               />
             </EffectComposer>
           </Canvas>

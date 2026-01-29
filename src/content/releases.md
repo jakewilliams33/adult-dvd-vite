@@ -1,5 +1,14 @@
 ---
 releases:
+  - deezer: https://www.deezer.com/en/track/3705735652
+    amazon: https://www.amazon.co.uk/dp/B0G62V4MNX?psc=1&th=1&linkCode=gg4&tag=featurefm-20
+    displayOnMusicPage: yes
+    bandcamp: https://adultdvd.bandcamp.com/track/real-tree-lee
+    title: Real Tree Lee
+    tidal: https://tidal.com/album/480462271/u
+    spotify: https://open.spotify.com/track/1MCsJBk8H4ku4v6PNqi0P4?si=4dc89bc9d56e410c
+    apple: https://music.apple.com/gb/album/real-tree-lee/1860068946?i=1860068949
+    image: /covers/realtree.jpg
   - deezer: https://www.deezer.com/nl/album/626279101?deferredFl=1
     amazon: https://amazon.com/music/player/albums/B0DCBZXCTV?marketplaceId=ATVPDKIKX0DER&musicTerritory=US&ref=dm_sh_e8HM6JSM4c0m8AFhmEZi3u0Lr
     displayOnMusicPage: yes

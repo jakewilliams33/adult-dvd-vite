@@ -33,17 +33,6 @@ export const HomePageSocials = () => {
           }}
         >
           <a
-            href="fb://page/105580344839479"
-            target="_blank"
-            aria-label="Facebook Page"
-          >
-            <FontAwesomeIcon
-              className="icons-home"
-              icon={faFacebook}
-              key="facebook"
-            />
-          </a>
-          <a
             href="https://www.instagram.com/adultdvdmenu/"
             target="_blank"
             aria-label="Instagram Profile"
@@ -54,19 +43,9 @@ export const HomePageSocials = () => {
               key="instagram"
             />
           </a>
+
           <a
-            href="https://twitter.com/DvdAdult"
-            target="_blank"
-            aria-label="Twitter Profile"
-          >
-            <FontAwesomeIcon
-              className="icons-home"
-              icon={faTwitter}
-              key="twitter"
-            />
-          </a>
-          <a
-            href="https://www.youtube.com/channel/UCmGiw0z6dRClNlIFMCnS8Zw"
+            href="https://www.youtube.com/channel/UC56vESvDBh8Vrj_Kb2jdwZg"
             target="_blank"
             aria-label="YouTube Channel"
           >
@@ -118,6 +97,28 @@ export const HomePageSocials = () => {
               className="icons-home"
               icon={faTiktok}
               key="tiktok"
+            />
+          </a>
+          <a
+            href="https://twitter.com/DvdAdult"
+            target="_blank"
+            aria-label="Twitter Profile"
+          >
+            <FontAwesomeIcon
+              className="icons-home"
+              icon={faTwitter}
+              key="twitter"
+            />
+          </a>
+          <a
+            href="fb://page/105580344839479"
+            target="_blank"
+            aria-label="Facebook Page"
+          >
+            <FontAwesomeIcon
+              className="icons-home"
+              icon={faFacebook}
+              key="facebook"
             />
           </a>
         </div>

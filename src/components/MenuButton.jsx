@@ -1,44 +1,118 @@
-import React, { useRef, useEffect } from "react";
+// MenuButton.jsx
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../styles/menu-button.css";
 
 export const MenuButton = ({ setMenuOpen, menuOpen }) => {
-  const imgButton = useRef();
   const location = useLocation();
 
   useEffect(() => {
     const handlePopstate = () => {
       if (menuOpen) {
-        setMenuOpen(false); // Close the menu if it's open
+        setMenuOpen(false);
         document.body.style.overflow = "visible";
       }
     };
 
     window.addEventListener("popstate", handlePopstate);
-
-    return () => {
-      window.removeEventListener("popstate", handlePopstate);
-    };
+    return () => window.removeEventListener("popstate", handlePopstate);
   }, [menuOpen, setMenuOpen]);
 
-  const handleToggle = () => {
-    setMenuOpen((prev) => !prev);
-    if (!menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+  // Close menu on route change (optional but usually desired)
+  useEffect(() => {
+    if (menuOpen) {
+      setMenuOpen(false);
       document.body.style.overflow = "visible";
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  const handleToggle = () => {
+    setMenuOpen((prev) => {
+      const next = !prev;
+      document.body.style.overflow = next ? "hidden" : "visible";
+      return next;
+    });
   };
 
   return (
-    <>
-      <div
-        onClick={handleToggle}
-        alt="menu button"
-        ref={imgButton}
-        className={!menuOpen ? "case" : "caseOpen"}
-        style={{ zIndex: 200000 }}
-      ></div>
-    </>
+    <button
+      type="button"
+      aria-label="Toggle menu"
+      aria-expanded={menuOpen}
+      onClick={handleToggle}
+      className={`menu-button ${menuOpen ? "open" : ""}`}
+      style={{ zIndex: 200000 }}
+    >
+      <svg
+        className="menu-icon"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid meet"
+        aria-hidden="true"
+      >
+        <g className="line l1">
+          <line
+            className="outline"
+            x1="20"
+            y1="50"
+            x2="80"
+            y2="50"
+            vectorEffect="non-scaling-stroke"
+            strokeLinecap="round"
+          />
+          <line
+            className="fill"
+            x1="20"
+            y1="50"
+            x2="80"
+            y2="50"
+            vectorEffect="non-scaling-stroke"
+            strokeLinecap="round"
+          />
+        </g>
+
+        <g className="line l2">
+          <line
+            className="outline"
+            x1="20"
+            y1="50"
+            x2="80"
+            y2="50"
+            vectorEffect="non-scaling-stroke"
+            strokeLinecap="round"
+          />
+          <line
+            className="fill"
+            x1="20"
+            y1="50"
+            x2="80"
+            y2="50"
+            vectorEffect="non-scaling-stroke"
+            strokeLinecap="round"
+          />
+        </g>
+
+        <g className="line l3">
+          <line
+            className="outline"
+            x1="20"
+            y1="50"
+            x2="80"
+            y2="50"
+            vectorEffect="non-scaling-stroke"
+            strokeLinecap="round"
+          />
+          <line
+            className="fill"
+            x1="20"
+            y1="50"
+            x2="80"
+            y2="50"
+            vectorEffect="non-scaling-stroke"
+            strokeLinecap="round"
+          />
+        </g>
+      </svg>
+    </button>
   );
 };

@@ -12,7 +12,6 @@ import { StreamingLinks } from "./pages/StreamingLinks";
 import { Store } from "./pages/Store";
 import { PageNotFound } from "./pages/PageNotFound";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,8 +34,22 @@ const App = () => {
           menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
         />
-
-        <div className="main-border"></div>
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundImage: 'url("/src/images/crt.png")',
+            backgroundRepeat: "repeat", // or "no-repeat"
+            backgroundSize: "auto", // or "cover"
+            backgroundPosition: "center",
+            opacity: 0.11,
+            pointerEvents: "none",
+            zIndex: 3,
+          }}
+        />
 
         <div
           style={{

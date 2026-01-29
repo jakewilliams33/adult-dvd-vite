@@ -1,167 +1,75 @@
-.wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
+/* menu-button.css */
+.menu-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
 
-.case {
+  width: 52px;
+  height: 52px;
+
+  background: transparent;
+  border: 0;
+  padding: 0;
   cursor: pointer;
-  position: fixed;
-  right: 10px;
-  top: 0px;
-  transition: 0.3s all linear;
-  z-index: 100000000;
-  background-image: url("../images/svgorange/1.webp");
-  background-repeat: no-repeat;
-  background-size: 135px;
-  background-position: top -12px right 0;
-  height: 90px;
-  width: 55px;
-  animation-name: closing;
-  animation-duration: 0.3s;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   -webkit-tap-highlight-color: transparent;
 }
 
-.caseOpen {
-  cursor: pointer;
-  position: fixed;
-  right: 51%;
-  transform: translateX(50%);
-  top: 0.5vh;
-  transition: 0.3s all linear;
-  z-index: 100000000;
-  background-repeat: no-repeat;
-  background-size: 137px;
-  background-position: top -5px right 0;
-  height: 93px;
-  width: 122px;
-  animation-name: opening;
-  animation-duration: 0.3s;
-  background-image: url("../images/svgorange/15.svg");
+.menu-icon {
+  width: 44px;
+  height: 44px;
+  display: block;
 }
 
-body::after {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  z-index: -1;
-  content: url("../images/svgorange/1.webp") url("../images/svgorange/2.svg")
-    url("../images/svgorange/3.svg") url("../images/svgorange/4.svg")
-    url("../images/svgorange/5.svg") url("../images/svgorange/7.svg")
-    url("../images/svgorange/8.svg") url("../images/svgorange/9.svg")
-    url("../images/svgorange/10.svg") url("../images/svgorange/11.svg")
-    url("../images/svgorange/12.svg") url("../images/svgorange/13.svg")
-    url("../images/svgorange/14.svg") url("../images/svgorange/15.svg")
-    url("../images/svgorange/6.svg");
+/* Animation */
+.line {
+  transform-origin: 50px 50px;
+  transition:
+    transform 250ms ease,
+    opacity 200ms ease;
 }
 
-@keyframes opening {
-  0% {
-    background-image: url("../images/svgorange/1.webp");
-  }
-  7% {
-    background-image: url("../images/svgorange/2.svg");
-  }
-  14% {
-    background-image: url("../images/svgorange/3.svg");
-  }
-  21% {
-    background-image: url("../images/svgorange/4.svg");
-  }
-  28% {
-    background-image: url("../images/svgorange/5.svg");
-  }
-  35% {
-    background-image: url("../images/svgorange/6.svg");
-  }
-  42% {
-    background-image: url("../images/svgorange/7.svg");
-  }
-  49% {
-    background-image: url("../images/svgorange/8.svg");
-  }
-  56% {
-    background-image: url("../images/svgorange/9.svg");
-  }
-  63% {
-    background-image: url("../images/svgorange/10.svg");
-  }
-  70% {
-    background-image: url("../images/svgorange/11.svg");
-  }
-  77% {
-    background-image: url("../images/svgorange/12.svg");
-  }
-  84% {
-    background-image: url("../images/svgorange/13.svg");
-  }
-  91% {
-    background-image: url("../images/svgorange/14.svg");
-  }
-  100% {
-    background-image: url("../images/svgorange/15.svg");
-  }
+/* More spaced hamburger bars */
+.l1 {
+  transform: translateY(-24px);
+}
+.l2 {
+  transform: translateY(0px);
+}
+.l3 {
+  transform: translateY(24px);
 }
 
-@keyframes closing {
-  0% {
-    background-image: url("../images/svgorange/15.svg");
-  }
+/* Strokes (FIXED OUTLINE LOOK) */
+.outline {
+  stroke: #000;
+  stroke-width: 8px; /* bigger than fill so it shows on the sides properly */
+}
 
-  7% {
-    background-image: url("../images/svgorange/14.svg");
-  }
+.fill {
+  stroke: #e7ab00;
+  stroke-width: 6px;
+}
 
-  14% {
-    background-image: url("../images/svgorange/13.svg");
-  }
+/* OPEN STATE → X */
+.menu-button.open .l1 {
+  transform: translateY(0px) rotate(45deg);
+}
 
-  21% {
-    background-image: url("../images/svgorange/12.svg");
-  }
+.menu-button.open .l2 {
+  opacity: 0;
+  transform: translateY(0px) scaleX(0.6);
+}
 
-  28% {
-    background-image: url("../images/svgorange/11.svg");
-  }
+.menu-button.open .l3 {
+  transform: translateY(0px) rotate(-45deg);
+}
 
-  35% {
-    background-image: url("../images/svgorange/10.svg");
-  }
-
-  42% {
-    background-image: url("../images/svgorange/9.svg");
-  }
-
-  49% {
-    background-image: url("../images/svgorange/8.svg");
-  }
-
-  56% {
-    background-image: url("../images/svgorange/7.svg");
-  }
-
-  63% {
-    background-image: url("../images/svgorange/6.svg");
-  }
-
-  70% {
-    background-image: url("../images/svgorange/5.svg");
-  }
-
-  77% {
-    background-image: url("../images/svgorange/4.svg");
-  }
-
-  84% {
-    background-image: url("../images/svgorange/3.svg");
-  }
-
-  91% {
-    background-image: url("../images/svgorange/2.svg");
-  }
-
-  100% {
-    background-image: url("../images/svgorange/1.webp");
-  }
+/* No black outline on the X */
+.menu-button.open .outline {
+  opacity: 0;
 }
