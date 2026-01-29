@@ -166,7 +166,7 @@ export const ThreeScene = ({ setSignUpVisible }) => {
   const [touchStartTime, setTouchStartTime] = useState(null);
   const [ready, setReady] = useState(false);
 
-  const glbUrl = "/truck 5.glb"; // Replace with your actual GLB file path
+  const glbUrl = "/truck 7.glb"; // Replace with your actual GLB file path
 
   const maxTouchDuration = 150; // Maximum duration for a short touch in ms
 

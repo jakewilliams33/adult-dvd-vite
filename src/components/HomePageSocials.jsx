@@ -4,7 +4,6 @@ import {
   faFacebook,
   faInstagram,
   faSpotify,
-  faTwitter,
   faYoutube,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
@@ -99,26 +98,17 @@ export const HomePageSocials = () => {
               key="tiktok"
             />
           </a>
+
           <a
-            href="https://twitter.com/DvdAdult"
+            href="https://www.facebook.com/105580344839479"
             target="_blank"
-            aria-label="Twitter Profile"
-          >
-            <FontAwesomeIcon
-              className="icons-home"
-              icon={faTwitter}
-              key="twitter"
-            />
-          </a>
-          <a
-            href="fb://page/105580344839479"
-            target="_blank"
+            rel="noopener noreferrer"
             aria-label="Facebook Page"
           >
             <FontAwesomeIcon
               className="icons-home"
               icon={faFacebook}
-              key="facebook"
+              color="white"
             />
           </a>
         </div>

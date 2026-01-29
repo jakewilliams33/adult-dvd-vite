@@ -6,7 +6,6 @@ import {
   faFacebook,
   faInstagram,
   faSpotify,
-  faTwitter,
   faYoutube,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
@@ -86,17 +85,18 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
       <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
         <div className="icon-container">
           <a
-            href="fb://page/105580344839479"
+            href="https://www.facebook.com/105580344839479"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Facebook Page"
           >
             <FontAwesomeIcon
               className="icons"
               icon={faFacebook}
-              color={"white"}
-              key="facebook"
+              color="white"
             />
           </a>
+
           <a
             href="https://www.instagram.com/adultdvdmenu/"
             target="_blank"
@@ -109,18 +109,7 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
               key="instagram"
             />
           </a>
-          <a
-            href="https://twitter.com/DvdAdult"
-            target="_blank"
-            aria-label="Twitter Profile"
-          >
-            <FontAwesomeIcon
-              className="icons"
-              icon={faTwitter}
-              color={"white"}
-              key="twitter"
-            />
-          </a>
+
           <a
             href="https://www.youtube.com/channel/UC56vESvDBh8Vrj_Kb2jdwZg"
             target="_blank"
