@@ -35,7 +35,8 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
             aria-label="Store"
             onClick={handleClose}
             style={{ textDecoration: "none", color: "white" }}
-            to="store"
+            to="https://adultdvd.bandcamp.com/merch"
+            target="blank"
           >
             STORE
           </Link>

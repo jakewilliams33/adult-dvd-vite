@@ -9,7 +9,6 @@ import { ContactPage } from "./pages/ContactPage";
 import { ListenPage } from "./pages/ListenPage";
 import { SignUpForm } from "./components/SignUpForm";
 import { StreamingLinks } from "./pages/StreamingLinks";
-import { Store } from "./pages/Store";
 import { PageNotFound } from "./pages/PageNotFound";
 import { useEffect } from "react";
 import crt from "./images/crt.png";
@@ -85,7 +84,6 @@ const App = () => {
               path={"/listen/:url_release_id"}
               element={<ListenPage />}
             />
-            <Route path={"/store"} element={<Store />} />
             <Route path="/streaming_links" element={<StreamingLinks />} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
