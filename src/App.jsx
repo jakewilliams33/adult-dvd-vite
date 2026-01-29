@@ -12,6 +12,7 @@ import { StreamingLinks } from "./pages/StreamingLinks";
 import { Store } from "./pages/Store";
 import { PageNotFound } from "./pages/PageNotFound";
 import { useEffect } from "react";
+import crt from "./images/crt.png";
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,7 +42,7 @@ const App = () => {
             left: 0,
             width: "100vw",
             height: "100vh",
-            backgroundImage: 'url("/src/images/crt.png")',
+            backgroundImage: `url(${crt})`,
             backgroundRepeat: "repeat", // or "no-repeat"
             backgroundSize: "auto", // or "cover"
             backgroundPosition: "center",
