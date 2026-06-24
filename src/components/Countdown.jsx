@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 
-// Time remaining until the next 25th of September (this year, or next year if
-// we're already past it).
-function getTimeUntilSeptember() {
-  const now = new Date();
-  let target = new Date(now.getFullYear(), 8, 25, 0, 0, 0); // month 8 = September
-  if (now >= target) {
-    target = new Date(now.getFullYear() + 1, 8, 25, 0, 0, 0);
+// Release date — the timer counts down to this, then shows "OUT NOW".
+// Update this when the next release is scheduled (month is 0-based: 8 = Sept).
+const RELEASE_DATE = new Date(2026, 8, 25, 0, 0, 0);
+
+function getTimeRemaining() {
+  const diff = RELEASE_DATE.getTime() - Date.now();
+  if (diff <= 0) {
+    return { out: true, days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
-  const diff = Math.max(0, target - now);
   return {
+    out: false,
     days: Math.floor(diff / (1000 * 60 * 60 * 24)),
     hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
     minutes: Math.floor((diff / (1000 * 60)) % 60),
@@ -19,21 +20,29 @@ function getTimeUntilSeptember() {
 
 const pad = (n) => String(n).padStart(2, "0");
 
-export const Countdown = () => {
+// onOut(isOut) lets the parent (HomePage) swap the link between the pre-save
+// and the release once the countdown reaches zero.
+export const Countdown = ({ onOut }) => {
   // Start null so the server-rendered (build-time) markup and the client's
-  // first paint are identical — the live values only fill in after mount,
-  // which avoids a hydration mismatch on the time-based text.
+  // first paint match — the live values only fill in after mount.
   const [time, setTime] = useState(null);
 
   useEffect(() => {
-    setTime(getTimeUntilSeptember());
-    const id = setInterval(() => setTime(getTimeUntilSeptember()), 1000);
+    const tick = () => {
+      const t = getTimeRemaining();
+      setTime(t);
+      onOut?.(t.out);
+    };
+    tick();
+    const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [onOut]);
 
-  const text = time
-    ? `${pad(time.days)}:${pad(time.hours)}:${pad(time.minutes)}:${pad(time.seconds)}`
-    : "--:--:--:--";
+  const text = !time
+    ? "--:--:--:--"
+    : time.out
+      ? "OUT NOW"
+      : `${pad(time.days)}:${pad(time.hours)}:${pad(time.minutes)}:${pad(time.seconds)}`;
 
   return (
     <div
