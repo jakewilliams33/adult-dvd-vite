@@ -1,5 +1,6 @@
 import "../styles/listen.css";
 import logo from "../images/adult-dvd-logo.svg";
+import { Helmet } from "react-helmet-async";
 
 const current = {
   spotify: "https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG",
@@ -27,27 +28,36 @@ const SERVICES = [
 
 export const StreamingLinks = () => {
   return (
-    <div className="listen-panel">
-      <div className="listen-header">
-        <img className="listen-logo" src={logo} alt="Adult DVD" />
-      </div>
+    <>
+      <Helmet>
+        <title>ADULT DVD</title>
+        <meta
+          name="description"
+          content="Listen to ADULT DVD on your favourite platform."
+        />
+      </Helmet>
+      <div className="listen-panel">
+        <div className="listen-header">
+          <img className="listen-logo" src={logo} alt="Adult DVD" />
+        </div>
 
-      <div className="listen-links">
-        {SERVICES.filter((s) => current[s.key]).map((s) => (
-          <a
-            key={s.key}
-            className="listen-link"
-            href={current[s.key]}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src={`https://services.linkfire.com/${s.logo}`}
-              alt={s.label}
-            />
-          </a>
-        ))}
+        <div className="listen-links">
+          {SERVICES.filter((s) => current[s.key]).map((s) => (
+            <a
+              key={s.key}
+              className="listen-link"
+              href={current[s.key]}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={`https://services.linkfire.com/${s.logo}`}
+                alt={s.label}
+              />
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

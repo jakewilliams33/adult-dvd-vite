@@ -13,8 +13,11 @@ export const MusicPage = ({ slide }) => {
   return (
     <>
       <Helmet>
-        <title>Music</title>
-        <meta name="description" content="Discography" />
+        <title>Music | ADULT DVD</title>
+        <meta
+          name="description"
+          content="Stream ADULT DVD's discography — singles, EPs and releases."
+        />
       </Helmet>
       <motion.div
         variants={slide}

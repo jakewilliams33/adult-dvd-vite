@@ -123,8 +123,11 @@ export const TourPage = () => {
   return (
     <>
       <Helmet>
-        <title>Tour</title>
-        <meta name="description" content="Tour Dates" />
+        <title>Tour | ADULT DVD</title>
+        <meta
+          name="description"
+          content="Upcoming ADULT DVD tour dates and tickets."
+        />
       </Helmet>
 
       <section className="widget-parent">

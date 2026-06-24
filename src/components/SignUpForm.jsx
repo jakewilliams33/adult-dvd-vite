@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../styles/sign-up.css";
 import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
-import { Helmet } from "react-helmet-async";
 
 export const SignUpForm = ({ setSignUpVisible, signUpVisible }) => {
   const [email, setEmail] = useState("");
@@ -68,10 +67,6 @@ export const SignUpForm = ({ setSignUpVisible, signUpVisible }) => {
 
   return (
     <>
-      <Helmet>
-        <title>Sign Up</title>
-        <meta name="description" content="Mailing List" />
-      </Helmet>
       <AnimatePresence mode="wait">
         {signUpVisible && (
           <motion.div

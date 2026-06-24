@@ -93,8 +93,11 @@ export const ContactPage = ({ opacity }) => {
   return (
     <>
       <Helmet>
-        <title>Contact</title>
-        <meta name="description" content="Contact Form" />
+        <title>Contact | ADULT DVD</title>
+        <meta
+          name="description"
+          content="Get in touch with ADULT DVD — bookings, press and general enquiries."
+        />
       </Helmet>
 
       <div className="contact-panel">
