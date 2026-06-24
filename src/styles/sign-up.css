@@ -1,47 +1,124 @@
-.form-container-sign-up,
-.sign-up-sent {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 15px;
-  width: 65vw;
-  max-width: 400px;
-  font-size: 15px;
-  background-image: url(../images/wrinkle.webp);
-  background-size: cover;
-  background-color: #ffffff;
-  background-repeat: no-repeat;
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* ===== Sign-up modal ===== */
 
-.sign-up-sent input,
-.sign-up-sent label,
-.sign-up-sent button,
-.sign-up-sent .information {
-  display: none;
-}
-
-.inner-box-sign-up {
-  border: 1.4pt solid;
-  border-image: url(../images/border.webp) 30 round;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
-}
-
-.top-banner-sign-up {
+.signup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: solid 1.4pt;
-  border-image: url(../images/border.webp) 30 round;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-@media screen and (max-width: 568px) {
-  .form-container-sign-up {
-    width: 70vw;
-  }
+.signup-modal {
+  position: relative;
+  width: min(92vw, 620px);
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+.signup-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  padding: 4px;
+  background: none;
+  border: 0;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.signup-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  padding: 26px 20px;
+  text-align: center;
+}
+
+.signup-title {
+  margin: 0;
+  font-family: "WTBobine", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: clamp(30px, 5vw, 46px);
+  letter-spacing: 0.1em;
+}
+
+.signup-body {
+  padding: 28px clamp(18px, 5%, 40px) 36px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-label {
+  font-family: "WTBobine", sans-serif;
+  font-style: italic;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.signup-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 0;
+  color: #ffffff;
+  font-family: "Instrument Serif", serif;
+  font-size: 22px;
+  padding: 12px 14px;
+  margin-bottom: 28px;
+  outline: none;
+}
+
+.signup-input:focus {
+  border-color: #ec1c94;
+}
+
+.signup-send {
+  width: 100%;
+  background: #ec1c94;
+  border: 0;
+  border-radius: 0;
+  color: #ffffff;
+  font-family: "WTBobine", sans-serif;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: clamp(22px, 3vw, 30px);
+  letter-spacing: 0.08em;
+  padding: 16px;
+  cursor: pointer;
+  transition: filter 0.12s ease;
+}
+
+.signup-send:hover {
+  filter: brightness(1.08);
+}
+
+.signup-success {
+  text-align: center;
+}
+
+.signup-success-text {
+  font-family: "WTBobine", sans-serif;
+  font-style: italic;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 26px;
+  margin: 0 0 20px;
 }

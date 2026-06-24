@@ -32,6 +32,16 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
         </li>
         <li style={{ color: "white" }}>
           <Link
+            aria-label="Tour"
+            style={{ textDecoration: "none", color: "white" }}
+            onClick={handleClose}
+            to="tour"
+          >
+            TOUR
+          </Link>
+        </li>
+        <li style={{ color: "white" }}>
+          <Link
             aria-label="Store"
             onClick={handleClose}
             style={{ textDecoration: "none", color: "white" }}
@@ -39,16 +49,6 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
             target="blank"
           >
             STORE
-          </Link>
-        </li>
-        <li style={{ color: "white" }}>
-          <Link
-            aria-label="Tour"
-            style={{ textDecoration: "none", color: "white" }}
-            onClick={handleClose}
-            to="tour"
-          >
-            TOUR
           </Link>
         </li>
         <li style={{ color: "white" }}>
@@ -61,17 +61,6 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
             MUSIC
           </Link>
         </li>
-
-        <li style={{ color: "white" }}>
-          <Link
-            aria-label="Sign Up"
-            style={{ textDecoration: "none", color: "white" }}
-            onClick={() => setSignUpVisible(true)}
-            to="#"
-          >
-            SIGN UP
-          </Link>
-        </li>
         <li style={{ color: "white" }}>
           <Link
             aria-label="Contact"
@@ -80,6 +69,16 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
             to="contact"
           >
             CONTACT
+          </Link>
+        </li>
+        <li style={{ color: "white" }}>
+          <Link
+            aria-label="Sign Up"
+            style={{ textDecoration: "none", color: "white" }}
+            onClick={() => setSignUpVisible(true)}
+            to="#"
+          >
+            SIGN UP
           </Link>
         </li>
       </ul>

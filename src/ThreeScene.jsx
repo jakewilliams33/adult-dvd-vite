@@ -1,117 +1,182 @@
 import React, { useRef, useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import {
-  OrbitControls,
-  useGLTF,
-  Text,
-  useTexture,
-  Loader,
-  Environment,
-} from "@react-three/drei";
+import { OrbitControls, useGLTF, Loader } from "@react-three/drei";
 
-import { Vector3, Color } from "three";
-import orangeNoise from "./images/border90.webp";
-import rotate from "./images/arrow.svg";
-import pause from "./images/pause.svg";
+import {
+  Color,
+  MeshPhysicalMaterial,
+  Vector2,
+  Mesh,
+  Matrix4,
+  Float32BufferAttribute,
+  Uint32BufferAttribute,
+  Vector3,
+} from "three";
+import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import "./styles/menu.css";
 import {
-  Bloom,
-  BrightnessContrast,
   EffectComposer,
+  BrightnessContrast,
 } from "@react-three/postprocessing";
 import { LoadingText } from "./components/LoadingText";
 
-// OrangeTexture Component
-function OrangeTexture() {
-  const t = useTexture(orangeNoise);
-  return <meshBasicMaterial map={t}></meshBasicMaterial>;
+function makePinkMaterial(normalMap) {
+  const mat = new MeshPhysicalMaterial({
+    color: new Color("#f79e9e"),
+    normalMap: normalMap || null,
+    normalScale: new Vector2(3, 3),
+    roughness: 1,
+    metalness: 1.0,
+    transparent: true,
+    opacity: 0.7,
+    envMapIntensity: 0.0,
+  });
+
+  mat.onBeforeCompile = (shader) => {
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <dithering_fragment>",
+      `#include <dithering_fragment>
+      float nDotV = abs(dot(normalize(vNormal), normalize(-vViewPosition)));
+      float edge = pow(1.0 - nDotV, 1.4);
+      // Edge color = background blue (~#fffff), floats 0-1
+      gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.373, 0.659, 0.878), edge * 0.7);
+      // Lighter (brighter) areas more transparent, darker areas more opaque
+      float brightness = dot(gl_FragColor.rgb, vec3(0.299, 0.587, 0.114));
+      float lightAlpha = mix(gl_FragColor.a * 1.4, gl_FragColor.a * 0.25, clamp(brightness * 1.5, 0.0, 1.0));
+      // Edges always opaque for the outline
+      gl_FragColor.a = mix(clamp(lightAlpha, 0.0, 1.0), 1.0, edge * 0.8);
+
+      // Deepen only the already-dark (shadowed) areas — lit areas untouched
+      gl_FragColor.rgb *= mix(0.55, 1.0, clamp(brightness * 1.5, 0.0, 1.0));
+
+      // --- Dry "chalk / drawn artwork" look ---
+      // 1) Gentle posterize: break smooth gradients into flat tones
+      float levels = 22.0;
+      gl_FragColor.rgb = floor(gl_FragColor.rgb * levels + 0.5) / levels;
+      // 2) Paper/chalk grain (static screen-space tooth)
+      float grain = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+      gl_FragColor.rgb *= 0.93 + 0.11 * grain;`,
+    );
+  };
+  mat.customProgramCacheKey = () => "pink-chalk-restore-v1";
+  return mat;
 }
 
-// Model Component
 function Model({ url, setLoading }) {
-  const { scene } = useGLTF(url);
+  const { scene } = useGLTF(url, true);
+  const [merged, setMerged] = useState(null);
 
   useEffect(() => {
-    if (scene) {
-      setLoading(false);
-    }
+    if (!scene) return;
+
+    // Bake every mesh into one merged geometry so the cluster renders as a
+    // SINGLE object — nothing to depth-sort between, so transparent pieces
+    // never pop in/out during rotation.
+    scene.updateWorldMatrix(true, true);
+    const sceneInverse = new Matrix4().copy(scene.matrixWorld).invert();
+
+    const geometries = [];
+    const materials = [];
+
+    scene.traverse((child) => {
+      if (child.isMesh && child.geometry) {
+        // Keep geometry indexed — toNonIndexed() explodes memory on big meshes
+        let geom = child.geometry.clone();
+
+        // Reduce to the attribute set shared by every mesh so they can merge
+        for (const name of Object.keys(geom.attributes)) {
+          if (name !== "position" && name !== "normal" && name !== "uv") {
+            geom.deleteAttribute(name);
+          }
+        }
+        if (!geom.attributes.position) return;
+        const count = geom.attributes.position.count;
+
+        // Every geometry must have the SAME attribute set to merge:
+        // position + normal + uv, all indexed.
+        if (!geom.attributes.uv) {
+          geom.setAttribute(
+            "uv",
+            new Float32BufferAttribute(new Float32Array(count * 2), 2),
+          );
+        }
+        if (!geom.index) {
+          const idx = new Uint32Array(count);
+          for (let i = 0; i < count; i++) idx[i] = i;
+          geom.setIndex(new Uint32BufferAttribute(idx, 1));
+        }
+        if (!geom.attributes.normal) {
+          geom.computeVertexNormals();
+        }
+
+        const rel = new Matrix4()
+          .copy(sceneInverse)
+          .multiply(child.matrixWorld);
+        geom.applyMatrix4(rel);
+
+        geometries.push(geom);
+        materials.push(makePinkMaterial(child.material.normalMap));
+      }
+    });
+
+    if (geometries.length === 0) return;
+
+    // useGroups keeps one material per original mesh within the single object
+    const mergedGeo = mergeGeometries(geometries, true);
+    if (!mergedGeo) return;
+    // Recenter so the cluster's bounding-box center sits at the origin —
+    // keeps it centered in the viewport and orbiting around itself.
+    mergedGeo.center();
+    const mesh = new Mesh(mergedGeo, materials);
+    mesh.frustumCulled = false;
+
+    setMerged(mesh);
+    setLoading(false);
   }, [scene, setLoading]);
 
-  scene.traverse((child) => {
-    if (child.isMesh) {
-      child.castShadow = true;
-      child.receiveShadow = true;
-    }
-  });
-
-  return <primitive object={scene} scale={0.0125} position={[0, -1, 0]} />;
+  if (!merged) return null;
+  return <primitive object={merged} scale={1} position={[0, 0, 0]} />;
 }
 
-// MainLight Component
-const MainLight = () => {
-  const lightRef = useRef();
+// Both lights are repositioned every frame relative to the camera and aim at
+// the model centre (origin). They travel with the view, so the illumination
+// stays locked to what the viewer sees as the model rotates.
+const ViewLockedLights = () => {
   const { camera } = useThree();
+  const keyRef = useRef();
+  const fillRef = useRef();
+  // Camera-relative offsets: key from upper-left, fill softer from lower-right
+  const keyOffset = useRef(new Vector3(-4, 5, 1)).current;
+  const fillOffset = useRef(new Vector3(5, -3, 1)).current;
+  const tmp = useRef(new Vector3()).current;
 
   useFrame(() => {
-    if (lightRef.current && camera) {
-      const lightOffset = new Vector3(6, 5, -6).applyQuaternion(
-        camera.quaternion,
-      );
-      lightRef.current.position.copy(camera.position).add(lightOffset);
+    if (keyRef.current) {
+      tmp
+        .copy(keyOffset)
+        .applyQuaternion(camera.quaternion)
+        .add(camera.position);
+      keyRef.current.position.copy(tmp);
+    }
+    if (fillRef.current) {
+      tmp
+        .copy(fillOffset)
+        .applyQuaternion(camera.quaternion)
+        .add(camera.position);
+      fillRef.current.position.copy(tmp);
     }
   });
 
   return (
-    <directionalLight
-      ref={lightRef}
-      intensity={2.5}
-      castShadow
-      shadow-camera-near={0.5}
-      shadow-camera-far={50}
-      shadow-bias={-0.001}
-      color={new Color("#faf3e6")}
-      shadow-mapSize={2048}
-    >
-      <orthographicCamera
-        attach="shadow-camera"
-        args={[-8.5, 8.5, 8.5, -8.5, 0.1, 20]}
-      />
-    </directionalLight>
+    <>
+      <directionalLight ref={keyRef} intensity={7} color="#fbfbfb" />
+      <directionalLight ref={fillRef} intensity={5} color="#ffffff" />
+    </>
   );
 };
 
-// SecondaryLight Component
-const SecondaryLight = () => {
-  const secondaryLightRef = useRef();
-  const { camera } = useThree();
-
-  useFrame(() => {
-    if (secondaryLightRef.current && camera) {
-      const lightOffset = new Vector3(-7, 1, 3).applyQuaternion(
-        camera.quaternion,
-      );
-      secondaryLightRef.current.position.copy(camera.position).add(lightOffset);
-    }
-  });
-
-  return (
-    <directionalLight
-      ref={secondaryLightRef}
-      intensity={1}
-      castShadow
-      shadow-camera-near={0.5}
-      shadow-camera-far={50}
-      color={new Color("#fae7d2")}
-      shadow-mapSize={2048}
-      shadow-bias={-0.01}
-    />
-  );
-};
-
-// CameraControlsAndResponsive Component
 const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
-  const { camera } = useThree();
+  const { camera, invalidate } = useThree();
   const controlsRef = useRef();
 
   useEffect(() => {
@@ -123,21 +188,20 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
   useEffect(() => {
     const handleResize = () => {
       const aspect = window.innerWidth / window.innerHeight;
-      const zoomFactor = Math.log(aspect + 1) * 0.363;
-
-      // 🔥 Mobile boost
+      const zoomFactor = Math.log(aspect + 1) * 0.5;
       const isMobile = window.innerWidth < 768;
       camera.zoom = isMobile ? zoomFactor * 1.4 : zoomFactor;
-
       camera.updateProjectionMatrix();
       setReady(true);
+      // In demand frameloop the canvas is idle; force a live re-render each
+      // resize event so the model follows the window instead of snapping after.
+      invalidate();
     };
 
     window.addEventListener("resize", handleResize);
     handleResize();
-
     return () => window.removeEventListener("resize", handleResize);
-  }, [camera]);
+  }, [camera, invalidate]);
 
   return (
     <OrbitControls
@@ -148,57 +212,38 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
       zoomSpeed={0.8}
       rotateSpeed={0.5}
       dampingFactor={0.15}
-      minPolarAngle={Math.PI / 40} // Prevent camera from going too high
-      maxPolarAngle={Math.PI / 2} // Prevent camera from going too low
+      minPolarAngle={Math.PI / 40}
+      maxPolarAngle={Math.PI / 2}
       minDistance={4}
-      maxDistance={8}
+      maxDistance={6}
       autoRotate={autoRotate}
       autoRotateSpeed={0.7}
     />
   );
 };
 
-// ThreeScene Component
-export const ThreeScene = ({ setSignUpVisible }) => {
+export const ThreeScene = ({ setSignUpVisible, autoRotate, setAutoRotate }) => {
   const [loading, setLoading] = useState(true);
-  const [autoRotate, setAutoRotate] = useState(true);
-  const [hovered, setHovered] = useState(null); // Change to track which text is hovered
+  const [hovered, setHovered] = useState(null);
   const [touchStartTime, setTouchStartTime] = useState(null);
   const [ready, setReady] = useState(false);
 
-  const glbUrl = "/truck 7.glb"; // Replace with your actual GLB file path
-
-  const maxTouchDuration = 150; // Maximum duration for a short touch in ms
-
-  const handleToggleAutoRotate = () => {
-    setAutoRotate(!autoRotate);
-  };
+  const glbUrl = "/album-opt.glb";
+  const maxTouchDuration = 150;
 
   useEffect(() => {
     setLoading(true);
   }, [glbUrl]);
 
   useEffect(() => {
-    document.body.style.cursor = hovered !== null ? "pointer" : "auto"; // Update cursor style based on hover state
+    document.body.style.cursor = hovered !== null ? "pointer" : "auto";
   }, [hovered]);
 
-  useEffect(() => {
-    document.body.style.cursor = hovered !== null ? "pointer" : "auto"; // Update cursor style based on hover state
-  }, [hovered]);
-
-  const handlePointerOver = (id) => (e) => {
-    e.stopPropagation(); // Prevent event propagation
-    console.log(`${id} hovered`);
-    setHovered(id);
-  };
   const handlePointerOut = () => setHovered(null);
-
   const handlePointerDown = () => setTouchStartTime(Date.now());
 
   const handlePointerUp = (url, tab) => {
-    const touchEndTime = Date.now();
-    const touchDuration = touchEndTime - touchStartTime;
-
+    const touchDuration = Date.now() - touchStartTime;
     if (touchDuration < maxTouchDuration) {
       if (url === "signup") {
         setSignUpVisible(true);
@@ -208,52 +253,6 @@ export const ThreeScene = ({ setSignUpVisible }) => {
         handlePointerOut();
       }
     }
-  };
-
-  const TourMesh = () => (
-    <mesh
-      position={[-1.05, -0.1, 0.85]}
-      rotation={[0, -1.56, 0]}
-      onPointerDown={(e) => {
-        e.stopPropagation(); // Stop event propagation
-        handlePointerDown();
-      }}
-      onPointerUp={(e) => {
-        e.stopPropagation(); // Stop event propagation
-        handlePointerUp("/tour", "_self");
-      }}
-      onPointerOver={handlePointerOver("tour")}
-      onPointerOut={handlePointerOut}
-    >
-      <planeGeometry attach="geometry" args={[1, 0.8]} />
-      <meshBasicMaterial attach="material" transparent opacity={0} />
-    </mesh>
-  );
-
-  const WatchMesh = () => (
-    <mesh
-      position={[1.05, -0.1, 0.76]}
-      rotation={[0, 1.56, 0]}
-      onPointerDown={(e) => {
-        e.stopPropagation(); // Stop event propagation
-        handlePointerDown();
-      }}
-      onPointerUp={(e) => {
-        e.stopPropagation(); // Stop event propagation
-        handlePointerUp("https://www.youtube.com/watch?v=J8fd8_OeOaY", "blank");
-      }}
-      onPointerOver={handlePointerOver("watch")}
-      onPointerOut={handlePointerOut}
-    >
-      <planeGeometry attach="geometry" args={[1, 0.8]} />
-      <meshBasicMaterial attach="material" transparent opacity={0} />
-    </mesh>
-  );
-
-  const imageVariants = {
-    initial: { opacity: 0 },
-    animate: { opacity: 0.9, transition: { duration: 0.04 } },
-    exit: { opacity: 0.4, transition: { duration: 0.04 } },
   };
 
   return (
@@ -268,98 +267,52 @@ export const ThreeScene = ({ setSignUpVisible }) => {
       >
         {loading && <LoadingText />}
 
-        {!loading && (
-          <AnimatePresence mode="wait">
-            <motion.img
-              alt="rotate"
-              key={autoRotate ? "pause" : "rotate"}
-              onClick={handleToggleAutoRotate}
-              src={autoRotate ? pause : rotate}
-              variants={imageVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              style={{
-                width: autoRotate
-                  ? "clamp(22px, 5.5vw, 34px)"
-                  : "clamp(28px, 6.5vw, 42px)",
-                bottom: autoRotate
-                  ? "min(max(15px, 2vmin), 20px)"
-                  : "min(max(12px, 1.6vmin), 20px)",
-                left: autoRotate
-                  ? "min(max(15px, 2vmin), 18px)"
-                  : "min(max(12px, 1.6vmin), 18px)",
-                position: "fixed",
-                opacity: 0.9,
-                cursor: "pointer",
-                zIndex: 200,
-                padding: "15px 15px 0px 0px",
-              }}
+        {/* Color Balance applied to the object only (not the background).
+            5th number in each row = additive shift: R +red/-cyan,
+            G +green/-magenta, B +blue/-yellow. Tweak freely, no cache key. */}
+        <svg width="0" height="0" style={{ position: "absolute" }}>
+          <filter id="colorBalance" colorInterpolationFilters="sRGB">
+            <feColorMatrix
+              type="matrix"
+              values="1 0 0 0  0.10
+                      0 1 0 0 -0.20
+                      0 0 1 0  0.00
+                      0 0 0 1  0"
             />
-          </AnimatePresence>
-        )}
+          </filter>
+        </svg>
 
         <div style={{ opacity: ready ? 1 : 0 }}>
           <Canvas
-            shadows
-            style={{ position: "absolute", top: 0, left: 0 }}
-            camera={{
-              position: [6, 0.7, 1.7],
-              fov: 24,
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              // Canvas is taller than the viewport by the same amount it gets
+              // lifted (8vh) so that after the upward shift it still reaches the
+              // bottom of the page — otherwise the model's lower portion renders
+              // into a dead strip below the canvas and gets clipped.
+              width: "100%",
+              height: "108vh",
+              // X: shift right by half the sidebar width so the model is centred
+              // in the area right of the black sidebar.
+              // Y: negative value lifts the model up the page.
+              transform: "translate(calc(var(--bar-width) / 2), -8vh)",
+              filter: "contrast(150%) url(#colorBalance)",
             }}
+            camera={{ position: [0, 0, 6], fov: 24 }}
+            gl={{ alpha: true, antialias: true }}
+            frameloop={autoRotate ? "always" : "demand"}
           >
-            <Environment preset="forest" resolution={256} blur={0.6} />
-
-            <MainLight />
-            <SecondaryLight />
-
+            <ambientLight intensity={0} color="#ffffff" />
+            <ViewLockedLights />
             <Model url={glbUrl} setLoading={setLoading} />
-
-            <Text
-              scale={0.16}
-              color="#b07c00" // Change color based on hover state
-              position={[1.05, -0.1, 0.76]}
-              rotation={[0, 1.56, 0]}
-              fillOpacity={1}
-              fontWeight="bold"
-              font="/fonts/Sequel100Black-75.ttf"
-              strokeOpacity={hovered === "watch" ? 1 : 0}
-              strokeColor="white"
-              strokeWidth={hovered === "watch" ? 0.046 : 0}
-            >
-              WATCH
-            </Text>
-            <WatchMesh />
-
-            <Text
-              scale={0.16}
-              color="#b07c00" // Change color based on hover state
-              position={[-1.05, -0.1, 0.85]}
-              rotation={[0, -1.56, 0]}
-              fillOpacity={1}
-              fontWeight="bold"
-              font="/fonts/Sequel100Black-75.ttf"
-              strokeOpacity={hovered === "tour" ? 1 : 0}
-              strokeColor="white"
-              strokeWidth={hovered === "tour" ? 0.046 : 0}
-            >
-              TOUR
-            </Text>
-            <TourMesh />
-
             <CameraControlsAndResponsive
               setReady={setReady}
               autoRotate={autoRotate}
             />
-
-            <EffectComposer multisampling={0} resolutionScale={0.5}>
-              <BrightnessContrast brightness={0.02} contrast={0.1} />
-              <Bloom
-                intensity={0.25}
-                luminanceThreshold={0.9}
-                luminanceSmoothing={0.1}
-                mipmapBlur
-              />
+            <EffectComposer>
+              <BrightnessContrast brightness={-0.02} contrast={0.55} />
             </EffectComposer>
           </Canvas>
         </div>

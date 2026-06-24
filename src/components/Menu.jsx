@@ -5,12 +5,16 @@ import { NavList } from "./NavList";
 import border from "../images/border.webp";
 
 export const Menu = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
-  const dropDown = {
+  // Menu slides in horizontally from the left (hamburger's side).
+  // PREVIOUS behaviour — slid DOWN from the top — to revert, swap x → y:
+  //   hidden: { y: "-100%" }, visible: { y: 0 }
+  // (and revert the matching `.nav-container` top/left rules in menu.css)
+  const slideIn = {
     hidden: {
-      y: "-100%",
+      x: "-100%",
     },
     visible: {
-      y: 0,
+      x: 0,
     },
   };
 
@@ -23,14 +27,14 @@ export const Menu = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
             initial="hidden"
             animate="visible"
             exit="hidden"
-            variants={dropDown}
+            variants={slideIn}
             transition={{
               duration: 0.3,
             }}
             style={{
               position: "fixed",
               boxSizing: "border-box",
-              backgroundColor: "rgba(0, 0, 0, 0.85)",
+              backgroundColor: "rgba(0, 0, 0, 0.93)",
               backdropFilter: "blur(10px)" /* applies the blur effect */,
               height: "calc(100% + 1px)",
               width: "100vw",

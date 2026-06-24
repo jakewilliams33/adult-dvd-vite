@@ -1,19 +1,14 @@
-import vinyl from "../images/vinyl.webp";
-import vinylb from "../images/vinylb.webp";
+import cdb from "../images/cdb.webp";
 
 export const LoadingText = () => {
   return (
     <>
       <div className="loading-container">
-        <div className="side-view"></div>
-        <div className="image-container">
-          <img
-            loading="eager"
-            className="ringed-image-a"
-            src={vinyl}
-            alt="Loading"
-          />
-          <img className="ringed-image-b" src={vinylb} alt="Loading" />
+        <div className="cd-spinner">
+          <div className="side-view"></div>
+          <div className="image-container">
+            <img className="ringed-image-a" src={cdb} alt="Loading" />
+          </div>
         </div>
         <p className="loading-text">
           loading <span className="dot dot1">.</span>

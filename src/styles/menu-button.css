@@ -1,8 +1,12 @@
 /* menu-button.css */
 .menu-button {
-  position: absolute;
-  top: 16px;
-  right: 16px;
+  position: fixed;
+  /* Equidistant from the top and left: the top offset mirrors the horizontal
+     centering, so the button sits the same distance from both edges. */
+  top: calc((var(--bar-width) - 52px) / 2);
+  /* Centre the 52px button within the left sidebar */
+  left: calc((var(--bar-width) - 52px) / 2);
+  z-index: 200000;
 
   width: 52px;
   height: 52px;
@@ -20,9 +24,15 @@
 }
 
 .menu-icon {
-  width: 44px;
-  height: 44px;
+  width: var(--icon-size);
+  height: var(--icon-size);
   display: block;
+}
+
+/* Let the stroke scale with the icon (override the non-scaling-stroke attr) so
+   the hamburger thins down in proportion with the social icons. */
+.menu-icon line {
+  vector-effect: none;
 }
 
 /* Animation */
@@ -33,26 +43,28 @@
     opacity 200ms ease;
 }
 
-/* More spaced hamburger bars */
+/* Hamburger bars — tighter spacing for a slimmer, more minimal look */
 .l1 {
-  transform: translateY(-24px);
+  transform: translateY(-22px);
 }
 .l2 {
   transform: translateY(0px);
 }
 .l3 {
-  transform: translateY(24px);
+  transform: translateY(22px);
 }
 
-/* Strokes (FIXED OUTLINE LOOK) */
+/* Strokes (thin, modern; subtle dark edge so it reads on light backgrounds).
+   Now in viewBox (user) units so they scale with --icon-size — tuned to match
+   the previous ~4px / ~2.5px look at the max icon size. */
 .outline {
   stroke: #000;
-  stroke-width: 8px; /* bigger than fill so it shows on the sides properly */
+  stroke-width: 9.5; /* slightly bigger than fill so it shows on the sides */
 }
 
 .fill {
-  stroke: #e7ab00;
-  stroke-width: 6px;
+  stroke: #fff;
+  stroke-width: 6;
 }
 
 /* OPEN STATE → X */

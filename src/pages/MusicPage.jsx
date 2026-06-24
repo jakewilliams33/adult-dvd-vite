@@ -22,8 +22,8 @@ export const MusicPage = ({ slide }) => {
         animate="animate"
         exit="exit"
         transition={{ duration: 0.3 }}
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
       >
+        <div className="music-overlay" />
         <section className="o-page__section--discography">
           <div className="titleSection"></div>
           <div className="c-releases">

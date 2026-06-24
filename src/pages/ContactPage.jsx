@@ -1,11 +1,6 @@
 import React, { useRef, useState } from "react";
 import * as Yup from "yup";
 import "../styles/contact.css";
-import "../styles/postage-label.css";
-import ad from "../images/adorange.webp";
-import envelope from "../images/envelopeorange.webp";
-import monkey from "../images/monkeyorange.webp";
-import barcode from "../images/barcode.webp";
 import { Helmet } from "react-helmet-async";
 
 export const ContactPage = ({ opacity }) => {
@@ -66,9 +61,8 @@ export const ContactPage = ({ opacity }) => {
     try {
       await validationSchema.validate(values, { abortEarly: false });
       setErrors({});
-      setSent(true); // Assuming you want to show a success message after submission
+      setSent(true);
 
-      // Construct FormData object
       const formData = new FormData();
       formData.append("form-name", "contact");
       formData.append("name", values.name);
@@ -76,14 +70,12 @@ export const ContactPage = ({ opacity }) => {
       formData.append("subject", values.subject);
       formData.append("message", values.message);
 
-      // Submit FormData to Netlify
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
       });
 
-      // Handle response (optional)
       if (response.ok) {
         console.log("Form submitted successfully!");
       } else {
@@ -104,175 +96,144 @@ export const ContactPage = ({ opacity }) => {
         <title>Contact</title>
         <meta name="description" content="Contact Form" />
       </Helmet>
-      <div>
-        <div className={sent ? "sent" : "form-container"}>
-          <div className="inner-box inner-box-scroll-contact custom-scroll">
-            <div className="top-banner">
-              <div style={{ borderRight: "#fb772b solid 1.4pt" }}>
-                <img
-                  style={{ width: "60px", marginLeft: "5px" }}
-                  src={ad}
-                  alt="ad"
-                />
-              </div>
-              <img style={{ width: "88px" }} src={envelope} alt="envelope" />
-              <img style={{ width: "60px" }} src={monkey} alt="monkey" />
-            </div>
-            <div className="information">
-              <p>
-                <span style={{ fontWeight: "bold" }}>UK/EU BOOKINGS:</span>{" "}
-                <a className="email" href="sarah.joy@atc-live.com">
-                  sarah.joy@atc-live.com
-                </a>
-                /
-                <a className="email" href="caitlin@atc-live.com">
-                  caitlin@atc-live.com
-                </a>
-              </p>
-            </div>
-            <div className="information">
-              <p>
-                <span style={{ fontWeight: "bold" }}>MGMT: </span>{" "}
-                <a className="email" href="sarah@sarahbrooksbankmgmt.com">
-                  sarah@sarahbrooksbankmgmt.com
-                </a>{" "}
-                <span style={{ fontWeight: "bold" }}>ANYTHING ELSE: </span>{" "}
-                <a className="email" href="mailto:Adultdvdmenu@gmail.com">
-                  Adultdvdmenu@gmail.com
-                </a>{" "}
-                - or use the form below.
-              </p>
-            </div>
-            {sent && (
-              <div>
-                <div className="divider-sent"></div>
-                <h3 style={{ marginTop: "10px" }}>Message sent!</h3>
-                <div className="divider-sent"></div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <img style={{ width: "80%" }} src={barcode} alt="barcode" />
-                </div>
-                <div className="divider-sent"></div>
 
-                <button
-                  onClick={() => {
-                    setSent(false);
-                    setValues({
-                      name: "",
-                      email: "",
-                      subject: "",
-                      message: "",
-                    });
-                  }}
-                >
-                  send another?
-                </button>
-              </div>
-            )}
-            <form
-              ref={form}
-              onSubmit={handleSubmit}
-              name="contact"
-              method="POST"
-              action="/"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-            >
-              <input type="hidden" name="form-name" value="contact" />
-              <div style={{ display: "none" }}>
-                <label>
-                  <input name="bot-field" />
-                </label>
-              </div>
-              <div
-                style={{
-                  width: "94%",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  marginTop: "1vh",
-                }}
-              >
-                <label>Name</label>
-                {touched.name && errors.name && (
-                  <span className="error-messages">{errors.name}</span>
-                )}
-                <input
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
-                  type="text"
-                  name="name"
-                  className="feedback-input"
-                />
-
-                <label>Email</label>
-                {touched.email && errors.email && (
-                  <span className="error-messages">{errors.email}</span>
-                )}
-                <input
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
-                  type="text"
-                  name="email"
-                  className="feedback-input"
-                />
-
-                <label>Subject</label>
-                <input
-                  onChange={handleChange}
-                  value={values.subject}
-                  type="text"
-                  name="subject"
-                  className="feedback-input"
-                />
-              </div>
-              <div
-                style={{ width: "100%", height: "15px", marginBottom: "13px" }}
-                className="dividers"
-              ></div>
-              <div
-                style={{
-                  width: "94%",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
-              >
-                <label>Message</label>
-                {touched.message && errors.message && (
-                  <span className="error-messages">{errors.message}</span>
-                )}
-              </div>
-
-              <div
-                style={{
-                  width: "94%",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  height: "100%",
-                  display: "flex",
-                  flexGrow: 1,
-                  flexDirection: "column",
-                  marginBottom: "2vh",
-                }}
-              >
-                <textarea
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.message}
-                  name="message"
-                  className="message"
-                />
-              </div>
-              <div
-                className="dividers"
-                style={{ width: "100%", height: "15px" }}
-              ></div>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <input type="submit" value="Send" />
-              </div>
-            </form>
-          </div>
+      <div className="contact-panel">
+        <div className="contact-header">
+          <h1 className="contact-title">Contact</h1>
         </div>
+
+        <div className="contact-info">
+          <span className="ci-label">UK/EU Bookings:</span>
+          <span className="ci-value">
+            <a className="email" href="mailto:sarah.joy@atc-live.com">
+              sarah.joy@atc-live.com
+            </a>{" "}
+            &amp;{" "}
+            <a className="email" href="mailto:caitlin@atc-live.com">
+              caitlin@atc-live.com
+            </a>
+          </span>
+
+          <span className="ci-label">USA Bookings:</span>
+          <span className="ci-value">
+            <a className="email" href="mailto:someone@something.com">
+              someone@something.com
+            </a>
+          </span>
+
+          <span className="ci-label">Management:</span>
+          <span className="ci-value">
+            <a className="email" href="mailto:sarah@sarahbrooksbankmgmt.com">
+              sarah@sarahbrooksbankmgmt.com
+            </a>
+          </span>
+
+          <span className="ci-label">Press:</span>
+          <span className="ci-value">
+            <a className="email" href="mailto:someone@something.com">
+              someone@something.com
+            </a>
+          </span>
+
+          <span className="ci-label">Other:</span>
+          <span className="ci-value">
+            <a className="email" href="mailto:adultdvdmenu@gmail.com">
+              adultdvdmenu@gmail.com
+            </a>
+          </span>
+        </div>
+
+        {sent ? (
+          <div className="contact-sent">
+            <p className="contact-sent-text">Message sent!</p>
+            <button
+              type="button"
+              className="contact-send"
+              onClick={() => {
+                setSent(false);
+                setValues({ name: "", email: "", subject: "", message: "" });
+              }}
+            >
+              Send another?
+            </button>
+          </div>
+        ) : (
+          <form
+            ref={form}
+            onSubmit={handleSubmit}
+            name="contact"
+            method="POST"
+            action="/"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            className="contact-form"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <div style={{ display: "none" }}>
+              <label>
+                <input name="bot-field" />
+              </label>
+            </div>
+
+            <div className="contact-fields">
+              <label className="contact-label">Name</label>
+              {touched.name && errors.name && (
+                <span className="error-messages">{errors.name}</span>
+              )}
+              <input
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+                type="text"
+                name="name"
+                className="contact-input"
+              />
+
+              <label className="contact-label">Email</label>
+              {touched.email && errors.email && (
+                <span className="error-messages">{errors.email}</span>
+              )}
+              <input
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                type="text"
+                name="email"
+                className="contact-input"
+              />
+
+              <label className="contact-label">Subject</label>
+              <input
+                onChange={handleChange}
+                value={values.subject}
+                type="text"
+                name="subject"
+                className="contact-input"
+                style={{ marginBottom: 20 }}
+              />
+            </div>
+
+            <div className="contact-divider"></div>
+
+            <div className="contact-fields">
+              <label className="contact-label">Message</label>
+              {touched.message && errors.message && (
+                <span className="error-messages">{errors.message}</span>
+              )}
+              <textarea
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.message}
+                name="message"
+                className="contact-message"
+              />
+            </div>
+
+            <div className="contact-send-wrap">
+              <input type="submit" className="contact-send" value="Send" />
+            </div>
+          </form>
+        )}
       </div>
     </>
   );

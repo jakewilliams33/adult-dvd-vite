@@ -11,12 +11,16 @@ import { SignUpForm } from "./components/SignUpForm";
 import { StreamingLinks } from "./pages/StreamingLinks";
 import { PageNotFound } from "./pages/PageNotFound";
 import { useEffect } from "react";
-import crt from "./images/crt.png";
+import pinkObjects from "./images/pink-objects.webp";
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const [signUpVisible, setSignUpVisible] = useState(false);
+
+  // Pink objects sit behind every page except the home page.
+  const isHome =
+    location.pathname === "/" || location.pathname === "/signup";
 
   useEffect(() => {
     if (location.pathname === "/signup") {
@@ -27,6 +31,14 @@ const App = () => {
   return (
     <>
       <div className="App">
+        {!isHome && (
+          <img
+            src={pinkObjects}
+            alt=""
+            aria-hidden="true"
+            className="objects-bg"
+          />
+        )}
         <MenuButton menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
         <Menu
@@ -41,10 +53,7 @@ const App = () => {
             left: 0,
             width: "100vw",
             height: "100vh",
-            backgroundImage: `url(${crt})`,
-            backgroundRepeat: "repeat", // or "no-repeat"
-            backgroundSize: "auto", // or "cover"
-            backgroundPosition: "center",
+
             opacity: 0.11,
             pointerEvents: "none",
             zIndex: 3,

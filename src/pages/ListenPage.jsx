@@ -1,169 +1,70 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/listen.css";
 import fm from "front-matter";
 import markdownContent from "../content/releases.md?url&raw";
 import { convertToId } from "../Hooks/convertToId";
-import ad from "../images/adorange.webp";
-import monkey from "../images/monkeyorange.webp";
-import "../styles/postage-label.css";
-import border from "../images/border.webp";
-import barcode from "../images/barcode.webp";
 
 const { releases } = fm(markdownContent).attributes;
 
-export const ListenPage = ({ opacity }) => {
+// Streaming services in display order. `logo` uses linkfire's on-dark variant
+// so the logos read on the black panel.
+const SERVICES = [
+  { key: "spotify", label: "Spotify", logo: "logo_spotify_ondark.svg" },
+  { key: "apple", label: "Apple Music", logo: "logo_applemusic_ondark.svg" },
+  { key: "bandcamp", label: "Bandcamp", logo: "logo_bandcamp_ondark.svg" },
+  { key: "youtube", label: "YouTube", logo: "logo_youtube_ondark.svg" },
+  { key: "tidal", label: "Tidal", logo: "logo_tidal_ondark.svg" },
+  { key: "amazon", label: "Amazon Music", logo: "logo_amazonmusic_ondark.svg" },
+  { key: "deezer", label: "Deezer", logo: "logo_deezer_ondark.svg" },
+];
+
+export const ListenPage = () => {
   const { url_release_id } = useParams();
   const [current, setCurrent] = useState({});
 
   // Preprocess into a lookup object
   const releasesLookup = releases.reduce((acc, item) => {
-    const id = convertToId(item.title);
-    acc[id] = item;
+    acc[convertToId(item.title)] = item;
     return acc;
   }, {});
 
-  //Look up match and set as current release
+  // Look up match and set as current release
   useEffect(() => {
-    const x = releasesLookup[url_release_id];
-    setCurrent(x);
+    setCurrent(releasesLookup[url_release_id] || {});
   }, [url_release_id, releasesLookup]);
 
+  if (!current || Object.keys(current).length === 0) return null;
+
   return (
-    <>
-      {Object.keys(current).length > 0 ? (
-        <div>
-          <div className="link-container">
-            <div className="top-banner-tour">
-              <div style={{ borderRight: "#fb772b solid 1.4pt" }}>
-                <img
-                  style={{ width: "80px", marginLeft: "5px" }}
-                  src={ad}
-                ></img>
-              </div>
-              <img
-                style={{
-                  width: "90px",
-                  maxHeight: "100%",
-                  objectFit: "contain",
-                  borderImage: `url(${border}) 30 round`,
-                  borderRight: "solid 1.4pt",
-                  borderLeft: "solid 1.4pt",
-                }}
-                src={current.image}
-              ></img>{" "}
-              <img style={{ width: "80px" }} src={monkey}></img>
-            </div>
-            <div className="inner-box-scroll-listen custom-scroll">
-              <h2 className="track-title">{current.title}</h2>
-              <ul>
-                <li>
-                  <div className="dividers"></div>
+    <div className="listen-panel">
+      <div className="listen-header">
+        {current.image && (
+          <img
+            className="listen-art"
+            src={current.image}
+            alt={current.title}
+          />
+        )}
+        <h1 className="listen-title">{current.title}</h1>
+      </div>
 
-                  <a target="blank" href={current.spotify}>
-                    <img
-                      data-test="music-service-item-image"
-                      src="https://services.linkfire.com/logo_spotify_onlight.svg"
-                      alt="Spotify"
-                    ></img>
-                  </a>
-                </li>
-                <div className="dividers"></div>
-                {current.apple && (
-                  <li>
-                    <a target="blank" href={current.apple}>
-                      <img
-                        data-test="music-service-item-image"
-                        src="https://services.linkfire.com/logo_applemusic_onlight.svg"
-                        alt="Apple Music"
-                      ></img>
-                    </a>
-                    <div className="dividers"></div>
-                  </li>
-                )}
-                {current.bandcamp && (
-                  <li>
-                    <a target="blank" href={current.bandcamp}>
-                      <img
-                        data-test="music-service-item-image"
-                        src="https://services.linkfire.com/logo_bandcamp_onlight.svg"
-                        alt="bandcamp"
-                      ></img>
-                    </a>
-                    <div className="dividers"></div>
-                  </li>
-                )}
-                {current.youtube && (
-                  <li>
-                    <a target="blank" href={current.youtube}>
-                      <img
-                        data-test="music-service-item-image"
-                        src="https://services.linkfire.com/logo_youtube_onlight.svg"
-                        alt="youtube"
-                      ></img>
-                    </a>
-                    <div className="dividers"></div>
-                  </li>
-                )}
-                <li>
-                  <a target="blank" href={current.tidal}>
-                    <img
-                      data-test="music-service-item-image"
-                      src="https://services.linkfire.com/logo_tidal_onlight.svg"
-                      alt="tidal"
-                    ></img>
-                  </a>
-                  <div className="dividers"></div>
-                </li>
-                {current.amazon && (
-                  <li>
-                    <a target="blank" href={current.amazon}>
-                      <img
-                        data-test="music-service-item-image"
-                        src="https://services.linkfire.com/logo_amazonmusic_onlight.svg"
-                        alt="amazon"
-                      ></img>
-                    </a>
-                    <div className="dividers"></div>
-                  </li>
-                )}
-                {current.deezer && (
-                  <li>
-                    <a target="blank" href={current.deezer}>
-                      <img
-                        data-test="music-service-item-image"
-                        src="https://services.linkfire.com/logo_deezer_onlight.svg"
-                        alt="deezer"
-                      ></img>
-                    </a>
-                    <div className="dividers"></div>
-                  </li>
-                )}
-              </ul>
-              <p className="a-adultdvd">a/ ADULT DVD</p>
-              <img
-                style={{ height: "55px", width: "63%", maxWidth: "280px" }}
-                src={barcode}
-              ></img>
-
-              <div className="dividers"></div>
-              <div
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}
-              >
-                <p className="priority-mail" style={{}}>
-                  Priority mail is a registered trademark of the A.D. Postal
-                  Service
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </>
+      <div className="listen-links">
+        {SERVICES.filter((s) => current[s.key]).map((s) => (
+          <a
+            key={s.key}
+            className="listen-link"
+            href={current[s.key]}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={`https://services.linkfire.com/${s.logo}`}
+              alt={s.label}
+            />
+          </a>
+        ))}
+      </div>
+    </div>
   );
 };

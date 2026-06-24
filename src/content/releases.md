@@ -48,15 +48,7 @@ releases:
     spotify: https://open.spotify.com/album/7kY0EWaq3UcUhkUi5fxwb6
     apple: https://music.apple.com/gb/album/yacht-money-single/1711101720?app=music
     image: /covers/yacht-money.webp
-  - deezer: https://deezer.page.link/fjQtwDTi4HFWQwgL9
-    youtube: https://www.youtube.com/watch?v=qdm71bGijcg
-    amazon: https://music.amazon.co.uk/albums/B0BVP1JPCF?trackAsin=B0BVPTKMYY
-    displayOnMusicPage: yes
-    title: Fountain of Youth
-    tidal: https://listen.tidal.com/album/276474181/track/276474182
-    spotify: https://open.spotify.com/track/7aMCvb9GLrvbwHA3P2evFj?si=de3b906e4fed40a3
-    apple: https://music.apple.com/gb/album/fountain-of-youth/1678326386?i=1678326387
-    image: /covers/fountainOfYouth.webp
+
   - deezer: https://deezer.page.link/bLXmf9fnpF6sWg8q8
     youtube: https://www.youtube.com/watch?v=i7MhVu4FPp8
     amazon: https://music.amazon.co.uk/albums/B0BRJYMY66?trackAsin=B0BRJYP213
@@ -67,15 +59,6 @@ releases:
     spotify: https://open.spotify.com/track/3ap3V9N1KDlNlE7nV53iCx?si=8783ef5393f34e0d
     apple: https://music.apple.com/gb/album/sadman-mancave/1662396497?i=1662396498
     image: /covers/sadmanMancave.webp
-  - deezer: https://deezer.page.link/wNUvM3tiQAWV6Fy97
-    youtube: https://www.youtube.com/watch?v=9R5_eZ-E_r0
-    amazon: https://music.amazon.co.uk/albums/B0BNM24Y2Y?trackAsin=B0BNLZPMQL
-    displayOnMusicPage: yes
-    title: Santa What You Got For Me?
-    tidal: https://listen.tidal.com/album/263478383/track/263478384
-    spotify: https://open.spotify.com/track/4bOjjtzrsJOZ1RyWYgtgUN?si=a9047bb56a13447d
-    apple: https://music.apple.com/gb/album/santa-what-you-got-for-me/1657072793?i=1657072794
-    image: /covers/santaWhatYouGotForMe.webp
   - deezer: https://www.deezer.com/track/1905303277
     youtube: https://youtube.com/watch?v=URje0etGDoM
     amazon: https://music.amazon.com/albums/B0BDR76J9W
@@ -86,16 +69,6 @@ releases:
     spotify: https://open.spotify.com/track/0Umhmtk4SDzt8wO2nDmOrR
     apple: https://music.apple.com/gb/album/bill-murray/1644105414?i=1644105415&app=music
     image: /covers/billMurray.webp
-  - deezer: https://www.deezer.com/track/1920569627
-    youtube: https://youtube.com/watch?v=Aq5QLiGde-A
-    amazon: https://music.amazon.com/albums/B0BFRT1J3Q
-    displayOnMusicPage: yes
-    bandcamp: https://treeboyandarc.bandcamp.com/track/role-models-adult-dvd-remix
-    title: role models - ADULT DVD remix
-    tidal: https://listen.tidal.com/track/249264056
-    spotify: https://open.spotify.com/track/0Y4UrlRUESco26ddxbNBEL
-    apple: https://music.apple.com/gb/album/role-models/1646136361?i=1646136368
-    image: /covers/roleModels.webp
   - deezer: https://www.deezer.com/en/album/539232442
     youtube: https://www.youtube.com/watch?v=OL7eKOQEGPE
     amazon: https://music.amazon.com/albums/B09H286BJ5

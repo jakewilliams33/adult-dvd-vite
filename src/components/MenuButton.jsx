@@ -53,18 +53,18 @@ export const MenuButton = ({ setMenuOpen, menuOpen }) => {
         <g className="line l1">
           <line
             className="outline"
-            x1="20"
+            x1="10"
             y1="50"
-            x2="80"
+            x2="90"
             y2="50"
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
           />
           <line
             className="fill"
-            x1="20"
+            x1="10"
             y1="50"
-            x2="80"
+            x2="90"
             y2="50"
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
@@ -74,18 +74,18 @@ export const MenuButton = ({ setMenuOpen, menuOpen }) => {
         <g className="line l2">
           <line
             className="outline"
-            x1="20"
+            x1="10"
             y1="50"
-            x2="80"
+            x2="90"
             y2="50"
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
           />
           <line
             className="fill"
-            x1="20"
+            x1="10"
             y1="50"
-            x2="80"
+            x2="90"
             y2="50"
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
@@ -95,18 +95,18 @@ export const MenuButton = ({ setMenuOpen, menuOpen }) => {
         <g className="line l3">
           <line
             className="outline"
-            x1="20"
+            x1="10"
             y1="50"
-            x2="80"
+            x2="90"
             y2="50"
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
           />
           <line
             className="fill"
-            x1="20"
+            x1="10"
             y1="50"
-            x2="80"
+            x2="90"
             y2="50"
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"

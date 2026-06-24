@@ -9,7 +9,7 @@
   <!-- LEFT BAR -->
   <path
     d="M0 0 C32.01 0 64.02 0 97 0 C97 120.45 97 240.9 97 365 C64.99 365 32.98 365 0 365 C0 244.55 0 124.1 0 0 Z"
-    fill="#e7ab00"
+    fill="#ffffff"
     stroke="#000000"
     stroke-width="10"
     stroke-linejoin="round"
@@ -20,7 +20,7 @@
   <path
     d="M0 0 C32.01 0 64.02 0 97 0 C97 120.45 97 240.9 97 365 C64.99 365 32.98 365 0 365 C0 244.55 0 124.1 0 0 Z"
     transform="translate(220 0)"
-    fill="#e7ab00ff"
+    fill="#ffffff"
     stroke="#000000"
     stroke-width="10"
     stroke-linejoin="round"

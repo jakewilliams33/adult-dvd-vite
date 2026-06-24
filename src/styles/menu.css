@@ -1,16 +1,33 @@
+@font-face {
+  font-family: "WTBobine";
+  src: url("/fonts/WTBobine-Italic.otf") format("opentype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* Nav list slides in from the left to match the menu background.
+   PREVIOUS behaviour — slid DOWN from the top — to revert:
+     .nav-container        { top: -100vh; left: 0; transition: top 0.3s, opacity 0.2s; }
+     .nav-container.active  { top: 0vh;    transition: top 0.4s, opacity 1.5s; }
+   (and revert the matching framer-motion variant in Menu.jsx) */
 .nav-container {
   height: 100%;
   width: 100%;
   position: fixed;
   z-index: 2010;
-  top: -100vh;
+  top: 0;
+  left: -100vw;
   opacity: 0;
-  transition: top 0.3s, opacity 0.2s;
+  transition:
+    left 0.3s,
+    opacity 0.2s;
 }
 
 .nav-container.active {
-  transition: top 0.4s, opacity 1.5s;
-  top: 0vh;
+  transition:
+    left 0.4s,
+    opacity 1.5s;
+  left: 0;
   opacity: 1;
 }
 
@@ -21,25 +38,29 @@
   width: auto;
   margin-left: auto;
   text-align: center;
+  font-family: "WTBobine", sans-serif;
   font-size: min(max(45px, 7vh), 60px);
   color: white;
-
   /* Flexbox settings */
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .list ul {
-  margin-top: 110px;
   list-style: none;
-  /* Allow the ul to grow to use available space */
+  box-sizing: border-box;
+  /* Grow to fill the space ABOVE the icons (not force 100% height, which
+     would push the icons past the bottom and clip their margin). */
   display: flex;
-  height: 100%;
+  flex: 1;
+  width: 100%;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 2px;
+  /* Slightly more top padding than bottom so the whole list sits a touch lower. */
+  padding: clamp(40px, 6vh, 80px) 0 clamp(24px, 4vh, 60px);
 }
 
 .list li {

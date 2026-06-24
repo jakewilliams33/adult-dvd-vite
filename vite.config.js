@@ -24,7 +24,7 @@ export default defineConfig({
   ],
   server: {
     port: 4200, // Set the port you want/ or available port
-    host: "127.0.0.1",
+    host: true, // listen on all network interfaces (LAN access from phone, etc.)
   },
   assetsInclude: ["**/*.glb"],
   resolve: {

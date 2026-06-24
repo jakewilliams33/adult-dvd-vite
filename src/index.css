@@ -5,18 +5,40 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "WTBobine";
+  src: url("/fonts/WTBobine-Italic.otf") format("opentype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/InstrumentSerif-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  background-color: #303244;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("./images/rtlgif2.webp"); /* Second layer for flipping */
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Background as a fixed, viewport-sized layer so it never scales to the full
+   (scrollable) document height — stays put on tall pages like /music, and
+   avoids the repaint cost of background-attachment: fixed. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url("./images/albumbg.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 * {
@@ -36,19 +58,6 @@ body {
   background: none;
 }
 
-.date {
-  text-align: center;
-  bottom: 8px;
-  position: fixed;
-  right: 12px;
-  font-size: min(max(10px, 2vmin), 25px);
-  background-image: url("./images/border.webp"); /* Replace with your image URL */
-  background-size: 25px;
-  background-clip: text;
-  color: rgba(250, 89, 32, 0.5);
-  z-index: 200;
-}
-
 .rotate-icon {
   -webkit-tap-highlight-color: transparent;
 }
@@ -58,9 +67,9 @@ body {
 }
 
 .icons-home {
-  font-size: clamp(28px, 6.5vw, 42px);
-  color: #e7ab00ff;
-  padding: 20px 15px 20px 0px; /* bigger tap area */
+  font-size: var(--icon-size);
+  color: #ffffff;
+  padding: 14px 8px; /* symmetric so icons centre within the sidebar */
   opacity: 0.9;
 }
 
@@ -80,6 +89,24 @@ body {
   --crt-vignette: 0.55;
   --crt-rgb-shift: 1px;
   --crt-noise-opacity: 0.06;
+  /* Width of the left icon sidebar (hamburger + socials + rotate live in it) */
+  --bar-width: clamp(58px, 9vw, 76px);
+  /* Shared icon scale — socials, hamburger and rotate all resize off this so
+     they grow/shrink together with the viewport. */
+  --icon-size: clamp(28px, 6.5vw, 42px);
+}
+
+/* Pink objects cluster behind every page except home (rendered in App.jsx).
+   Oversized so the cluster bleeds well past every viewport edge. */
+.objects-bg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(max(160vw, 160vw), 1750px);
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* Ensure the bg sits behind everything */

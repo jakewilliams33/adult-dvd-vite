@@ -1,9 +1,5 @@
 import "../styles/listen.css";
-import ad from "../images/adorange.webp";
-import monkey from "../images/monkeyorange.webp";
-import "../styles/postage-label.css";
-import barcode from "../images/barcode.webp";
-import envelope from "../images/envelopeorange.webp";
+import logo from "../images/adult-dvd-logo.svg";
 
 const current = {
   spotify: "https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG",
@@ -18,123 +14,40 @@ const current = {
     "https://adultdvd.bandcamp.com/?from=search&search_item_id=3458032651&search_item_type=b&search_match_part=%3F&search_page_id=2552049260&search_page_no=1&search_rank=1&search_sig=522b1de8bbb4315624551e209b71a28a",
 };
 
+// On-dark logos so they read on the black panel.
+const SERVICES = [
+  { key: "spotify", label: "Spotify", logo: "logo_spotify_ondark.svg" },
+  { key: "apple", label: "Apple Music", logo: "logo_applemusic_ondark.svg" },
+  { key: "bandcamp", label: "Bandcamp", logo: "logo_bandcamp_ondark.svg" },
+  { key: "youtube", label: "YouTube", logo: "logo_youtube_ondark.svg" },
+  { key: "tidal", label: "Tidal", logo: "logo_tidal_ondark.svg" },
+  { key: "amazon", label: "Amazon Music", logo: "logo_amazonmusic_ondark.svg" },
+  { key: "deezer", label: "Deezer", logo: "logo_deezer_ondark.svg" },
+];
+
 export const StreamingLinks = () => {
-  // Preprocess into a lookup object
-
   return (
-    <>
-      <div>
-        <div className="link-container">
-          <div className="top-banner-tour">
-            <div style={{ borderRight: "#fb772b solid 1.4pt" }}>
-              <img style={{ width: "63px", marginLeft: "5px" }} src={ad}></img>
-            </div>
-            <img style={{ width: "89px" }} src={envelope} alt="envelope" />
-
-            <img style={{ width: "57px" }} src={monkey}></img>
-          </div>
-          <div className="inner-box-scroll-listen custom-scroll">
-            <ul>
-              <li>
-                <div className="dividers"></div>
-
-                <a target="blank" href={current.spotify}>
-                  <img
-                    data-test="music-service-item-image"
-                    src="https://services.linkfire.com/logo_spotify_onlight.svg"
-                    alt="Spotify"
-                  ></img>
-                </a>
-              </li>
-              <div className="dividers"></div>
-
-              <li>
-                <a target="blank" href={current.apple}>
-                  <img
-                    data-test="music-service-item-image"
-                    src="https://services.linkfire.com/logo_applemusic_onlight.svg"
-                    alt="Apple Music"
-                  ></img>
-                </a>
-                <div className="dividers"></div>
-              </li>
-
-              <li>
-                <a target="blank" href={current.bandcamp}>
-                  <img
-                    data-test="music-service-item-image"
-                    src="https://services.linkfire.com/logo_bandcamp_onlight.svg"
-                    alt="bandcamp"
-                  ></img>
-                </a>
-                <div className="dividers"></div>
-              </li>
-
-              <li>
-                <a target="blank" href={current.youtube}>
-                  <img
-                    data-test="music-service-item-image"
-                    src="https://services.linkfire.com/logo_youtube_onlight.svg"
-                    alt="youtube"
-                  ></img>
-                </a>
-                <div className="dividers"></div>
-              </li>
-              <li>
-                <a target="blank" href={current.tidal}>
-                  <img
-                    data-test="music-service-item-image"
-                    src="https://services.linkfire.com/logo_tidal_onlight.svg"
-                    alt="tidal"
-                  ></img>
-                </a>
-                <div className="dividers"></div>
-              </li>
-              <li>
-                <a target="blank" href={current.amazon}>
-                  <img
-                    data-test="music-service-item-image"
-                    src="https://services.linkfire.com/logo_amazonmusic_onlight.svg"
-                    alt="amazon"
-                  ></img>
-                </a>
-                <div className="dividers"></div>
-              </li>
-
-              <li>
-                <a target="blank" href={current.deezer}>
-                  <img
-                    data-test="music-service-item-image"
-                    src="https://services.linkfire.com/logo_deezer_onlight.svg"
-                    alt="deezer"
-                  ></img>
-                </a>
-                <div className="dividers"></div>
-              </li>
-            </ul>
-            <p className="a-adultdvd">a/ ADULT DVD</p>
-            <img
-              style={{ height: "55px", width: "63%", maxWidth: "280px" }}
-              src={barcode}
-            ></img>
-
-            <div className="dividers"></div>
-            <div
-              style={{
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
-              <p className="priority-mail" style={{}}>
-                Priority mail is a registered trademark of the A.D. Postal
-                Service
-              </p>
-            </div>
-          </div>
-        </div>
+    <div className="listen-panel">
+      <div className="listen-header">
+        <img className="listen-logo" src={logo} alt="Adult DVD" />
       </div>
-    </>
+
+      <div className="listen-links">
+        {SERVICES.filter((s) => current[s.key]).map((s) => (
+          <a
+            key={s.key}
+            className="listen-link"
+            href={current[s.key]}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={`https://services.linkfire.com/${s.logo}`}
+              alt={s.label}
+            />
+          </a>
+        ))}
+      </div>
+    </div>
   );
 };
