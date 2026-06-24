@@ -2,7 +2,6 @@ import {
   faApple,
   faBandcamp,
   faFacebook,
-  faInstagram,
   faSpotify,
   faYoutube,
   faTiktok,
@@ -12,6 +11,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../styles/loading-spinner.css";
 import rotate from "../images/arrow.svg";
 import pause from "../images/pause.svg";
+
+// Custom Instagram glyph (replaces the FontAwesome one). Styled like the other
+// sidebar icons: white, --icon-size tall, same .icons-home spacing. viewBox is
+// cropped so the glyph fills the box like the FA icons, and the path's stroke
+// is cleared so the .icons-home black edge (tuned for FA's large viewBox)
+// doesn't draw on this 24-unit icon.
+const InstagramIcon = () => (
+  <svg
+    className="icons-home"
+    viewBox="2 2 20 20"
+    fill="currentColor"
+    aria-hidden="true"
+    style={{
+      width: "1em",
+      height: "1em",
+      verticalAlign: "-0.125em",
+      display: "inline-block",
+      overflow: "visible",
+    }}
+  >
+    <path
+      style={{ stroke: "none" }}
+      d="M 8 3 C 5.239 3 3 5.239 3 8 L 3 16 C 3 18.761 5.239 21 8 21 L 16 21 C 18.761 21 21 18.761 21 16 L 21 8 C 21 5.239 18.761 3 16 3 L 8 3 z M 18 5 C 18.552 5 19 5.448 19 6 C 19 6.552 18.552 7 18 7 C 17.448 7 17 6.552 17 6 C 17 5.448 17.448 5 18 5 z M 12 7 C 14.761 7 17 9.239 17 12 C 17 14.761 14.761 17 12 17 C 9.239 17 7 14.761 7 12 C 7 9.239 9.239 7 12 7 z M 12 9 A 3 3 0 0 0 9 12 A 3 3 0 0 0 12 15 A 3 3 0 0 0 15 12 A 3 3 0 0 0 12 9 z"
+    />
+  </svg>
+);
 
 export const HomePageSocials = ({
   autoRotate,
@@ -63,9 +88,10 @@ export const HomePageSocials = ({
             justifyContent: "space-evenly",
             alignItems: "center",
             width: "100%",
-            // Responsive spread, capped to the space between hamburger & rotate.
-            // space-evenly => even gaps (incl. to the endpoints) at max spread.
-            height: "min(max(330px, 50vw), 100%)",
+            // Fill the full height between the reserved hamburger/rotate spots
+            // so space-evenly spreads the socials evenly across it at EVERY
+            // size — no gap before the rotate button at wide viewports.
+            height: "100%",
           }}
         >
           <a
@@ -74,11 +100,7 @@ export const HomePageSocials = ({
             rel="noopener noreferrer"
             aria-label="Instagram Profile"
           >
-            <FontAwesomeIcon
-              className="icons-home"
-              icon={faInstagram}
-              key="instagram"
-            />
+            <InstagramIcon />
           </a>
 
           <a

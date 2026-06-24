@@ -106,36 +106,42 @@ export const ContactPage = () => {
         </div>
 
         <div className="contact-info">
-          <span className="ci-label">UK/EU Bookings:</span>
-          <span className="ci-value">
-            <a className="email" href="mailto:sarah.joy@atc-live.com">
-              sarah.joy@atc-live.com
-            </a>{" "}
-            &amp;{" "}
-            <a className="email" href="mailto:caitlin@atc-live.com">
-              caitlin@atc-live.com
-            </a>
-          </span>
-
-          <span className="ci-label">USA Bookings:</span>
-          <span className="ci-value">
-            <a className="email" href="mailto:someone@something.com">
-              someone@something.com
-            </a>
-          </span>
-
           <span className="ci-label">Management:</span>
           <span className="ci-value">
             <a className="email" href="mailto:sarah@sarahbrooksbankmgmt.com">
               sarah@sarahbrooksbankmgmt.com
             </a>
           </span>
+          <span className="ci-label">Booking (UK/EU):</span>
+          <span className="ci-value">
+            <a className="email" href="mailto:sarah.joy@roamartists.com">
+              sarah.joy@roamartists.com
+            </a>{" "}
+            &amp;{" "}
+            <a className="email" href="mailto:caitlin.ballard@roamartists.com">
+              caitlin@roamartists.com
+            </a>
+          </span>
+
+          <span className="ci-label">Booking (North/South America):</span>
+          <span className="ci-value">
+            <a
+              className="email"
+              href="mailto:lindsayibberson@groundcontroltouring.com"
+            >
+              lindsayibberson@groundcontroltouring.com
+            </a>
+          </span>
 
           <span className="ci-label">Press:</span>
           <span className="ci-value">
-            <a className="email" href="mailto:someone@something.com">
-              someone@something.com
+            <a className="email" href="mailto:dan@overheardpr.com">
+              dan@overheardpr.com
             </a>
+          </span>
+          <span className="ci-label">Music licensing Enquiries:</span>
+          <span className="ci-value">
+            Fat Possum (Master)/Warner Chappell(Publishing)
           </span>
 
           <span className="ci-label">Other:</span>
