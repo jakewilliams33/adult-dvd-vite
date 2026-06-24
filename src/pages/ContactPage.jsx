@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import * as Yup from "yup";
 import "../styles/contact.css";
 import { Helmet } from "react-helmet-async";
 
-export const ContactPage = ({ opacity }) => {
+export const ContactPage = () => {
   const form = useRef();
   const [sent, setSent] = useState(false);
   const [errors, setErrors] = useState({});

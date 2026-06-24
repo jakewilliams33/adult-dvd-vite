@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../styles/sign-up.css";
 import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
@@ -31,6 +31,9 @@ export const SignUpForm = ({ setSignUpVisible, signUpVisible }) => {
     return () => {
       window.removeEventListener("popstate", handlePopstate);
     };
+    // handleClose is intentionally omitted — this effect should only run when
+    // the modal opens/closes, not on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signUpVisible]);
 
   const handleSubmit = async (event) => {

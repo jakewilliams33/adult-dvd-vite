@@ -1,4 +1,3 @@
-import React from "react";
 import errorImg from "../images/errorPage.webp";
 
 export const PageNotFound = () => {

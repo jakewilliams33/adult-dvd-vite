@@ -46,7 +46,8 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
             onClick={handleClose}
             style={{ textDecoration: "none", color: "white" }}
             to="https://adultdvd.bandcamp.com/merch"
-            target="blank"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             STORE
           </Link>
@@ -100,6 +101,7 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://www.instagram.com/adultdvdmenu/"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Instagram Profile"
           >
             <FontAwesomeIcon
@@ -113,6 +115,7 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://www.youtube.com/channel/UC56vESvDBh8Vrj_Kb2jdwZg"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="YouTube Channel"
           >
             <FontAwesomeIcon
@@ -125,6 +128,7 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG?si=G6ESp6laRuyyfr8QzaV4wQ"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Spotify Profile"
           >
             <FontAwesomeIcon
@@ -137,6 +141,7 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://adultdvd.bandcamp.com/?from=search&search_item_id=3458032651&search_item_type=b&search_match_part=%3F&search_page_id=2244543721&search_page_no=0&search_rank=1&logged_out_menubar=true"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Bandcamp Profile"
           >
             <FontAwesomeIcon
@@ -149,6 +154,7 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://music.apple.com/gb/artist/adult-dvd/1550456447"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Apple Music Profile"
           >
             <FontAwesomeIcon
@@ -161,6 +167,7 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
           <a
             href="https://www.tiktok.com/@adultdvdmenu"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="TikTok Profile"
           >
             <FontAwesomeIcon

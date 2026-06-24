@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Loader } from "@react-three/drei";
 
@@ -201,7 +201,7 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, [camera, invalidate]);
+  }, [camera, invalidate, setReady]);
 
   return (
     <OrbitControls
@@ -222,38 +222,15 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
   );
 };
 
-export const ThreeScene = ({ setSignUpVisible, autoRotate, setAutoRotate }) => {
+export const ThreeScene = ({ autoRotate }) => {
   const [loading, setLoading] = useState(true);
-  const [hovered, setHovered] = useState(null);
-  const [touchStartTime, setTouchStartTime] = useState(null);
   const [ready, setReady] = useState(false);
 
   const glbUrl = "/album-opt.glb";
-  const maxTouchDuration = 150;
 
   useEffect(() => {
     setLoading(true);
   }, [glbUrl]);
-
-  useEffect(() => {
-    document.body.style.cursor = hovered !== null ? "pointer" : "auto";
-  }, [hovered]);
-
-  const handlePointerOut = () => setHovered(null);
-  const handlePointerDown = () => setTouchStartTime(Date.now());
-
-  const handlePointerUp = (url, tab) => {
-    const touchDuration = Date.now() - touchStartTime;
-    if (touchDuration < maxTouchDuration) {
-      if (url === "signup") {
-        setSignUpVisible(true);
-        handlePointerOut();
-      } else {
-        window.open(url, tab);
-        handlePointerOut();
-      }
-    }
-  };
 
   return (
     <>

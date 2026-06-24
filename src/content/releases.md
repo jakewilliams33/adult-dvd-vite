@@ -18,26 +18,6 @@ releases:
     spotify: https://open.spotify.com/album/0L7959l48tfNtyED8YYTiq?si=qdEzJ7yWRFC__p7hTNRDog
     apple: https://music.apple.com/us/artist/adult-dvd/1550456447
     image: /covers/nextDayShipping.webp
-  - deezer: https://www.deezer.com/album/585414892
-    youtube: https://www.youtube.com/watch?v=FSlxpGUmM7A
-    amazon: https://music.amazon.co.uk/albums/B0D3MC3HHL
-    displayOnMusicPage: no
-    bandcamp: https://adultdvd.bandcamp.com/track/doomsday-prepper
-    title: Doomsday Prepper
-    tidal: https://tidal.com/browse/track/362103972
-    spotify: https://open.spotify.com/track/3TlEVaCa0rl1px2Z53c4dF?si=a6310e4b80364d74
-    apple: https://music.apple.com/gb/album/doomsday-prepper-single/1745816859?app=music
-    image: /covers/nextDayShipping.webp
-  - deezer: https://www.deezer.com/track/2796291782
-    youtube: https://music.youtube.com/watch?v=jJZYw-5AazU
-    amazon: https://music.amazon.co.uk/albums/B0D3LXCJ6J?trackAsin=B0D3LZCSLB
-    displayOnMusicPage: no
-    bandcamp: https://adultdvd.bandcamp.com/track/7-foot-1-2
-    title: "7 Foot 1 "
-    tidal: https://listen.tidal.com/track/362028417
-    spotify: https://open.spotify.com/track/2vu2pw4QatuiP6w3JO8XHT
-    apple: https://music.apple.com/gb/album/7-foot-1/1745766006?i=1745766007&app=music
-    image: /covers/nextDayShipping.webp
   - deezer: https://www.deezer.com/album/498032541
     youtube: https://www.youtube.com/watch?v=JTGJxCEU-CI
     amazon: https://music.amazon.co.uk/albums/B0CKS16GYV
@@ -48,7 +28,6 @@ releases:
     spotify: https://open.spotify.com/album/7kY0EWaq3UcUhkUi5fxwb6
     apple: https://music.apple.com/gb/album/yacht-money-single/1711101720?app=music
     image: /covers/yacht-money.webp
-
   - deezer: https://deezer.page.link/bLXmf9fnpF6sWg8q8
     youtube: https://www.youtube.com/watch?v=i7MhVu4FPp8
     amazon: https://music.amazon.co.uk/albums/B0BRJYMY66?trackAsin=B0BRJYP213
