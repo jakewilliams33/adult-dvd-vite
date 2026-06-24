@@ -89,11 +89,12 @@ body::before {
   --crt-vignette: 0.55;
   --crt-rgb-shift: 1px;
   --crt-noise-opacity: 0.06;
-  /* Width of the left icon sidebar (hamburger + socials + rotate live in it) */
-  --bar-width: clamp(58px, 9vw, 76px);
-  /* Shared icon scale — socials, hamburger and rotate all resize off this so
-     they grow/shrink together with the viewport. */
-  --icon-size: clamp(28px, 6.5vw, 42px);
+  /* Width of the left icon sidebar (hamburger + socials + rotate live in it).
+     Narrower on phones; still widens a little on larger screens. */
+  --bar-width: clamp(50px, 8vw, 72px);
+  /* Shared icon size — socials, hamburger and rotate all share this. Fixed
+     (not viewport-scaled) so the icons stay one size; only the bar widens. */
+  --icon-size: 30px;
 }
 
 /* Pink objects cluster behind every page except home (rendered in App.jsx).
