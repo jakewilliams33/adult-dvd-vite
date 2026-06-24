@@ -49,8 +49,8 @@ export const HomePage = ({ setSignUpVisible }) => {
       >
         <a
           href={isOut ? OUT_NOW_LINK : PRESAVE_LINK}
-          target={isOut ? "_blank" : undefined}
-          rel={isOut ? "noopener noreferrer" : undefined}
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             pointerEvents: "auto",
             display: "flex",
