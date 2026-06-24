@@ -21,10 +21,7 @@ export const HomePage = ({ setSignUpVisible }) => {
     <>
       <Helmet>
         <title>ADULT DVD</title>
-        <meta
-          name="description"
-          content="ADULT DVD — official site. New single Real Tree Lee out now. Tour dates, music and more."
-        />
+        <meta name="description" content="Adult DVD - Official Website" />
       </Helmet>
 
       {/* White logo + countdown, centred in the area right of the sidebar,
