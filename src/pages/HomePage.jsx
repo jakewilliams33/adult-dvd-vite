@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { HomePageSocials } from "../components/HomePageSocials";
-import { ThreeScene } from "../ThreeScene";
 import { Helmet } from "react-helmet-async";
 import logo from "../images/adult-dvd-logo.svg";
 import { Countdown } from "../components/Countdown";
+
+// WebGL/three only exist in the browser, so the 3D scene is loaded and
+// rendered on the client only. This keeps it out of the prerender (SSG)
+// pass entirely, while the rest of the home page still renders server-side.
+const ThreeScene = lazy(() => import("../ThreeScene"));
 
 export const HomePage = ({ setSignUpVisible }) => {
   // autoRotate lives here so the rotate button can sit inside the sidebar
   // (HomePageSocials) while the 3D scene still reads/uses the value.
   const [autoRotate, setAutoRotate] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <>
@@ -51,11 +58,15 @@ export const HomePage = ({ setSignUpVisible }) => {
         setAutoRotate={setAutoRotate}
         setSignUpVisible={setSignUpVisible}
       />
-      <ThreeScene
-        setSignUpVisible={setSignUpVisible}
-        autoRotate={autoRotate}
-        setAutoRotate={setAutoRotate}
-      />
+      {mounted && (
+        <Suspense fallback={null}>
+          <ThreeScene
+            setSignUpVisible={setSignUpVisible}
+            autoRotate={autoRotate}
+            setAutoRotate={setAutoRotate}
+          />
+        </Suspense>
+      )}
     </>
   );
 };

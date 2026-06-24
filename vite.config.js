@@ -27,6 +27,18 @@ export default defineConfig({
     host: true, // listen on all network interfaces (LAN access from phone, etc.)
   },
   assetsInclude: ["**/*.glb"],
+  // For the SSR/prerender build: bundle these CommonJS deps instead of
+  // externalizing them, so Node's ESM loader doesn't choke on their named
+  // exports during prerender.
+  ssr: {
+    noExternal: [
+      "react-helmet-async",
+      "yup",
+      "property-expr",
+      "tiny-case",
+      "toposort",
+    ],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -20,12 +20,20 @@ function getTimeUntilSeptember() {
 const pad = (n) => String(n).padStart(2, "0");
 
 export const Countdown = () => {
-  const [time, setTime] = useState(getTimeUntilSeptember);
+  // Start null so the server-rendered (build-time) markup and the client's
+  // first paint are identical — the live values only fill in after mount,
+  // which avoids a hydration mismatch on the time-based text.
+  const [time, setTime] = useState(null);
 
   useEffect(() => {
+    setTime(getTimeUntilSeptember());
     const id = setInterval(() => setTime(getTimeUntilSeptember()), 1000);
     return () => clearInterval(id);
   }, []);
+
+  const text = time
+    ? `${pad(time.days)}:${pad(time.hours)}:${pad(time.minutes)}:${pad(time.seconds)}`
+    : "--:--:--:--";
 
   return (
     <div
@@ -38,7 +46,7 @@ export const Countdown = () => {
         textAlign: "center",
       }}
     >
-      {pad(time.days)}:{pad(time.hours)}:{pad(time.minutes)}:{pad(time.seconds)}
+      {text}
     </div>
   );
 };
