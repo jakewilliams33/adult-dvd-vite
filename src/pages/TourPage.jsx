@@ -3,6 +3,7 @@ import { useScript } from "../Hooks/useScript";
 import "../styles/tour.css";
 import { Helmet } from "react-helmet-async";
 import bandBanner from "../images/band-banner.webp";
+import pinkObjects from "../images/pink-objects.webp";
 
 // The Bandsintown widget rewrites its own DOM node when its script loads,
 // which conflicts with hydration of prerendered HTML. So it's mounted on the
@@ -129,6 +130,7 @@ export const TourPage = () => {
           content="Upcoming ADULT DVD tour dates and tickets."
         />
       </Helmet>
+      <img src={pinkObjects} alt="" aria-hidden="true" className="objects-bg" />
 
       <section className="widget-parent">
         <div className="widget-container">

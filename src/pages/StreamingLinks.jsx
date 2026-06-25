@@ -1,6 +1,7 @@
 import "../styles/listen.css";
 import logo from "../images/adult-dvd-logo.svg";
 import { Helmet } from "react-helmet-async";
+import pinkObjects from "../images/pink-objects.webp";
 
 const current = {
   spotify: "https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG",
@@ -13,6 +14,7 @@ const current = {
     "https://music.amazon.co.uk/artists/B08TV78J8F/adult-dvd?marketplaceId=A1F83G8C2ARO7P&musicTerritory=GB&ref=dm_sh_y6L9rncT16xJ3RVHqAy0JCheJ",
   bandcamp:
     "https://adultdvd.bandcamp.com/?from=search&search_item_id=3458032651&search_item_type=b&search_match_part=%3F&search_page_id=2552049260&search_page_no=1&search_rank=1&search_sig=522b1de8bbb4315624551e209b71a28a",
+  qobuz: "https://open.qobuz.com/artist/8792592",
 };
 
 // On-dark logos so they read on the black panel.
@@ -24,6 +26,7 @@ const SERVICES = [
   { key: "tidal", label: "Tidal", logo: "logo_tidal_ondark.svg" },
   { key: "amazon", label: "Amazon Music", logo: "logo_amazonmusic_ondark.svg" },
   { key: "deezer", label: "Deezer", logo: "logo_deezer_ondark.svg" },
+  { key: "qobuz", label: "Qobuz", logo: "logo_qobuz_ondark.svg" },
 ];
 
 export const StreamingLinks = () => {
@@ -36,6 +39,8 @@ export const StreamingLinks = () => {
           content="Listen to ADULT DVD on your favourite platform."
         />
       </Helmet>
+      <img src={pinkObjects} alt="" aria-hidden="true" className="objects-bg" />
+
       <div className="listen-panel">
         <div className="listen-header">
           <img className="listen-logo" src={logo} alt="Adult DVD" />

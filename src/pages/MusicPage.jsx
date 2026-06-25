@@ -18,6 +18,16 @@ export const MusicPage = ({ slide }) => {
           content="Stream ADULT DVD's discography — singles, EPs and releases."
         />
       </Helmet>
+      <div
+        style={{
+          width: "100vw",
+          height: "100%",
+          backgroundColor: "black",
+          position: "fixed",
+          zIndex: "-1",
+          opacity: 0.5,
+        }}
+      ></div>
       <motion.div
         variants={slide}
         initial="initial"

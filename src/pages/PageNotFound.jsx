@@ -1,4 +1,4 @@
-import errorImg from "../images/errorPage.webp";
+import errorImg from "../images/errorPage.png";
 
 export const PageNotFound = () => {
   return (
@@ -7,11 +7,13 @@ export const PageNotFound = () => {
         alt="page not found"
         src={errorImg}
         style={{
+          position: "absolute",
           width: "70%",
-          paddingTop: "50px",
-          marginLeft: "-30px",
           minWidth: "450px",
-          zIndex: 2000000,
+
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
         }}
       ></img>
     </div>

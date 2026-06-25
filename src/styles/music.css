@@ -1,10 +1,15 @@
 /* Translucent black over the objects + blue background so they don't clash
    with the discography content. */
+
+/* Pink page scrollbar to match the inner panels on the other pages. The track
+   is transparent and html carries the same fixed background image as body::before
+   so the artwork shows through behind the scrollbar instead of a white gutter. */
+
 .music-overlay {
   position: fixed;
   inset: 0;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.15);
   pointer-events: none;
 }
 

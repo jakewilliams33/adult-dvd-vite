@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import * as Yup from "yup";
 import "../styles/contact.css";
 import { Helmet } from "react-helmet-async";
+import pinkObjects from "../images/pink-objects.webp";
 
 export const ContactPage = () => {
   const form = useRef();
@@ -99,6 +100,7 @@ export const ContactPage = () => {
           content="Get in touch with ADULT DVD — bookings, press and general enquiries."
         />
       </Helmet>
+      <img src={pinkObjects} alt="" aria-hidden="true" className="objects-bg" />
 
       <div className="contact-panel">
         <div className="contact-header">

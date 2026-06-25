@@ -51,6 +51,10 @@ collections:
                 name: "deezer"
                 widget: "string"
                 required: false
+              - label: "Qobuz"
+                name: "qobuz"
+                widget: "string"
+                required: false
               - label: "Image"
                 name: "image"
                 widget: "image"

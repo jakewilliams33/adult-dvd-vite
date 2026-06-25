@@ -11,7 +11,6 @@ import { SignUpForm } from "./components/SignUpForm";
 import { StreamingLinks } from "./pages/StreamingLinks";
 import { PageNotFound } from "./pages/PageNotFound";
 import { useEffect } from "react";
-import pinkObjects from "./images/pink-objects.webp";
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,14 +29,6 @@ const App = () => {
   return (
     <>
       <div className="App">
-        {!isHome && (
-          <img
-            src={pinkObjects}
-            alt=""
-            aria-hidden="true"
-            className="objects-bg"
-          />
-        )}
         <MenuButton menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
         <Menu

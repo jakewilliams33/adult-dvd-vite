@@ -4,6 +4,8 @@ import "../styles/listen.css";
 import fm from "front-matter";
 import markdownContent from "../content/releases.md?url&raw";
 import { convertToId } from "../Hooks/convertToId";
+import { PageNotFound } from "./PageNotFound";
+import pinkObjects from "../images/pink-objects.webp";
 
 const { releases } = fm(markdownContent).attributes;
 
@@ -17,54 +19,60 @@ const SERVICES = [
   { key: "tidal", label: "Tidal", logo: "logo_tidal_ondark.svg" },
   { key: "amazon", label: "Amazon Music", logo: "logo_amazonmusic_ondark.svg" },
   { key: "deezer", label: "Deezer", logo: "logo_deezer_ondark.svg" },
+  { key: "qobuz", label: "qobuz", logo: "logo_qobuz_ondark.svg" },
 ];
+
+const releasesLookup = releases.reduce((acc, item) => {
+  acc[convertToId(item.title)] = item;
+  return acc;
+}, {});
 
 export const ListenPage = () => {
   const { url_release_id } = useParams();
   const [current, setCurrent] = useState({});
 
   // Preprocess into a lookup object
-  const releasesLookup = releases.reduce((acc, item) => {
-    acc[convertToId(item.title)] = item;
-    return acc;
-  }, {});
 
   // Look up match and set as current release
   useEffect(() => {
     setCurrent(releasesLookup[url_release_id] || {});
   }, [url_release_id, releasesLookup]);
 
-  if (!current || Object.keys(current).length === 0) return null;
+  if (!current || Object.keys(current).length === 0) return <PageNotFound />;
 
   return (
-    <div className="listen-panel">
-      <div className="listen-header">
-        {current.image && (
-          <img
-            className="listen-art"
-            src={current.image}
-            alt={current.title}
-          />
-        )}
-        <h1 className="listen-title">{current.title}</h1>
-      </div>
-
-      <div className="listen-links">
-        {SERVICES.filter((s) => current[s.key]).map((s) => (
-          <a
-            key={s.key}
-            className="listen-link"
-            href={current[s.key]}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <>
+      {" "}
+      <img src={pinkObjects} alt="" aria-hidden="true" className="objects-bg" />
+      <div className="listen-panel">
+        <div className="listen-header">
+          {current.image && (
             <img
-              src={`https://services.linkfire.com/${s.logo}`}
-              alt={s.label}
+              className="listen-art"
+              src={current.image}
+              alt={current.title}
             />
-          </a>
-        ))}
+          )}
+          <h1 className="listen-title">{current.title}</h1>
+        </div>
+
+        <div className="listen-links">
+          {SERVICES.filter((s) => current[s.key]).map((s) => (
+            <a
+              key={s.key}
+              className="listen-link"
+              href={current[s.key]}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={`https://services.linkfire.com/${s.logo}`}
+                alt={s.label}
+              />
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

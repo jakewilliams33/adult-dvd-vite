@@ -2,7 +2,6 @@ import "../styles/menu.css";
 import { DvdBackground } from "./DvdBackground";
 import { AnimatePresence, motion } from "framer-motion";
 import { NavList } from "./NavList";
-import border from "../images/border.webp";
 
 export const Menu = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
   // Menu slides in horizontally from the left (hamburger's side).
@@ -38,12 +37,9 @@ export const Menu = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
               backdropFilter: "blur(10px)" /* applies the blur effect */,
               height: "calc(100% + 1px)",
               width: "100vw",
-
               zIndex: 2000,
               overflow: "hidden",
               opacity: 1,
-              borderBottom: "1px solid transparent",
-              borderImage: `url(${border}) 30 round`,
             }}
           >
             <DvdBackground />
