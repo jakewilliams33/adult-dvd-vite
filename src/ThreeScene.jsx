@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
+import { BlendFunction } from "postprocessing";
 
 import {
   Color,
@@ -156,7 +157,7 @@ function Model({ url, setLoading }) {
   });
 
   if (!merged) return null;
-  return <primitive object={merged} scale={1} position={[0, 0, 0]} />;
+  return <primitive object={merged} scale={1} position={[0, -0.2, 0]} />;
 }
 
 // Both lights are repositioned every frame relative to the camera and aim at
@@ -276,41 +277,42 @@ export const ThreeScene = ({ autoRotate }) => {
         <Suspense fallback={null}>
           <div style={{ opacity: ready ? 1 : 0 }}>
             <Canvas
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              // Canvas is taller than the viewport by the same amount it gets
-              // lifted (8vh) so that after the upward shift it still reaches the
-              // bottom of the page — otherwise the model's lower portion renders
-              // into a dead strip below the canvas and gets clipped.
-              width: "100%",
-              height: "108vh",
-              // X: shift right by half the sidebar width so the model is centred
-              // in the area right of the black sidebar.
-              // Y: negative value lifts the model up the page.
-              transform: "translate(calc(var(--bar-width) / 2), -8vh)",
-            }}
-            camera={{ position: [0, 0, 6], fov: 24 }}
-            gl={{ alpha: true, antialias: true }}
-            frameloop={autoRotate ? "always" : "demand"}
-          >
-            <ambientLight intensity={0} color="#ffffff" />
-            <ViewLockedLights />
-            <Model url={glbUrl} setLoading={setLoading} />
-            <CameraControlsAndResponsive
-              setReady={setReady}
-              autoRotate={autoRotate}
-            />
-            <EffectComposer>
-              {/* Color grade in-pipeline (replaces a CSS contrast(150%) +
-                  feColorMatrix(+R/-G) filter that Safari dropped on the WebGL
-                  canvas). BrightnessContrast carries the contrast; HueSaturation
-                  pushes toward magenta to mimic the old +red/-green shift. */}
-              <BrightnessContrast brightness={-0.01} contrast={0.64} />
-              <HueSaturation hue={-0.2} saturation={0.12} />
-            </EffectComposer>
-          </Canvas>
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                // Canvas is taller than the viewport by the same amount it gets
+                // lifted (8vh) so that after the upward shift it still reaches the
+                // bottom of the page — otherwise the model's lower portion renders
+                // into a dead strip below the canvas and gets clipped.
+                width: "100%",
+                height: "108vh",
+                // X: shift right by half the sidebar width so the model is centred
+                // in the area right of the black sidebar.
+                // Y: negative value lifts the model up the page.
+                transform: "translate(calc(var(--bar-width) / 2), -8vh)",
+              }}
+              camera={{ position: [0, 0, 6], fov: 24 }}
+              gl={{ alpha: true, antialias: true }}
+              frameloop={autoRotate ? "always" : "demand"}
+            >
+              <ambientLight intensity={0} color="#ffffff" />
+              <ViewLockedLights />
+              <Model url={glbUrl} setLoading={setLoading} />
+              <CameraControlsAndResponsive
+                setReady={setReady}
+                autoRotate={autoRotate}
+              />
+              <EffectComposer>
+                <BrightnessContrast brightness={-0.01} contrast={0.64} />
+                <HueSaturation
+                  hue={-0.2}
+                  saturation={0.12}
+                  opacity={1.0}
+                  blendFunction={BlendFunction.NORMAL}
+                />
+              </EffectComposer>
+            </Canvas>
           </div>
         </Suspense>
       </div>

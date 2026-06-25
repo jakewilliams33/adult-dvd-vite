@@ -14,7 +14,7 @@ export default defineConfig({
         // Serve the admin index.html
         server.middlewares.use(
           "/admin",
-          serveStatic(path.resolve(__dirname, "public/admin"))
+          serveStatic(path.resolve(__dirname, "public/admin")),
         );
 
         // Serve other static files
@@ -22,9 +22,10 @@ export default defineConfig({
       },
     },
   ],
+
   server: {
     port: 4200, // Set the port you want/ or available port
-    host: true, // listen on all network interfaces (LAN access from phone, etc.)
+    host: "0.0.0.0", // listen on all network interfaces (LAN access from phone, etc.)
   },
   assetsInclude: ["**/*.glb"],
   // For the SSR/prerender build: bundle these CommonJS deps instead of

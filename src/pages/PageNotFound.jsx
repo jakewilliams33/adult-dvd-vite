@@ -11,6 +11,7 @@ export const PageNotFound = () => {
           paddingTop: "50px",
           marginLeft: "-30px",
           minWidth: "450px",
+          zIndex: 2000000,
         }}
       ></img>
     </div>

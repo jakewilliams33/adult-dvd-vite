@@ -101,7 +101,7 @@ export const HomePageSocials = ({
             // Responsive spread: the column height scales with viewport WIDTH
             // (50vw), floored at 330px, capped at 100%. Narrow → short column →
             // icons bunch near the top; wider → taller column → they spread out.
-            height: "min(max(330px, 50vw), 100%)",
+            height: "min(max(330px, 50vw), 98%)",
           }}
         >
           <a

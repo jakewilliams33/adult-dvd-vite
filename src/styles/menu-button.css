@@ -7,15 +7,12 @@
   /* Centre the 52px button within the left sidebar */
   left: calc((var(--bar-width) - 52px) / 2);
   z-index: 200000;
-
   width: 52px;
   height: 52px;
-
   background: transparent;
   border: 0;
   padding: 0;
   cursor: pointer;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -27,6 +24,9 @@
   width: var(--icon-size);
   height: var(--icon-size);
   display: block;
+  background-color: rgba(0, 0, 0, 0.494);
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 /* Let the stroke scale with the icon (override the non-scaling-stroke attr) so
@@ -58,13 +58,13 @@
    Now in viewBox (user) units so they scale with --icon-size — tuned to match
    the previous ~4px / ~2.5px look at the max icon size. */
 .outline {
-  stroke: #000;
-  stroke-width: 9.5; /* slightly bigger than fill so it shows on the sides */
+  stroke: #8c8c8c;
+  stroke-width: 12; /* slightly bigger than fill so it shows on the sides */
 }
 
 .fill {
   stroke: #fff;
-  stroke-width: 6;
+  stroke-width: 8.5;
 }
 
 /* OPEN STATE → X */

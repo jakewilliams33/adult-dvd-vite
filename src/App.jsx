@@ -19,8 +19,7 @@ const App = () => {
   const [signUpVisible, setSignUpVisible] = useState(false);
 
   // Pink objects sit behind every page except the home page.
-  const isHome =
-    location.pathname === "/" || location.pathname === "/signup";
+  const isHome = location.pathname === "/" || location.pathname === "/signup";
 
   useEffect(() => {
     if (location.pathname === "/signup") {
@@ -53,7 +52,6 @@ const App = () => {
             left: 0,
             width: "100vw",
             height: "100vh",
-
             opacity: 0.11,
             pointerEvents: "none",
             zIndex: 3,

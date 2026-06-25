@@ -89,17 +89,12 @@ body::before {
 }
 
 :root {
-  --crt-scanline-opacity: 0.14;
-  --crt-flicker-intensity: 0.06;
-  --crt-vignette: 0.55;
-  --crt-rgb-shift: 1px;
-  --crt-noise-opacity: 0.06;
   /* Width of the left icon sidebar (hamburger + socials + rotate live in it).
      Narrower on phones; still widens a little on larger screens. */
   --bar-width: clamp(50px, 8vw, 72px);
   /* Shared icon size — socials, hamburger and rotate all share this. Fixed
      (not viewport-scaled) so the icons stay one size; only the bar widens. */
-  --icon-size: 30px;
+  --icon-size: 32px;
 }
 
 /* Pink objects cluster behind every page except home (rendered in App.jsx).
@@ -113,112 +108,4 @@ body::before {
   height: auto;
   z-index: 1;
   pointer-events: none;
-}
-
-/* Ensure the bg sits behind everything */
-.crt-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: #050608; /* base “screen off” */
-  overflow: hidden;
-}
-
-/* Layer 1: scanlines + subtle gradient */
-.crt-bg::before {
-  content: "";
-  position: absolute;
-  inset: -20%;
-  background:
-    /* scanlines */
-    repeating-linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, var(--crt-scanline-opacity)) 0px,
-      rgba(255, 255, 255, var(--crt-scanline-opacity)) 1px,
-      rgba(0, 0, 0, 0) 3px,
-      rgba(0, 0, 0, 0) 6px
-    ),
-    /* screen glow/gradient */
-    radial-gradient(
-        ellipse at center,
-        rgba(80, 120, 255, 0.08) 0%,
-        rgba(0, 0, 0, 0.55) 60%,
-        rgba(0, 0, 0, 0.85) 100%
-      );
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-
-/* Layer 2: vignette + flicker */
-.crt-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, var(--crt-vignette)) 75%,
-    rgba(0, 0, 0, 0.9) 100%
-  );
-  animation: crt-flicker 120ms infinite;
-  pointer-events: none;
-}
-
-/* Optional: RGB split on text/images inside .content */
-.content {
-  position: relative;
-  /* If you want the whole page to have slight chromatic aberration: */
-  filter: drop-shadow(var(--crt-rgb-shift) 0 0 rgba(255, 0, 0, 0.35))
-    drop-shadow(calc(var(--crt-rgb-shift) * -1) 0 0 rgba(0, 180, 255, 0.28));
-}
-
-/* Optional: noise overlay (cheap, not true random but works) */
-.crt-noise {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: var(--crt-noise-opacity);
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  animation: crt-noise 800ms steps(2) infinite;
-}
-
-@keyframes crt-flicker {
-  0% {
-    opacity: 1;
-  }
-  10% {
-    opacity: calc(1 - var(--crt-flicker-intensity));
-  }
-  20% {
-    opacity: 1;
-  }
-  30% {
-    opacity: calc(1 - var(--crt-flicker-intensity) * 0.7);
-  }
-  40% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes crt-noise {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  25% {
-    transform: translate3d(-2%, 1%, 0);
-  }
-  50% {
-    transform: translate3d(2%, -1%, 0);
-  }
-  75% {
-    transform: translate3d(-1%, -2%, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
 }
