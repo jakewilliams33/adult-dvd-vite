@@ -19,6 +19,7 @@
   max-width: 900px;
   overflow: hidden;
   background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.55);
   box-shadow: 0 16px 55px rgba(0, 0, 0, 0.45);
 }
 
@@ -28,6 +29,7 @@
   width: 100%;
   line-height: 0;
   container-type: inline-size;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
 }
 
 /* Show the whole photo (natural ~3:1), no crop */
@@ -53,22 +55,29 @@
   font-size: 7cqw;
 }
 
-/* ----- Scrollable widget area ----- */
+/* ----- Scrollable widget area -----
+   Laid out as a flex column: the tab bar is a fixed header, the gig list is
+   the only scrolling region, and the follow section is a fixed footer. This
+   keeps the scrollbar confined to the gigs (it no longer runs up alongside the
+   tabs). The intermediate widget wrappers are collapsed with display:contents
+   further down so .bit-nav-bar / .bit-event-lists / .bit-follow-section-wrapper
+   become direct flex children here. */
 .inner-box-scroll-tour {
   background: #000;
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   max-height: 60vh;
 }
 
-/* Scrollbar */
-.inner-box-scroll-tour::-webkit-scrollbar {
+/* Scrollbar (lives on the gig list now, not the outer box) */
+.inner-box-scroll-tour .bit-event-lists::-webkit-scrollbar {
   width: 8px;
   background-color: #000;
 }
-.inner-box-scroll-tour::-webkit-scrollbar-thumb {
+.inner-box-scroll-tour .bit-event-lists::-webkit-scrollbar-thumb {
   background: #ec1c94;
-  border-radius: 8px;
+  border-radius: 0;
 }
 
 /* ===== Bandsintown widget overrides ===== */
@@ -80,6 +89,36 @@
   .bit-event:has(.bit-button-type-tickets)
   .bit-button-type-notify-me {
   display: none !important;
+}
+
+/* Flatten the widget's nesting so the tab bar, gig list and follow section
+   become direct flex children of .inner-box-scroll-tour (see the flex column
+   above). The wrappers carry no visual styling of their own. */
+.inner-box-scroll-tour .bit-widget-container,
+.inner-box-scroll-tour .bit-container,
+.inner-box-scroll-tour .bit-widget,
+.inner-box-scroll-tour .bit-nav-bar-container {
+  display: contents;
+}
+
+/* Tab bar = fixed header at the top of the box */
+.inner-box-scroll-tour .bit-nav-bar {
+  flex: 0 0 auto;
+  background: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+/* Gig list = the only scrolling region */
+.inner-box-scroll-tour .bit-event-lists {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Follow section = fixed footer at the bottom */
+.inner-box-scroll-tour .bit-follow-section-wrapper {
+  flex: 0 0 auto;
 }
 
 /* --- Tabs (Upcoming / Near Me) → WTBobine buttons --- */
@@ -108,6 +147,7 @@
 /* --- Event rows: black default, pink on hover --- */
 .inner-box-scroll-tour .bit-event {
   background: #000000 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55) !important;
   transition: background-color 0.12s ease;
 }
 .inner-box-scroll-tour .bit-event:hover {

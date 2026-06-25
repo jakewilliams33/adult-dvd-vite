@@ -54,7 +54,11 @@ export const HomePageSocials = ({
           position: "fixed",
           top: 0,
           left: 0,
-          height: "100vh",
+          // 100dvh (dynamic viewport) not 100vh: on iOS WebKit 100vh is the
+          // *large* viewport (taller than what's visible under the toolbar), so
+          // the space-evenly icons spread past the bottom and collide with the
+          // rotate button. dvh tracks the visible height and lines them up.
+          height: "100dvh",
           width: "var(--bar-width)",
           zIndex: 100,
           backgroundColor: "black",
@@ -85,13 +89,19 @@ export const HomePageSocials = ({
           style={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-evenly",
+            // space-between (NOT space-evenly): when the icons fit it spreads
+            // them evenly between the top and bottom; but when the column is
+            // shorter than the icons it degrades to flex-start (overflow spills
+            // DOWNWARD). space-evenly instead CENTERS the overflow, which in
+            // Safari shoved the top icon up over the hamburger on iPhone. This
+            // is spec'd, stable behaviour Safari honours — unlike `safe`.
+            justifyContent: "space-between",
             alignItems: "center",
             width: "100%",
-            // Fill the full height between the reserved hamburger/rotate spots
-            // so space-evenly spreads the socials evenly across it at EVERY
-            // size — no gap before the rotate button at wide viewports.
-            height: "100%",
+            // Responsive spread: the column height scales with viewport WIDTH
+            // (50vw), floored at 330px, capped at 100%. Narrow → short column →
+            // icons bunch near the top; wider → taller column → they spread out.
+            height: "min(max(330px, 50vw), 100%)",
           }}
         >
           <a

@@ -7,9 +7,14 @@
 
 @font-face {
   font-family: "WTBobine";
-  src: url("/fonts/WTBobine-Italic.otf") format("opentype");
+  /* WOFF2 first — Safari/WebKit frequently fails to load the raw OTF, so the
+     menu/headings fell back to a system font there. OTF kept as a fallback. */
+  src:
+    url("/fonts/WTBobine-Italic.woff2") format("woff2"),
+    url("/fonts/WTBobine-Italic.otf") format("opentype");
   font-weight: normal;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {

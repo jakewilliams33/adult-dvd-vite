@@ -178,7 +178,7 @@
 }
 .contact-panel::-webkit-scrollbar-thumb {
   background: #ec1c94;
-  border-radius: 8px;
+  border-radius: 0;
 }
 
 /* ----- Compact layout so it fits a phone screen without scrolling ----- */

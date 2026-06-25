@@ -1,8 +1,13 @@
 @font-face {
   font-family: "WTBobine";
-  src: url("/fonts/WTBobine-Italic.otf") format("opentype");
+  /* WOFF2 first — WebKit (macOS Safari + all iOS browsers) often fails to load
+     the raw OTF, which left the menu in a system fallback font. */
+  src:
+    url("/fonts/WTBobine-Italic.woff2") format("woff2"),
+    url("/fonts/WTBobine-Italic.otf") format("opentype");
   font-weight: normal;
   font-style: italic;
+  font-display: swap;
 }
 
 /* Nav list slides in from the left to match the menu background.
@@ -11,7 +16,10 @@
      .nav-container.active  { top: 0vh;    transition: top 0.4s, opacity 1.5s; }
    (and revert the matching framer-motion variant in Menu.jsx) */
 .nav-container {
-  height: 100%;
+  /* dvh so the menu (and its bottom icon row) fit the visible iOS viewport
+     instead of the taller 100vh/100% large viewport that hides them behind
+     the browser toolbar. */
+  height: 100dvh;
   width: 100%;
   position: fixed;
   z-index: 2010;
@@ -39,6 +47,10 @@
   margin-left: auto;
   text-align: center;
   font-family: "WTBobine", sans-serif;
+  /* The @font-face is declared font-style: italic. Safari only uses an italic
+     face for an italic request (Chrome is lenient), so without this the menu
+     fell back to a system font on Safari while the rest of the site was fine. */
+  font-style: italic;
   font-size: min(max(45px, 7vh), 60px);
   color: white;
   /* Flexbox settings */
@@ -65,8 +77,6 @@
 
 .list li {
   color: rgb(255, 254, 231);
-  -webkit-text-stroke: 1px;
-  -webkit-text-fill-color: transparent;
 }
 
 .icon-container {

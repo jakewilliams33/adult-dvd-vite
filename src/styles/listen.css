@@ -87,5 +87,5 @@
 }
 .listen-panel::-webkit-scrollbar-thumb {
   background: #ec1c94;
-  border-radius: 8px;
+  border-radius: 0;
 }

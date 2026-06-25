@@ -1,6 +1,6 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Loader } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 
 import {
   Color,
@@ -17,6 +17,7 @@ import "./styles/menu.css";
 import {
   EffectComposer,
   BrightnessContrast,
+  HueSaturation,
 } from "@react-three/postprocessing";
 import { LoadingText } from "./components/LoadingText";
 
@@ -64,7 +65,10 @@ function makePinkMaterial(normalMap) {
 
 function Model({ url, setLoading }) {
   const { scene } = useGLTF(url, true);
+  const { invalidate } = useThree();
   const [merged, setMerged] = useState(null);
+  const revealFrames = useRef(0);
+  const revealed = useRef(false);
 
   useEffect(() => {
     if (!scene) return;
@@ -131,8 +135,25 @@ function Model({ url, setLoading }) {
     mesh.frustumCulled = false;
 
     setMerged(mesh);
-    setLoading(false);
-  }, [scene, setLoading]);
+  }, [scene]);
+
+  // Keep the loader up until the merged mesh has actually rendered a frame.
+  // On iPhone the first draw (shader compile for 37 materials + uploading
+  // ~1.4M verts) blocks the main thread for ~2s; dismissing the loader on a
+  // timer/RAF cleared it before that frame painted, leaving a blank gap.
+  // useFrame runs in lockstep with R3F's render loop, so by the second tick
+  // after the mesh mounts the model is genuinely on screen. invalidate() keeps
+  // frames coming while the canvas is in its idle "demand" frameloop.
+  useFrame(() => {
+    if (!merged || revealed.current) return;
+    revealFrames.current += 1;
+    if (revealFrames.current >= 2) {
+      revealed.current = true;
+      setLoading(false);
+    } else {
+      invalidate();
+    }
+  });
 
   if (!merged) return null;
   return <primitive object={merged} scale={1} position={[0, 0, 0]} />;
@@ -237,30 +258,24 @@ export const ThreeScene = ({ autoRotate }) => {
       <div
         style={{
           width: "100%",
-          height: "100vh",
+          // dvh so the centered loader sits in the visible viewport on iOS
+          // rather than the taller 100vh large viewport (where it drifts off
+          // screen behind the toolbar).
+          height: "100dvh",
           position: "relative",
           zIndex: 2,
         }}
       >
         {loading && <LoadingText />}
 
-        {/* Color Balance applied to the object only (not the background).
-            5th number in each row = additive shift: R +red/-cyan,
-            G +green/-magenta, B +blue/-yellow. Tweak freely, no cache key. */}
-        <svg width="0" height="0" style={{ position: "absolute" }}>
-          <filter id="colorBalance" colorInterpolationFilters="sRGB">
-            <feColorMatrix
-              type="matrix"
-              values="1 0 0 0  0.10
-                      0 1 0 0 -0.20
-                      0 0 1 0  0.00
-                      0 0 0 1  0"
-            />
-          </filter>
-        </svg>
-
-        <div style={{ opacity: ready ? 1 : 0 }}>
-          <Canvas
+        {/* Local Suspense boundary: useGLTF in <Model> suspends while the GLB
+            downloads. Without this, that suspension bubbled up to HomePage's
+            <Suspense fallback={null}> and blanked the WHOLE scene — including
+            the LoadingText above — for the duration of the download. Keeping the
+            boundary here means only the canvas waits; the loader stays visible. */}
+        <Suspense fallback={null}>
+          <div style={{ opacity: ready ? 1 : 0 }}>
+            <Canvas
             style={{
               position: "absolute",
               top: 0,
@@ -275,7 +290,6 @@ export const ThreeScene = ({ autoRotate }) => {
               // in the area right of the black sidebar.
               // Y: negative value lifts the model up the page.
               transform: "translate(calc(var(--bar-width) / 2), -8vh)",
-              filter: "contrast(150%) url(#colorBalance)",
             }}
             camera={{ position: [0, 0, 6], fov: 24 }}
             gl={{ alpha: true, antialias: true }}
@@ -289,11 +303,16 @@ export const ThreeScene = ({ autoRotate }) => {
               autoRotate={autoRotate}
             />
             <EffectComposer>
-              <BrightnessContrast brightness={-0.02} contrast={0.55} />
+              {/* Color grade in-pipeline (replaces a CSS contrast(150%) +
+                  feColorMatrix(+R/-G) filter that Safari dropped on the WebGL
+                  canvas). BrightnessContrast carries the contrast; HueSaturation
+                  pushes toward magenta to mimic the old +red/-green shift. */}
+              <BrightnessContrast brightness={-0.01} contrast={0.64} />
+              <HueSaturation hue={-0.2} saturation={0.12} />
             </EffectComposer>
           </Canvas>
-        </div>
-        <Loader />
+          </div>
+        </Suspense>
       </div>
     </>
   );
