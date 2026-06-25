@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/listen.css";
 import fm from "front-matter";
@@ -29,14 +28,9 @@ const releasesLookup = releases.reduce((acc, item) => {
 
 export const ListenPage = () => {
   const { url_release_id } = useParams();
-  const [current, setCurrent] = useState({});
-
-  // Preprocess into a lookup object
-
-  // Look up match and set as current release
-  useEffect(() => {
-    setCurrent(releasesLookup[url_release_id] || {});
-  }, [url_release_id, releasesLookup]);
+  // Resolve the release during the first render so there's no flash of
+  // PageNotFound before an effect runs.
+  const current = releasesLookup[url_release_id] || {};
 
   if (!current || Object.keys(current).length === 0) return <PageNotFound />;
 

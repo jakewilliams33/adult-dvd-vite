@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 
 const { releases } = fm(markdownContent).attributes;
 
-export const MusicPage = ({ slide }) => {
+export const MusicPage = () => {
   return (
     <>
       <Helmet>
@@ -28,13 +28,7 @@ export const MusicPage = ({ slide }) => {
           opacity: 0.5,
         }}
       ></div>
-      <motion.div
-        variants={slide}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ duration: 0.3 }}
-      >
+      <div>
         <div className="music-overlay" />
         <section className="o-page__section--discography">
           <div className="titleSection"></div>
@@ -51,7 +45,7 @@ export const MusicPage = ({ slide }) => {
                       <div className="packshot">
                         <Link to={`/listen/${convertToId(title)}`}>
                           <img
-                            alt="Album art"
+                            alt={title}
                             className="pictures"
                             src={image}
                           ></img>
@@ -82,7 +76,7 @@ export const MusicPage = ({ slide }) => {
             })}
           </div>
         </section>
-      </motion.div>
+      </div>
     </>
   );
 };

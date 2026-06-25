@@ -14,7 +14,14 @@ const { render } = await import("./dist-server/entry-server.js");
 
 // Static routes only. Dynamic (/listen/:id) and the 404 catch-all are left to
 // client-side rendering.
-const routes = ["/", "/tour", "/music", "/contact", "/streaming_links"];
+const routes = [
+  "/",
+  "/signup",
+  "/tour",
+  "/music",
+  "/contact",
+  "/streaming_links",
+];
 
 for (const url of routes) {
   const { html, helmet } = render(url);
@@ -31,7 +38,19 @@ for (const url of routes) {
   }
   if (helmet?.meta) {
     const meta = helmet.meta.toString();
-    if (meta) page = page.replace("</head>", `${meta}</head>`);
+    if (meta) {
+      // Drop any static template <meta> that react-helmet is about to override
+      // (matched by name= or property=), so each page isn't left with two
+      // competing tags — e.g. description, og:title, og:description.
+      const identifiers = [...meta.matchAll(/(name|property)="([^"]+)"/g)];
+      for (const [, attr, value] of identifiers) {
+        const re = new RegExp(
+          `\\s*<meta\\s+${attr}="${value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[^>]*>`,
+        );
+        page = page.replace(re, "");
+      }
+      page = page.replace("</head>", `${meta}</head>`);
+    }
   }
 
   const filePath =

@@ -2,11 +2,14 @@ import { useRef, useState } from "react";
 import * as Yup from "yup";
 import "../styles/contact.css";
 import { Helmet } from "react-helmet-async";
+import { AnimatePresence, motion } from "framer-motion";
+import { IoMdClose } from "react-icons/io";
 import pinkObjects from "../images/pink-objects.webp";
 
 export const ContactPage = () => {
   const form = useRef();
   const [sent, setSent] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [values, setValues] = useState({
@@ -59,11 +62,21 @@ export const ContactPage = () => {
       message: true,
     });
 
+    setSubmitError("");
+
     try {
       await validationSchema.validate(values, { abortEarly: false });
       setErrors({});
-      setSent(true);
+    } catch (validationErrors) {
+      const formattedErrors = {};
+      validationErrors.inner.forEach((error) => {
+        formattedErrors[error.path] = error.message;
+      });
+      setErrors(formattedErrors);
+      return;
+    }
 
+    try {
       const formData = new FormData();
       formData.append("form-name", "contact");
       formData.append("name", values.name);
@@ -77,17 +90,17 @@ export const ContactPage = () => {
         body: new URLSearchParams(formData).toString(),
       });
 
+      // Only show the success screen once Netlify has actually accepted the
+      // submission, so a network/server error doesn't silently lose the message.
       if (response.ok) {
-        console.log("Form submitted successfully!");
+        setSent(true);
       } else {
         console.error("Form submission failed:", response.statusText);
+        setSubmitError("Something went wrong — please try again.");
       }
-    } catch (validationErrors) {
-      const formattedErrors = {};
-      validationErrors.inner.forEach((error) => {
-        formattedErrors[error.path] = error.message;
-      });
-      setErrors(formattedErrors);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitError("Something went wrong — please try again.");
     }
   };
 
@@ -121,7 +134,7 @@ export const ContactPage = () => {
             </a>{" "}
             &amp;{" "}
             <a className="email" href="mailto:caitlin.ballard@roamartists.com">
-              caitlin@roamartists.com
+              caitlin.ballard@roamartists.com
             </a>
           </span>
 
@@ -187,11 +200,14 @@ export const ContactPage = () => {
             </div>
 
             <div className="contact-fields">
-              <label className="contact-label">Name</label>
+              <label className="contact-label" htmlFor="contact-name">
+                Name
+              </label>
               {touched.name && errors.name && (
                 <span className="error-messages">{errors.name}</span>
               )}
               <input
+                id="contact-name"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.name}
@@ -200,11 +216,14 @@ export const ContactPage = () => {
                 className="contact-input"
               />
 
-              <label className="contact-label">Email</label>
+              <label className="contact-label" htmlFor="contact-email">
+                Email
+              </label>
               {touched.email && errors.email && (
                 <span className="error-messages">{errors.email}</span>
               )}
               <input
+                id="contact-email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
@@ -213,8 +232,11 @@ export const ContactPage = () => {
                 className="contact-input"
               />
 
-              <label className="contact-label">Subject</label>
+              <label className="contact-label" htmlFor="contact-subject">
+                Subject
+              </label>
               <input
+                id="contact-subject"
                 onChange={handleChange}
                 value={values.subject}
                 type="text"
@@ -227,11 +249,14 @@ export const ContactPage = () => {
             <div className="contact-divider"></div>
 
             <div className="contact-fields">
-              <label className="contact-label">Message</label>
+              <label className="contact-label" htmlFor="contact-message">
+                Message
+              </label>
               {touched.message && errors.message && (
                 <span className="error-messages">{errors.message}</span>
               )}
               <textarea
+                id="contact-message"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.message}
@@ -246,6 +271,41 @@ export const ContactPage = () => {
           </form>
         )}
       </div>
+
+      <AnimatePresence>
+        {submitError && (
+          <motion.div
+            key="contact-error-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="contact-error-overlay"
+            onMouseDown={(e) => {
+              if (e.target === e.currentTarget) setSubmitError("");
+            }}
+          >
+            <div className="contact-error-modal" role="alertdialog">
+              <button
+                type="button"
+                className="contact-error-close"
+                aria-label="Close"
+                onClick={() => setSubmitError("")}
+              >
+                <IoMdClose size={26} />
+              </button>
+              <p className="contact-error-text">{submitError}</p>
+              <button
+                type="button"
+                className="contact-send"
+                onClick={() => setSubmitError("")}
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

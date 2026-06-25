@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from "react";
+import { useLocation } from "react-router-dom";
 import { HomePageSocials } from "../components/HomePageSocials";
 import { Helmet } from "react-helmet-async";
 import logo from "../images/adult-dvd-logo.svg";
@@ -24,11 +25,26 @@ export const HomePage = ({ setSignUpVisible }) => {
 
   useEffect(() => setMounted(true), []);
 
+  // /signup serves the same home page with the sign-up modal open. Give it its
+  // own title/description so it's a distinct, indexable result rather than a
+  // duplicate of /.
+  const { pathname } = useLocation();
+  const isSignup = pathname === "/signup";
+
+  const pageTitle = isSignup ? "Sign Up | ADULT DVD" : "ADULT DVD";
+  const pageDescription = isSignup
+    ? "Sign up to the ADULT DVD mailing list for new releases, tour dates and news."
+    : "Adult DVD - Official Website";
+
   return (
     <>
       <Helmet>
-        <title>ADULT DVD</title>
-        <meta name="description" content="Adult DVD - Official Website" />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
       </Helmet>
 
       {/* White logo + countdown, centred in the area right of the sidebar,
