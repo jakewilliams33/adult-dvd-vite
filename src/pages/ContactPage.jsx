@@ -138,7 +138,7 @@ export const ContactPage = () => {
             </a>
           </span>
 
-          <span className="ci-label">Booking (North/South America):</span>
+          <span className="ci-label">Booking (N/S America):</span>
           <span className="ci-value">
             <a
               className="email"
