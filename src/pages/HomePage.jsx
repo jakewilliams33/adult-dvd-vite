@@ -13,8 +13,8 @@ const ThreeScene = lazy(() => import("../ThreeScene"));
 // The logo + countdown is a single link. Before release it points at the
 // pre-save (placeholder: the streaming-links page); once the countdown hits
 // zero and flips to "OUT NOW", it points at the release (placeholder: Spotify).
-const PRESAVE_LINK = "/streaming_links";
-const OUT_NOW_LINK = "https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG";
+const PRESAVE_LINK = "https://adultdvd.ffm.to/adultdvd";
+const OUT_NOW_LINK = "https://adultdvd.ffm.to/adultdvd";
 
 export const HomePage = ({ setSignUpVisible }) => {
   // autoRotate lives here so the rotate button can sit inside the sidebar
