@@ -213,7 +213,9 @@ export const HomePageSocials = ({
           bottom: "calc((var(--bar-width) - var(--icon-size)) / 2)",
           left: "calc(var(--bar-width) / 2)",
           transform: "translateX(-50%)",
-          width: "var(--icon-size)",
+          // The pause glyph is taller than the (square) rotate arrow, so at equal
+          // width it reads bigger — scale it down slightly to match visually.
+          width: autoRotate ? "calc(var(--icon-size) * 0.85)" : "var(--icon-size)",
           zIndex: 101,
           cursor: "pointer",
           opacity: 0.9,
