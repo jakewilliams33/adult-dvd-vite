@@ -158,7 +158,14 @@ function Model({ url, setLoading }) {
   });
 
   if (!merged) return null;
-  return <primitive object={merged} scale={1} position={[0, -0.2, 0]} />;
+  return (
+    <primitive
+      object={merged}
+      scale={1}
+      position={[0, -0.2, 0]}
+      rotation={[0, -0.5, 0]}
+    />
+  );
 }
 
 // Both lights are repositioned every frame relative to the camera and aim at
@@ -333,7 +340,7 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
       minDistance={4}
       maxDistance={6}
       autoRotate={autoRotate}
-      autoRotateSpeed={0.7}
+      autoRotateSpeed={0.2}
     />
   );
 };

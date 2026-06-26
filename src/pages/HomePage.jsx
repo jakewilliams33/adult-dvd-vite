@@ -19,7 +19,7 @@ const OUT_NOW_LINK = "https://open.spotify.com/artist/1lT3vDbjqz299SxePec6ZG";
 export const HomePage = ({ setSignUpVisible }) => {
   // autoRotate lives here so the rotate button can sit inside the sidebar
   // (HomePageSocials) while the 3D scene still reads/uses the value.
-  const [autoRotate, setAutoRotate] = useState(false);
+  const [autoRotate, setAutoRotate] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [isOut, setIsOut] = useState(false);
 
