@@ -5,6 +5,7 @@ import fm from "front-matter";
 import markdownContent from "../content/releases.md?url&raw";
 import { convertToId } from "../Hooks/convertToId";
 import { Helmet } from "react-helmet-async";
+import { Footer } from "../components/Footer";
 
 const { releases } = fm(markdownContent).attributes;
 
@@ -77,6 +78,7 @@ export const MusicPage = () => {
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 };

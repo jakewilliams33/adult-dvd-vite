@@ -11,6 +11,7 @@ import { SignUpForm } from "./components/SignUpForm";
 import { StreamingLinks } from "./pages/StreamingLinks";
 import { PageNotFound } from "./pages/PageNotFound";
 import { useEffect } from "react";
+import { Footer } from "./components/Footer";
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -86,6 +87,7 @@ const App = () => {
           </Routes>
         </div>
       </div>
+      {location.pathname !== "/music" && <Footer fixed />}
     </>
   );
 };
