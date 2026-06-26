@@ -12,6 +12,7 @@ import {
   Float32BufferAttribute,
   Uint32BufferAttribute,
   Vector3,
+  Spherical,
 } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import "./styles/menu.css";
@@ -197,15 +198,106 @@ const ViewLockedLights = () => {
   );
 };
 
+// Polar (vertical) orbit limits — kept in sync with the OrbitControls props so
+// the inertia replay clamps to the same range.
+const MIN_POLAR = Math.PI / 40;
+const MAX_POLAR = Math.PI / 2;
+// Per-frame velocity decay after release. Closer to 1 = much longer glide.
+const FRICTION = 0.975;
+// Below this angular speed (rad/frame) the spin is imperceptible — stop.
+const MIN_SPEED = 1e-5;
+
 const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
   const { camera, invalidate } = useThree();
   const controlsRef = useRef();
+  const momentumRaf = useRef(0);
+  const dragging = useRef(false);
+  const vel = useRef({ theta: 0, phi: 0 });
+  const lastAngle = useRef({ theta: 0, phi: 0 });
+  const scratch = useRef({ sph: new Spherical(), off: new Vector3() });
 
   useEffect(() => {
     if (controlsRef.current) {
       controlsRef.current.autoRotate = autoRotate;
     }
   }, [autoRotate]);
+
+  // Shortest signed difference between two angles (handles the -PI/PI wrap).
+  const angleDelta = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
+
+  // Orbit the camera around the target by angular deltas, keeping the same
+  // radius and respecting the polar limits. This is how we replay drag velocity
+  // as inertia after release.
+  const orbitBy = (dTheta, dPhi) => {
+    const controls = controlsRef.current;
+    if (!controls) return;
+    const { sph, off } = scratch.current;
+    off.copy(camera.position).sub(controls.target);
+    sph.setFromVector3(off);
+    sph.theta += dTheta;
+    const nextPhi = sph.phi + dPhi;
+    const clamped = Math.max(MIN_POLAR, Math.min(MAX_POLAR, nextPhi));
+    // Hit the top/bottom of the orbit — kill the vertical drift so it doesn't
+    // keep pushing into the clamp.
+    if (clamped !== nextPhi) vel.current.phi = 0;
+    sph.phi = clamped;
+    sph.makeSafe();
+    off.setFromSpherical(sph);
+    camera.position.copy(controls.target).add(off);
+  };
+
+  // Start of a drag: stop any running momentum and begin sampling velocity.
+  const handleDragStart = () => {
+    cancelAnimationFrame(momentumRaf.current);
+    dragging.current = true;
+    vel.current = { theta: 0, phi: 0 };
+    const controls = controlsRef.current;
+    lastAngle.current = {
+      theta: controls.getAzimuthalAngle(),
+      phi: controls.getPolarAngle(),
+    };
+  };
+
+  // During a drag: track how fast the orbit angles are changing. The EMA keeps
+  // the release velocity representative of the last few frames, not one sample.
+  const handleDragChange = () => {
+    if (!dragging.current) return;
+    const controls = controlsRef.current;
+    const theta = controls.getAzimuthalAngle();
+    const phi = controls.getPolarAngle();
+    const dTheta = angleDelta(theta, lastAngle.current.theta);
+    const dPhi = phi - lastAngle.current.phi;
+    vel.current.theta = vel.current.theta * 0.6 + dTheta * 0.4;
+    vel.current.phi = vel.current.phi * 0.6 + dPhi * 0.4;
+    lastAngle.current = { theta, phi };
+  };
+
+  // Release: replay the captured velocity with friction so the model keeps
+  // spinning and eases to a stop. We're in the "demand" frameloop, so each tick
+  // moves the camera, calls update(), and invalidates to force the next frame.
+  const handleDragEnd = () => {
+    dragging.current = false;
+    const tick = () => {
+      const v = vel.current;
+      v.theta *= FRICTION;
+      v.phi *= FRICTION;
+      orbitBy(v.theta, v.phi);
+      // Demand mode (auto-rotate off): we must drive the frame ourselves.
+      // Auto-rotate on: the "always" frameloop already renders and calls
+      // controls.update() each frame, so we only add the decaying swipe on top —
+      // once it expends, the auto-rotation just keeps going.
+      if (!autoRotate) {
+        controlsRef.current?.update();
+        invalidate();
+      }
+      if (Math.abs(v.theta) > MIN_SPEED || Math.abs(v.phi) > MIN_SPEED) {
+        momentumRaf.current = requestAnimationFrame(tick);
+      }
+    };
+    momentumRaf.current = requestAnimationFrame(tick);
+  };
+
+  useEffect(() => () => cancelAnimationFrame(momentumRaf.current), []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -228,14 +320,16 @@ const CameraControlsAndResponsive = ({ setReady, autoRotate }) => {
   return (
     <OrbitControls
       ref={controlsRef}
+      onStart={handleDragStart}
+      onChange={handleDragChange}
+      onEnd={handleDragEnd}
       enableZoom={true}
       enablePan={true}
       enableRotate={true}
       zoomSpeed={0.8}
       rotateSpeed={0.5}
-      dampingFactor={0.15}
-      minPolarAngle={Math.PI / 40}
-      maxPolarAngle={Math.PI / 2}
+      minPolarAngle={MIN_POLAR}
+      maxPolarAngle={MAX_POLAR}
       minDistance={4}
       maxDistance={6}
       autoRotate={autoRotate}
