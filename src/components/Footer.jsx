@@ -5,7 +5,7 @@ const footerStyle = {
   boxSizing: "border-box",
   fontSize: "0.5rem",
   color: "rgb(255, 255, 255)",
-  fontFamily: "WTBobine-Italic",
+  fontFamily: "WTBobine",
   fontStyle: "italic",
   letterSpacing: "0.05em",
   width: "100%",
