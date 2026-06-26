@@ -163,7 +163,7 @@ function Model({ url, setLoading }) {
       object={merged}
       scale={1}
       position={[0, -0.2, 0]}
-      rotation={[0, -0.5, 0]}
+      rotation={[0, -0.35, 0]}
     />
   );
 }
