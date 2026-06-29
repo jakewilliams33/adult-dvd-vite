@@ -125,13 +125,13 @@ export const TourPage = () => {
     <>
       <Helmet>
         <title>Tour | ADULT DVD</title>
-        <meta name="description" content="Adult DVD tour dates" />
+        <meta name="description" content="Adult DVD - tour dates and tickets." />
         <meta property="og:title" content="Tour | ADULT DVD" />
-        <meta property="og:description" content="Adult DVD tour dates" />
+        <meta property="og:description" content="Adult DVD - tour dates and tickets." />
       </Helmet>
       <img src={pinkObjects} alt="" aria-hidden="true" className="objects-bg" />
 
-      <section className="widget-parent">
+      <section data-nosnippet className="widget-parent">
         <div className="widget-container">
           {/* Band photo banner with the TOUR DATES overlay */}
           <div className="tour-banner">
