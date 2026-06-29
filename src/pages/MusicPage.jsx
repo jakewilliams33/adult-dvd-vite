@@ -14,9 +14,12 @@ export const MusicPage = () => {
     <>
       <Helmet>
         <title>Music | ADULT DVD</title>
-        <meta name="description" content="Stream ADULT DVD's discography — singles, EPs and releases." />
+        <meta name="description" content="Stream Adult DVD's discography" />
         <meta property="og:title" content="Music | ADULT DVD" />
-        <meta property="og:description" content="Stream ADULT DVD's discography — singles, EPs and releases." />
+        <meta
+          property="og:description"
+          content="Stream Adult DVD's discography"
+        />
       </Helmet>
       <div
         style={{

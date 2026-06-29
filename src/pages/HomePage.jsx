@@ -33,7 +33,7 @@ export const HomePage = ({ setSignUpVisible }) => {
 
   const pageTitle = isSignup ? "Sign Up | ADULT DVD" : "ADULT DVD";
   const pageDescription = isSignup
-    ? "Sign up to the ADULT DVD mailing list for new releases, tour dates and news."
+    ? "Sign up to the Adult DVD mailing list"
     : "Adult DVD - Official Website";
 
   return (

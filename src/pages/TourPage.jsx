@@ -125,9 +125,9 @@ export const TourPage = () => {
     <>
       <Helmet>
         <title>Tour | ADULT DVD</title>
-        <meta name="description" content="Upcoming ADULT DVD tour dates and tickets." />
+        <meta name="description" content="Adult DVD tour dates" />
         <meta property="og:title" content="Tour | ADULT DVD" />
-        <meta property="og:description" content="Upcoming ADULT DVD tour dates and tickets." />
+        <meta property="og:description" content="Adult DVD tour dates" />
       </Helmet>
       <img src={pinkObjects} alt="" aria-hidden="true" className="objects-bg" />
 
