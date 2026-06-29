@@ -29,7 +29,7 @@ export const HomePage = ({ setSignUpVisible }) => {
   // own title/description so it's a distinct, indexable result rather than a
   // duplicate of /.
   const { pathname } = useLocation();
-  const isSignup = pathname === "/signup";
+  const isSignup = pathname.replace(/\/$/, "") === "/signup";
 
   const pageTitle = isSignup ? "Sign Up | ADULT DVD" : "ADULT DVD";
   const pageDescription = isSignup

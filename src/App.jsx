@@ -21,7 +21,7 @@ const App = () => {
   // Pink objects sit behind every page except the home page.
 
   useEffect(() => {
-    if (location.pathname === "/signup") {
+    if (location.pathname.replace(/\/$/, "") === "/signup") {
       setSignUpVisible(true);
     }
   }, [location]);
