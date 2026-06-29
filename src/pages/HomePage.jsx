@@ -45,6 +45,7 @@ export const HomePage = ({ setSignUpVisible }) => {
         <meta property="og:description" content={pageDescription} />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
+        <link rel="canonical" href={`https://adultdvd.band${isSignup ? "/signup" : "/"}`} />
       </Helmet>
 
       {/* White logo + countdown, centred in the area right of the sidebar,
