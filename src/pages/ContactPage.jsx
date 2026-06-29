@@ -116,7 +116,7 @@ export const ContactPage = () => {
 
       <div className="contact-panel">
         <div className="contact-header">
-          <h1 className="contact-title">Contact</h1>
+          <h1 data-nosnippet className="contact-title">Contact</h1>
         </div>
 
         <div className="contact-info">

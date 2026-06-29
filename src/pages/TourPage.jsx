@@ -136,7 +136,7 @@ export const TourPage = () => {
           {/* Band photo banner with the TOUR DATES overlay */}
           <div className="tour-banner">
             <img src={bandBanner} alt="Adult DVD" className="tour-banner-img" />
-            <h1 className="tour-heading">Tour Dates</h1>
+            <h1 data-nosnippet className="tour-heading">Tour Dates</h1>
           </div>
 
           {mounted && <BandsintownWidget />}
