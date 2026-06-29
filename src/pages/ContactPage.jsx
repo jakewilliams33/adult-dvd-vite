@@ -108,10 +108,9 @@ export const ContactPage = () => {
     <>
       <Helmet>
         <title>Contact | ADULT DVD</title>
-        <meta
-          name="description"
-          content="Get in touch with ADULT DVD — bookings, press and general enquiries."
-        />
+        <meta name="description" content="Get in touch with ADULT DVD — bookings, press and general enquiries." />
+        <meta property="og:title" content="Contact | ADULT DVD" />
+        <meta property="og:description" content="Get in touch with ADULT DVD — bookings, press and general enquiries." />
       </Helmet>
       <img src={pinkObjects} alt="" aria-hidden="true" className="objects-bg" />
 
