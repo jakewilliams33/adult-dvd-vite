@@ -52,6 +52,7 @@ export const HomePage = ({ setSignUpVisible }) => {
           above the model. The pair is one link: the pre-save while counting
           down, or the release once it shows OUT NOW. */}
       <div
+        data-nosnippet
         style={{
           position: "fixed",
           top: "7vh",
