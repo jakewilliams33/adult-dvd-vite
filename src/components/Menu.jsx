@@ -46,7 +46,7 @@ export const Menu = ({ menuOpen, setMenuOpen, setSignUpVisible }) => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className={menuOpen ? "nav-container active" : "nav-container"}>
+      <div data-nosnippet className={menuOpen ? "nav-container active" : "nav-container"}>
         <NavList
           setMenuOpen={setMenuOpen}
           menuOpen={menuOpen}

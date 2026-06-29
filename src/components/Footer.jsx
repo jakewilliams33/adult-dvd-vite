@@ -13,6 +13,7 @@ const footerStyle = {
 
 export const Footer = ({ fixed = false }) => (
   <footer
+    data-nosnippet
     style={{
       ...footerStyle,
       ...(fixed
