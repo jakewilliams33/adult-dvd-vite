@@ -18,7 +18,7 @@ export const NavList = ({ setMenuOpen, setSignUpVisible }) => {
   };
 
   return (
-    <nav className="list">
+    <nav className="list" data-nosnippet>
       <ul>
         <li style={{ color: "white" }}>
           <Link

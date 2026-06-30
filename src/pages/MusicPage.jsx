@@ -30,6 +30,7 @@ export const MusicPage = () => {
           zIndex: "-1",
           opacity: 0.5,
         }}
+        data-nosnippet
       ></div>
       <div>
         <div className="music-overlay" />

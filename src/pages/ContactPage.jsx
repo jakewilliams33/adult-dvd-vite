@@ -108,18 +108,26 @@ export const ContactPage = () => {
     <>
       <Helmet>
         <title>Contact | ADULT DVD</title>
-        <meta name="description" content="Adult DVD contact page - management, booking, press and licensing enquiries." />
+        <meta
+          name="description"
+          content="Adult DVD contact page - management, booking, press and licensing enquiries."
+        />
         <meta property="og:title" content="Contact | ADULT DVD" />
-        <meta property="og:description" content="Adult DVD contact page - management, booking, press and licensing enquiries." />
+        <meta
+          property="og:description"
+          content="Adult DVD contact page - management, booking, press and licensing enquiries."
+        />
       </Helmet>
       <img src={pinkObjects} alt="" aria-hidden="true" className="objects-bg" />
 
       <div className="contact-panel">
         <div className="contact-header">
-          <h1 data-nosnippet className="contact-title">Contact</h1>
+          <h1 data-nosnippet className="contact-title">
+            Contact
+          </h1>
         </div>
 
-        <div className="contact-info">
+        <div className="contact-info" data-nosnippet>
           <span className="ci-label">Management:</span>
           <span className="ci-value">
             <a className="email" href="mailto:sarah@sarahbrooksbankmgmt.com">

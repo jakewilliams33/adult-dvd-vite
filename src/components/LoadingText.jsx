@@ -10,7 +10,7 @@ export const LoadingText = () => {
             <img className="ringed-image-a" src={cdb} alt="Loading" />
           </div>
         </div>
-        <p className="loading-text">
+        <p data-nosnippet className="loading-text">
           loading <span className="dot dot1">.</span>
           <span className="dot dot2">.</span>
           <span className="dot dot3">.</span>
