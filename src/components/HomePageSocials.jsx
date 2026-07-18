@@ -201,7 +201,7 @@ export const HomePageSocials = ({
         </div>
       </div>
 
-      {/* Rotate / pause toggle, pinned to the bottom of the sidebar, centred */}
+    <span data-nosnippet style={{ display: "contents" }}>
       <img
         alt="toggle rotation"
         src={autoRotate ? pause : rotate}
@@ -221,6 +221,7 @@ export const HomePageSocials = ({
           opacity: 0.9,
         }}
       />
+    </span>
     </>
   );
 };
