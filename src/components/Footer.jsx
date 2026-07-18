@@ -13,7 +13,6 @@ const footerStyle = {
 
 export const Footer = ({ fixed = false }) => (
   <footer
-    data-nosnippet
     style={{
       ...footerStyle,
       ...(fixed
@@ -27,6 +26,9 @@ export const Footer = ({ fixed = false }) => (
         : {}),
     }}
   >
+    <span
+      data-nosnippet> 
     BUILT BY JAKE WILLIAMS
+    </span>
   </footer>
 );
